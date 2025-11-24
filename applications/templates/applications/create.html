@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Create Application - TrikonED{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-gradient-primary min-h-screen">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+            <h1 class="text-3xl font-display font-bold text-text-primary mb-6">
+                Start Your Application
+            </h1>
+
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+
+                <div>
+                    <label class="block text-sm font-semibold text-text-primary mb-2">
+                        University <span class="text-error">*</span>
+                    </label>
+                    {{ form.university }}
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-text-primary mb-2">
+                        Program <span class="text-error">*</span>
+                    </label>
+                    {{ form.program }}
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-text-primary mb-2">
+                        Application Type <span class="text-error">*</span>
+                    </label>
+                    {{ form.application_type }}
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-text-primary mb-2">
+                        Remarks (Optional)
+                    </label>
+                    {{ form.remarks }}
+                </div>
+
+                <div class="flex gap-4 pt-6">
+                    <a href="{% url 'students:dashboard' %}"
+                        class="flex-1 px-6 py-3 border-2 border-gray-300 text-text-primary font-semibold rounded-xl hover:bg-gray-50 transition-all text-center">
+                        Cancel
+                    </a>
+                    <button type="submit"
+                        class="flex-1 px-6 py-4 bg-gradient-accent text-white font-semibold rounded-xl hover:shadow-lg transition-all">
+                        Submit Application
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

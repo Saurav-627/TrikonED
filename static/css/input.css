@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply antialiased font-body;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #fff8e1 0%, #fff3b0 100%);
+  }
+  .bg-gradient-accent {
+    background: linear-gradient(135deg, #2dd4bf 0%, #fb923c 100%);
+  }
+}

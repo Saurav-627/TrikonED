@@ -1,0 +1,226 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - TrikonED{% endblock %}
+
+{% block content %}
+<!-- Dashboard Header -->
+<section class="bg-gradient-primary py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-display font-bold text-text-primary mb-2">
+                    Welcome back, {{ user.first_name|default:user.username }}!
+                </h1>
+                <p class="text-text-secondary">{{ user.email }}</p>
+            </div>
+            <a href="{% url 'applications:create' %}"
+                class="px-6 py-3 bg-gradient-accent text-white font-semibold rounded-xl hover:shadow-lg transition-all">
+                + New Application
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Dashboard Content -->
+<section class="py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-2xl shadow-md p-6 border-l-4 border-accent-green">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-text-muted mb-1">Total Applications</p>
+                        <p class="text-3xl font-bold text-text-primary">{{ applications.count }}</p>
+                    </div>
+                    <div class="w-12 h-12 bg-accent-green/10 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-accent-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-md p-6 border-l-4 border-warning">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-text-muted mb-1">Pending Review</p>
+                        <p class="text-3xl font-bold text-text-primary">
+                            {{ applications|filter_by_status:'pending'|length }}
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 bg-warning/10 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-md p-6 border-l-4 border-text-muted">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-text-muted mb-1">Documents</p>
+                        <p class="text-3xl font-bold text-text-primary">{{ documents.count }}</p>
+                    </div>
+                    <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Applications List -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <h2 class="text-2xl font-bold mb-6">My Applications</h2>
+
+                    {% if applications %}
+                    <div class="space-y-4">
+                        {% for application in applications %}
+                        <div class="border border-gray-200 rounded-xl p-5 hover:shadow-md transition-all">
+                            <div class="flex items-start justify-between mb-3">
+                                <div class="flex-1">
+                                    <h3 class="text-lg font-semibold mb-1">{{ application.program.name }}</h3>
+                                    <p class="text-sm text-text-muted">{{ application.university.name }}</p>
+                                </div>
+                                <span class="px-3 py-1 rounded-full text-xs font-semibold
+                                    {% if application.status == 'accepted' %}bg-success/10 text-success
+                                    {% elif application.status == 'rejected' %}bg-error/10 text-error
+                                    {% elif application.status == 'pending' or application.status == 'under_review' %}bg-warning/10 text-warning
+                                    {% elif application.status == 'draft' %}bg-gray-100 text-text-muted
+                                    {% else %}bg-info/10 text-info{% endif %}">
+                                    {{ application.get_status_display }}
+                                </span>
+                            </div>
+
+                            <div class="flex items-center text-sm text-text-muted mb-4">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                Applied on {{ application.applied_on|date:"M d, Y" }}
+                            </div>
+
+                            <!-- Timeline Preview -->
+                            <div class="flex items-center space-x-2 mb-4">
+                                {% for log in application.logs.all|slice:":4" %}
+                                <div class="flex-1 h-2 bg-accent-green rounded-full"></div>
+                                {% endfor %}
+                                {% if application.logs.count < 4 %} {% for i in "1234" |slice:application.logs.count %}
+                                    <div class="flex-1 h-2 bg-gray-200 rounded-full">
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="flex gap-3">
+                            <a href="{% url 'applications:detail' application.pk %}"
+                                class="flex-1 text-center px-4 py-2 bg-accent-green/10 text-accent-green font-medium rounded-lg hover:bg-accent-green hover:text-white transition-all">
+                                View Details
+                            </a>
+                            {% if application.status == 'draft' %}
+                            <a href="{% url 'applications:create' %}"
+                                class="flex-1 text-center px-4 py-2 bg-gradient-accent text-white font-medium rounded-lg hover:shadow-md transition-all">
+                                Continue
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-12">
+                    <svg class="w-20 h-20 mx-auto text-text-muted/30 mb-4" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <h3 class="text-lg font-semibold text-text-primary mb-2">No applications yet</h3>
+                    <p class="text-text-muted mb-6">Start your journey by creating your first application</p>
+                    <a href="{% url 'applications:create' %}"
+                        class="inline-flex items-center px-6 py-3 bg-gradient-accent text-white font-semibold rounded-xl hover:shadow-lg transition-all">
+                        Create Application
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1 space-y-6">
+
+            <!-- Documents -->
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <h3 class="text-lg font-bold mb-4 flex items-center justify-between">
+                    <span>My Documents</span>
+                    <span class="text-sm font-normal text-text-muted">{{ documents.count }}</span>
+                </h3>
+
+                {% if documents %}
+                <div class="space-y-3 mb-4">
+                    {% for doc in documents|slice:":5" %}
+                    <div class="flex items-center justify-between p-3 bg-neutral-light rounded-lg">
+                        <div class="flex items-center flex-1 min-w-0">
+                            <svg class="w-5 h-5 text-accent-green flex-shrink-0 mr-2" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <div class="min-w-0 flex-1">
+                                <p class="text-sm font-medium text-text-primary truncate">{{ doc.get_doc_type_display }}
+                                </p>
+                                <p class="text-xs text-text-muted">{{ doc.uploaded_at|date:"M d, Y" }}</p>
+                            </div>
+                        </div>
+                        <a href="{{ doc.file_url.url }}" target="_blank"
+                            class="ml-2 text-accent-green hover:text-accent-green/80">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-sm text-text-muted mb-4">No documents uploaded yet</p>
+                {% endif %}
+
+                <button
+                    class="block w-full text-center px-4 py-2 bg-accent-green/10 text-accent-green font-medium rounded-lg hover:bg-accent-green hover:text-white transition-all">
+                    Upload Document
+                </button>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <h3 class="text-lg font-bold mb-4">Quick Actions</h3>
+                <div class="space-y-2">
+                    <a href="{% url 'universities:list' %}"
+                        class="block px-4 py-3 bg-neutral-light rounded-lg hover:bg-accent-green/10 hover:text-accent-green transition-all">
+                        Browse Universities
+                    </a>
+                    <a href="{% url 'programs:list' %}"
+                        class="block px-4 py-3 bg-neutral-light rounded-lg hover:bg-accent-green/10 hover:text-accent-green transition-all">
+                        Explore Programs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+{% endblock %}

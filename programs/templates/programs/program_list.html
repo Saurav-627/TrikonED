@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Programs - TrikonED{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-neutral-light min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="mb-8">
+            <h1 class="text-4xl font-display font-bold text-text-primary mb-2">
+                Explore Programs
+            </h1>
+            <p class="text-text-secondary">
+                {{ page_obj.paginator.count }} programs available
+            </p>
+        </div>
+
+        <!-- Programs Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for program in programs %}
+            <div class="bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-all p-6">
+                <div class="flex items-start justify-between mb-4">
+                    <span class="px-3 py-1 bg-accent-green/10 text-accent-green rounded-full text-xs font-semibold">
+                        {{ program.type.level.name }}
+                    </span>
+                    <span class="px-3 py-1 bg-gray-100 text-text-muted rounded-full text-xs">
+                        {{ program.delivery_type|title }}
+                    </span>
+                </div>
+
+                <h3 class="text-lg font-bold text-text-primary mb-2">{{ program.name }}</h3>
+                <p class="text-sm text-text-muted mb-4">{{ program.university.name }}</p>
+                <p class="text-sm text-text-secondary mb-4 line-clamp-2">{{ program.description|truncatewords:15 }}</p>
+
+                <a href="{% url 'programs:detail' program.pk %}"
+                    class="block w-full text-center px-4 py-2 bg-accent-green/10 text-accent-green font-medium rounded-lg hover:bg-accent-green hover:text-white transition-all">
+                    View Details →
+                </a>
+            </div>
+            {% empty %}
+            <div class="col-span-3 text-center py-12">
+                <p class="text-text-muted">No programs available yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <div class="mt-8 flex justify-center gap-2">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-white rounded-lg">Previous</a>
+            {% endif %}
+            <span class="px-4 py-2 bg-gradient-accent text-white rounded-lg">Page {{ page_obj.number }}</span>
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-white rounded-lg">Next</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

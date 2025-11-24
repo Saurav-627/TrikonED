@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TrikonED - UAE University Discovery{% endblock %}</title>
+    <meta name="description" content="{% block description %}Discover and apply to UAE universities{% endblock %}">
+
+    <!-- Tailwind CSS -->
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="bg-neutral-light">
+    {% include 'components/navbar.html' %}
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="fixed top-20 right-4 z-50 space-y-2">
+        {% for message in messages %}
+        <div class="bg-white shadow-lg rounded-xl p-4 max-w-md animate-slide-down">
+            <p class="text-sm">{{ message }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include 'components/footer.html' %}
+
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

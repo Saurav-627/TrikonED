@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Application Details - TrikonED{% endblock %}
+
+{% block content %}
+<section class="py-12">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Application Header -->
+        <div class="bg-white rounded-2xl shadow-md p-8 mb-8">
+            <div class="flex items-start justify-between mb-4">
+                <div>
+                    <h1 class="text-3xl font-display font-bold text-text-primary mb-2">
+                        {{ application.program.name }}
+                    </h1>
+                    <p class="text-text-secondary">{{ application.university.name }}</p>
+                </div>
+                <span class="px-4 py-2 rounded-full font-semibold
+                    {% if application.status == 'accepted' %}bg-success/10 text-success
+                    {% elif application.status == 'rejected' %}bg-error/10 text-error
+                    {% elif application.status == 'pending' or application.status == 'under_review' %}bg-warning/10 text-warning
+                    {% else %}bg-gray-100 text-text-muted{% endif %}">
+                    {{ application.get_status_display }}
+                </span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                    <span class="text-text-muted">Application Type:</span>
+                    <span class="font-semibold ml-2">{{ application.get_application_type_display }}</span>
+                </div>
+                <div>
+                    <span class="text-text-muted">Applied On:</span>
+                    <span class="font-semibold ml-2">{{ application.applied_on|date:"M d, Y" }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="bg-white rounded-2xl shadow-md p-8">
+            <h2 class="text-2xl font-bold mb-6">Application Timeline</h2>
+
+            {% if application.logs.all %}
+            <div class="space-y-4">
+                {% for log in application.logs.all %}
+                <div class="flex items-start">
+                    <div class="w-3 h-3 bg-accent-green rounded-full mt-1.5 mr-4"></div>
+                    <div class="flex-1">
+                        <p class="font-semibold text-text-primary">{{ log.event }}</p>
+                        <p class="text-sm text-text-muted">{{ log.timestamp|date:"M d, Y H:i" }}</p>
+                        {% if log.details %}
+                        <p class="text-sm text-text-secondary mt-1">{{ log.details }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-text-muted">No timeline events yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
