@@ -1,0 +1,92 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Upload Documents - TrikonED{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-neutral-light min-h-screen">
+    <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-display font-bold text-text-primary mb-2">Upload Documents</h2>
+                    <p class="text-text-secondary">Please upload your mandatory documents to proceed.</p>
+                </div>
+
+                <form method="post" enctype="multipart/form-data" class="space-y-6">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                    <div class="bg-error/10 text-error p-4 rounded-xl text-sm">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+
+                    <!-- Passport -->
+                    <div>
+                        <label class="block text-sm font-semibold text-text-primary mb-2">{{ form.passport.label }}
+                            <span class="text-error">*</span></label>
+                        {{ form.passport }}
+                        {% if form.passport.help_text %}
+                        <p class="text-xs text-text-muted mt-1">{{ form.passport.help_text }}</p>
+                        {% endif %}
+                        {% if form.passport.errors %}
+                        <p class="text-error text-xs mt-1">{{ form.passport.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Transcript -->
+                    <div>
+                        <label class="block text-sm font-semibold text-text-primary mb-2">{{ form.transcript.label }}
+                            <span class="text-error">*</span></label>
+                        {{ form.transcript }}
+                        {% if form.transcript.help_text %}
+                        <p class="text-xs text-text-muted mt-1">{{ form.transcript.help_text }}</p>
+                        {% endif %}
+                        {% if form.transcript.errors %}
+                        <p class="text-error text-xs mt-1">{{ form.transcript.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Other Documents -->
+                    <div class="pt-4 border-t">
+                        <label class="block text-sm font-semibold text-text-primary mb-2">{{ form.other_documents.label
+                            }}</label>
+                        {{ form.other_documents }}
+                        {% if form.other_documents.help_text %}
+                        <p class="text-xs text-text-muted mt-1">{{ form.other_documents.help_text }}</p>
+                        {% endif %}
+                        {% if form.other_documents.errors %}
+                        <p class="text-error text-xs mt-1">{{ form.other_documents.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit"
+                            class="w-full py-3 bg-gradient-accent text-white font-bold rounded-xl hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+                            Upload All Documents
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-6 text-center">
+                    <a href="{% url 'students:dashboard' %}"
+                        class="text-sm text-text-muted hover:text-text-primary transition-colors">
+                        Cancel and go back to dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Add multiple attribute to the other_documents file input
+    document.addEventListener('DOMContentLoaded', function () {
+        const otherDocsInput = document.querySelector('input[name="other_documents"]');
+        if (otherDocsInput) {
+            otherDocsInput.setAttribute('multiple', 'multiple');
+        }
+    });
+</script>
+{% endblock %}

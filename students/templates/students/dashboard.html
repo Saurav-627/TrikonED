@@ -207,10 +207,10 @@
                     <p class="text-sm text-text-muted mb-4">No documents uploaded yet</p>
                     {% endif %}
 
-                    <button
+                    <a href="{% url 'students:upload_document' %}"
                         class="block w-full text-center px-4 py-2 bg-accent-green/10 text-accent-green font-medium rounded-lg hover:bg-accent-green hover:text-white transition-all">
                         Upload Document
-                    </button>
+                    </a>
                 </div>
 
                 <!-- Quick Actions -->
