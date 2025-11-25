@@ -4,164 +4,229 @@
 {% block title %}Universities - TrikonED{% endblock %}
 
 {% block content %}
-<section class="py-8 bg-neutral-light min-h-screen">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <!-- Header -->
-        <div class="mb-8">
-            <h1 class="text-4xl font-display font-bold text-text-primary mb-2">
-                Explore UAE Universities
-            </h1>
-            <p class="text-text-secondary">
-                Browse {{ page_obj.paginator.count }} universities across the UAE
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-
-            <!-- Sidebar - A-Z Navigation & Filters -->
-            <aside class="lg:col-span-1">
-                <div class="bg-white rounded-2xl shadow-md p-6 sticky top-24">
-
-                    <!-- A-Z Navigation -->
-                    <h3 class="font-bold text-lg mb-4">Browse A-Z</h3>
-                    <div class="grid grid-cols-5 gap-2 mb-6">
-                        {% for letter in alphabet %}
-                        <a href="?letter={{ letter }}"
-                            class="text-center py-2 rounded-lg {% if current_letter == letter %}bg-gradient-accent text-white{% else %}bg-gray-100 hover:bg-gray-200{% endif %} transition-all">
-                            {{ letter }}
-                        </a>
-                        {% endfor %}
-                    </div>
-                    {% if current_letter %}
-                    <a href="?" class="text-sm text-accent-green hover:underline mb-4 block">Clear filter</a>
-                    {% endif %}
-
-                    <!-- Filters -->
-                    <form method="get" class="space-y-4">
+<main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Sidebar Filters -->
+        <aside class="w-full lg:w-1/4 lg:max-w-xs shrink-0 rounded-xl bg-card-bg-light dark:bg-card-bg-dark p-6 shadow-lg">
+            <div class="sticky top-24 space-y-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-text-default dark:text-text-default">Quick Filters</h3>
+                    <a href="{% url 'universities:list' %}" class="text-sm font-medium text-secondary-accent hover:underline">Clear all</a>
+                </div>
+                
+                <form method="get" action="{% url 'universities:list' %}" id="filter-form">
+                    <div class="space-y-6">
+                        <!-- Emirate Filter -->
                         <div>
-                            <label class="block text-sm font-semibold mb-2">Emirate</label>
-                            <select name="emirate" class="w-full px-3 py-2 border rounded-lg">
+                            <label class="block text-sm font-semibold text-text-muted dark:text-text-muted mb-2" for="emirate">Emirate</label>
+                            <select name="emirate" class="w-full rounded-lg border-input-border-light dark:border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark text-sm focus:border-primary focus:ring-primary focus:ring-2" id="emirate" onchange="this.form.submit()">
                                 <option value="">All Emirates</option>
                                 {% for emirate in emirates %}
-                                <option value="{{ emirate.name }}">{{ emirate.name }}</option>
+                                <option value="{{ emirate.id }}" {% if request.GET.emirate == emirate.id|stringformat:"s" %}selected{% endif %}>{{ emirate.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
 
+                        <!-- Partner Status -->
                         <div>
-                            <label class="block text-sm font-semibold mb-2">Type</label>
-                            <select name="type" class="w-full px-3 py-2 border rounded-lg">
+                            <h4 class="text-sm font-semibold text-text-muted dark:text-text-muted mb-2">Partner Status</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <input name="partner" value="true" class="h-4 w-4 rounded border-input-border-light dark:border-input-border-dark text-primary focus:ring-primary" id="partner" type="checkbox" {% if request.GET.partner %}checked{% endif %} onchange="this.form.submit()"/>
+                                    <label class="ml-2 text-sm text-text-muted dark:text-text-muted" for="partner">TrikonED Partner</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- University Type -->
+                        <div>
+                            <label class="block text-sm font-semibold text-text-muted dark:text-text-muted mb-2" for="type">University Type</label>
+                            <select name="type" class="w-full rounded-lg border-input-border-light dark:border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark text-sm focus:border-primary focus:ring-primary focus:ring-2" id="type" onchange="this.form.submit()">
                                 <option value="">All Types</option>
-                                <option value="public">Public</option>
-                                <option value="private">Private</option>
-                                <option value="federal">Federal</option>
+                                <option value="public" {% if request.GET.type == 'public' %}selected{% endif %}>Public</option>
+                                <option value="private" {% if request.GET.type == 'private' %}selected{% endif %}>Private</option>
+                                <option value="international" {% if request.GET.type == 'international' %}selected{% endif %}>International</option>
                             </select>
                         </div>
+                    </div>
+                </form>
+            </div>
+        </aside>
 
-                        <button type="submit"
-                            class="w-full px-4 py-2 bg-gradient-accent text-white rounded-lg hover:shadow-lg transition-all">
-                            Apply Filters
-                        </button>
-                    </form>
+        <!-- Main Content -->
+        <div class="flex-1">
+            <!-- Header -->
+            <div class="mb-8">
+                <div class="flex flex-wrap justify-between gap-4 items-center">
+                    <div class="flex min-w-72 flex-col gap-1">
+                        <h1 class="text-text-default dark:text-text-default text-5xl font-extrabold leading-tight tracking-[-0.04em]">Your Future, Accelerated</h1>
+                        <p class="text-text-muted dark:text-text-muted text-lg font-medium leading-normal mt-2">Connect with leading institutions shaping tomorrow.</p>
+                    </div>
                 </div>
-            </aside>
+            </div>
 
-            <!-- Main Content -->
-            <div class="lg:col-span-3">
-
-                <!-- Search Bar -->
-                <div class="mb-6">
-                    <form method="get" class="flex gap-2">
-                        <input type="text" name="search" placeholder="Search universities..."
-                            class="flex-1 px-4 py-3 border rounded-xl focus:ring-2 focus:ring-accent-green"
-                            value="{{ request.GET.search }}">
-                        <button type="submit"
-                            class="px-6 py-3 bg-gradient-accent text-white rounded-xl hover:shadow-lg">
-                            Search
-                        </button>
-                    </form>
-                </div>
-
-                <!-- University Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {% for university in universities %}
-                    <div
-                        class="bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-all overflow-hidden {% if university.is_partner %}border-2 border-accent-orange relative{% endif %}">
-                        {% if university.is_partner %}
-                        <div
-                            class="absolute top-0 right-0 bg-accent-orange text-white text-xs font-bold px-3 py-1 rounded-bl-xl z-10">
-                            PARTNER
-                        </div>
-                        {% endif %}
-                        {% if university.image %}
-                        <img src="{{ university.image.url }}" alt="{{ university.name }}"
-                            class="w-full h-48 object-cover">
-                        {% else %}
-                        <div class="w-full h-48 bg-gradient-primary flex items-center justify-center">
-                            <span class="text-4xl font-bold text-accent-green">{{ university.short_name|slice:":2"|upper
-                                }}</span>
-                        </div>
-                        {% endif %}
-
-                        <div class="p-6">
-                            <div class="flex items-start justify-between mb-2">
-                                <h3 class="text-xl font-bold text-text-primary">{{ university.name }}</h3>
-                                <!-- Old badge removed -->
-                            </div>
-
-                            <p class="text-sm text-text-muted mb-4">
-                                <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                                {{ university.location_emirate.name }}
-                            </p>
-
-                            <p class="text-sm text-text-secondary mb-4 line-clamp-2">
-                                {{ university.description|truncatewords:20 }}
-                            </p>
-
-                            <div class="flex items-center justify-between pt-4 border-t">
-                                <div class="text-sm text-text-muted">
-                                    {{ university.programs.count }} Programs
+            <!-- Search and View Toggle -->
+            <div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-6">
+                <div class="w-full md:max-w-md">
+                    <form method="get" action="{% url 'universities:list' %}">
+                        <label class="flex flex-col min-w-40 h-12 w-full">
+                            <div class="flex w-full flex-1 items-stretch rounded-xl h-full shadow-sm">
+                                <div class="text-primary dark:text-primary flex bg-card-bg-light dark:bg-card-bg-dark items-center justify-center pl-4 rounded-l-xl border-y border-l border-border-light dark:border-border-dark">
+                                    <span class="material-symbols-outlined">search</span>
                                 </div>
-                                <a href="{% url 'universities:detail' university.pk %}"
-                                    class="px-4 py-2 bg-accent-green/10 text-accent-green rounded-lg hover:bg-accent-green hover:text-white transition-all">
-                                    View Details →
-                                </a>
+                                <input name="search" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-xl text-text-default dark:text-text-default focus:outline-0 focus:ring-2 focus:ring-primary/50 focus:border-primary border-y border-r border-border-light dark:border-border-dark bg-card-bg-light dark:bg-card-bg-dark h-full placeholder:text-text-muted dark:placeholder:text-text-muted px-4 pl-2 text-base font-normal leading-normal" placeholder="Search by name, program, research focus..." value="{{ request.GET.search }}"/>
                             </div>
+                        </label>
+                    </form>
+                </div>
+                <div class="flex items-center justify-between w-full md:w-auto gap-4">
+                    <p class="text-sm text-text-muted dark:text-text-muted">Showing {{ universities.start_index }}-{{ universities.end_index }} of {{ paginator.count }} results</p>
+                    <div class="flex gap-2">
+                        <button onclick="toggleView('grid')" id="grid-btn" class="p-2.5 text-white bg-primary rounded-lg shadow-md">
+                            <span class="material-symbols-outlined">grid_view</span>
+                        </button>
+                        <button onclick="toggleView('list')" id="list-btn" class="p-2.5 text-text-default dark:text-text-muted bg-input-bg-light dark:bg-input-bg-dark rounded-lg hover:bg-input-border-light dark:hover:bg-input-border-dark transition-colors">
+                            <span class="material-symbols-outlined">view_list</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Universities Grid/List -->
+            <div id="universities-container" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                {% for university in universities %}
+                <div class="university-card flex flex-col bg-card-bg-light dark:bg-card-bg-dark rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-border-light dark:border-border-dark">
+                    <!-- Header Image with Logo -->
+                    <div class="relative h-36 bg-gradient-to-br from-primary/70 to-teal-300 dark:from-primary/50 dark:to-teal-900 overflow-hidden">
+                        {% if university.image %}
+                        <img alt="{{ university.name }} Banner" class="w-full h-full object-cover opacity-70" src="{{ university.image.url }}"/>
+                        {% endif %}
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            {% if university.logo %}
+                            <img class="size-20 rounded-full object-contain bg-white p-2 shadow-lg ring-2 ring-primary" alt="{{ university.name }} Logo" src="{{ university.logo.url }}"/>
+                            {% else %}
+                            <div class="size-20 rounded-full bg-white p-2 shadow-lg ring-2 ring-primary flex items-center justify-center text-primary text-3xl font-bold">
+                                {{ university.short_name|slice:":1"|upper }}
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
-                    {% empty %}
-                    <div class="col-span-2 text-center py-12">
-                        <p class="text-text-muted">No universities found. Try adjusting your filters.</p>
+
+                    <!-- Card Content -->
+                    <div class="p-5 flex-1 flex flex-col">
+                        <h3 class="font-extrabold text-xl text-text-default dark:text-text-default leading-tight mb-2">{{ university.name }}</h3>
+                        <p class="text-text-muted dark:text-text-muted flex items-center gap-1 mb-3">
+                            <span class="material-symbols-outlined text-base">location_on</span>
+                            {{ university.location_emirate.name }}, UAE
+                        </p>
+
+                        <!-- Badges -->
+                        <div class="flex items-center gap-2 mb-4 flex-wrap">
+                            {% if university.is_partner %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-green-100 dark:bg-green-800 text-success dark:text-green-300">TrikonED Partner</span>
+                            {% endif %}
+                            {% if university.ranking and university.ranking <= 100 %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-orange-100 dark:bg-orange-800 text-warning dark:text-orange-300">Top Ranked</span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Programs/Research Focus -->
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-sm text-text-muted dark:text-text-muted mb-1">
+                                {% if university.programs.count > 0 %}Key Programs:{% else %}Research Focus:{% endif %}
+                            </h4>
+                            <ul class="text-sm text-text-muted dark:text-text-muted list-disc list-inside space-y-0.5">
+                                {% for program in university.programs.all|slice:":3" %}
+                                <li>{{ program.name|truncatewords:5 }}</li>
+                                {% empty %}
+                                <li>Engineering & Technology</li>
+                                <li>Business & Management</li>
+                                <li>Sciences</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <!-- CTA Button -->
+                        <div class="mt-4">
+                            <a href="{% url 'universities:detail' university.pk %}" class="w-full block text-center bg-primary text-white font-bold py-2.5 px-4 rounded-lg hover:bg-[color:var(--deep-teal-primary)] transition-colors shadow-md">
+                                Explore Programs
+                            </a>
+                        </div>
                     </div>
+                </div>
+                {% empty %}
+                <div class="col-span-full text-center py-12">
+                    <p class="text-text-muted dark:text-text-muted text-lg">No universities found matching your criteria.</p>
+                    <a href="{% url 'universities:list' %}" class="text-primary hover:underline mt-2 inline-block">Clear filters</a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if universities.has_other_pages %}
+            <nav class="flex items-center justify-between border-t border-border-light dark:border-border-dark px-4 sm:px-0 mt-10 pt-6">
+                <div class="flex w-0 flex-1">
+                    {% if universities.has_previous %}
+                    <a class="inline-flex items-center rounded-md border border-input-border-light dark:border-input-border-dark bg-card-bg-light dark:bg-card-bg-dark px-4 py-2 text-sm font-medium text-text-muted dark:text-text-muted hover:bg-input-bg-light dark:hover:bg-input-bg-dark transition-colors" href="?page={{ universities.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.emirate %}&emirate={{ request.GET.emirate }}{% endif %}{% if request.GET.partner %}&partner={{ request.GET.partner }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}">
+                        <span class="material-symbols-outlined mr-2 text-lg">arrow_back</span>
+                        Previous
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="hidden md:flex">
+                    {% for num in universities.paginator.page_range %}
+                        {% if universities.number == num %}
+                        <span class="inline-flex items-center border-t-2 border-primary px-4 pt-3 text-sm font-bold text-primary">{{ num }}</span>
+                        {% elif num > universities.number|add:'-3' and num < universities.number|add:'3' %}
+                        <a class="inline-flex items-center border-t-2 border-transparent px-4 pt-3 text-sm font-medium text-text-muted dark:text-text-muted hover:border-input-border-light dark:hover:border-input-border-dark hover:text-text-default dark:hover:text-text-default transition-colors" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.emirate %}&emirate={{ request.GET.emirate }}{% endif %}{% if request.GET.partner %}&partner={{ request.GET.partner }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}">{{ num }}</a>
+                        {% endif %}
                     {% endfor %}
                 </div>
-
-                <!-- Pagination -->
-                {% if page_obj.has_other_pages %}
-                <div class="mt-8 flex justify-center gap-2">
-                    {% if page_obj.has_previous %}
-                    <a href="?page={{ page_obj.previous_page_number }}"
-                        class="px-4 py-2 bg-white rounded-lg hover:bg-gray-50">Previous</a>
-                    {% endif %}
-
-                    <span class="px-4 py-2 bg-gradient-accent text-white rounded-lg">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-                    </span>
-
-                    {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}"
-                        class="px-4 py-2 bg-white rounded-lg hover:bg-gray-50">Next</a>
+                <div class="flex w-0 flex-1 justify-end">
+                    {% if universities.has_next %}
+                    <a class="inline-flex items-center rounded-md border border-input-border-light dark:border-input-border-dark bg-card-bg-light dark:bg-card-bg-dark px-4 py-2 text-sm font-medium text-text-muted dark:text-text-muted hover:bg-input-bg-light dark:hover:bg-input-bg-dark transition-colors" href="?page={{ universities.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.emirate %}&emirate={{ request.GET.emirate }}{% endif %}{% if request.GET.partner %}&partner={{ request.GET.partner }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}">
+                        Next
+                        <span class="material-symbols-outlined ml-2 text-lg">arrow_forward</span>
+                    </a>
                     {% endif %}
                 </div>
-                {% endif %}
-            </div>
+            </nav>
+            {% endif %}
         </div>
     </div>
-</section>
+</main>
+
+<script>
+    function toggleView(view) {
+        const container = document.getElementById('universities-container');
+        const gridBtn = document.getElementById('grid-btn');
+        const listBtn = document.getElementById('list-btn');
+        const cards = document.querySelectorAll('.university-card');
+        
+        if (view === 'grid') {
+            container.className = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6';
+            gridBtn.className = 'p-2.5 text-white bg-primary rounded-lg shadow-md';
+            listBtn.className = 'p-2.5 text-text-default dark:text-text-muted bg-input-bg-light dark:bg-input-bg-dark rounded-lg hover:bg-input-border-light dark:hover:bg-input-border-dark transition-colors';
+            cards.forEach(card => {
+                card.className = 'university-card flex flex-col bg-card-bg-light dark:bg-card-bg-dark rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-border-light dark:border-border-dark';
+            });
+        } else {
+            container.className = 'flex flex-col gap-4';
+            listBtn.className = 'p-2.5 text-white bg-primary rounded-lg shadow-md';
+            gridBtn.className = 'p-2.5 text-text-default dark:text-text-muted bg-input-bg-light dark:bg-input-bg-dark rounded-lg hover:bg-input-border-light dark:hover:bg-input-border-dark transition-colors';
+            cards.forEach(card => {
+                card.className = 'university-card flex flex-row bg-card-bg-light dark:bg-card-bg-dark rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-border-light dark:border-border-dark';
+            });
+        }
+        
+        // Save preference
+        localStorage.setItem('universityView', view);
+    }
+    
+    // Load saved view preference
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedView = localStorage.getItem('universityView') || 'grid';
+        toggleView(savedView);
+    });
+</script>
 {% endblock %}

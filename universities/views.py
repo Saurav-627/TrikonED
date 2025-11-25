@@ -21,12 +21,17 @@ class UniversityListView(ListView):
         # Filter by emirate
         emirate = self.request.GET.get('emirate', '')
         if emirate:
-            queryset = queryset.filter(location_emirate__name=emirate)
+            queryset = queryset.filter(location_emirate_id=emirate)
         
         # Filter by type
         uni_type = self.request.GET.get('type', '')
         if uni_type:
             queryset = queryset.filter(university_type=uni_type)
+        
+        # Filter by partner status
+        partner = self.request.GET.get('partner', '')
+        if partner:
+            queryset = queryset.filter(is_partner=True)
         
         # A-Z filter
         letter = self.request.GET.get('letter', '')

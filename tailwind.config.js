@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "class",
   content: [
     "./templates/**/*.html",
     "./core/templates/**/*.html",
@@ -11,6 +12,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Original theme colors
         "primary-light": "#FFF8E1",
         "primary-base": "#FFF3B0",
         "accent-green": "#2DD4BF",
@@ -24,13 +26,22 @@ module.exports = {
         warning: "#F59E0B",
         error: "#EF4444",
         info: "#3B82F6",
+        // Landing page theme colors
+        primary: "#ff9900",
+        "background-light": "#f8f7f5",
+        "background-dark": "#231b0f",
+        highlight: "#FFC107",
       },
       fontFamily: {
-        display: ["Poppins", "sans-serif"],
+        display: ["Inter", "Poppins", "sans-serif"],
         body: ["Inter", "Lato", "system-ui", "sans-serif"],
       },
       borderRadius: {
+        DEFAULT: "0.25rem",
+        lg: "0.5rem",
+        xl: "0.75rem",
         "2xl": "1.5rem",
+        full: "9999px",
       },
       boxShadow: {
         card: "0 4px 12px rgba(0, 0, 0, 0.08)",

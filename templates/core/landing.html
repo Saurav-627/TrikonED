@@ -1,46 +1,184 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block content %}
-<section class="bg-gradient-primary py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center">
-            <h1 class="text-5xl font-display font-bold text-text-primary mb-6">
-                Discover Your Dream University in the UAE
-            </h1>
-            <p class="text-xl text-text-secondary mb-8">
-                Explore {{ total_universities }} universities and {{ total_programs }} programs
-            </p>
-            <div class="flex justify-center gap-4">
-                <a href="{% url 'universities:list' %}"
-                    class="px-8 py-4 bg-gradient-accent text-white font-semibold rounded-xl hover:shadow-lg transition-all">
-                    Explore Universities
-                </a>
-                <a href="{% url 'students:register' %}"
-                    class="px-8 py-4 bg-white text-accent-green border-2 border-accent-green font-semibold rounded-xl hover:bg-accent-green hover:text-white transition-all">
-                    Start Application
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
+{% block title %}TrikonED - Your Global University Journey Starts Here{% endblock %}
 
-<section class="py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-display font-bold text-center mb-12">Featured Partner Universities</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {% for university in featured_universities %}
-            <div class="bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-all p-6">
-                <h3 class="text-xl font-bold mb-2">{{ university.name }}</h3>
-                <p class="text-text-muted mb-4">{{ university.location_emirate.name }}</p>
-                <a href="{% url 'universities:detail' university.pk %}" class="text-accent-green hover:underline">
-                    View Details →
-                </a>
+{% block content %}
+<main class="flex-1">
+    <!-- Hero Section -->
+    <section class="w-full py-4">
+        <div class="px-4 md:px-6">
+            <div
+                class="flex min-h-[480px] flex-col gap-6 rounded-xl gradient-bg items-center justify-center p-4 text-center">
+                <div class="flex flex-col gap-4 max-w-3xl">
+                    <h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-6xl">
+                        Your Global University Journey Starts Here
+                    </h1>
+                    <h2 class="text-white/90 text-base font-normal leading-normal md:text-xl">
+                        Discover, apply, and get accepted to your dream university with TrikonED's seamless and
+                        supportive platform.
+                    </h2>
+                </div>
+                <div class="flex-wrap gap-3 flex justify-center mt-4">
+                    <a href="{% url 'universities:list' %}"
+                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90">
+                        <span class="truncate">Find Universities</span>
+                    </a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'students:dashboard' %}"
+                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-[#f5f3f0] text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:bg-gray-200">
+                        <span class="truncate">My Dashboard</span>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'students:register' %}"
+                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-[#f5f3f0] text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:bg-gray-200">
+                        <span class="truncate">Apply Now</span>
+                    </a>
+                    {% endif %}
+                    <a href="#contact"
+                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 border-2 border-white text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-white/10">
+                        <span class="truncate">Partner with Us</span>
+                    </a>
+                </div>
             </div>
-            {% empty %}
-            <p class="col-span-3 text-center text-text-muted">No universities available yet.</p>
-            {% endfor %}
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="w-full py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col items-center justify-center space-y-4 text-center">
+                <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl text-[#181510] dark:text-white">How It Works
+                </h2>
+                <p
+                    class="max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                    Our streamlined process makes applying to global universities simpler than ever. Follow these easy
+                    steps to begin your journey.
+                </p>
+            </div>
+            <div class="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-4 lg:gap-12">
+                <div class="flex flex-col items-center text-center p-4">
+                    <div
+                        class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-highlight/20 text-highlight">
+                        <span class="material-symbols-outlined text-4xl">person_add</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#181510] dark:text-white">Student Sign Up</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Create your profile and tell us your goals.</p>
+                </div>
+                <div class="flex flex-col items-center text-center p-4">
+                    <div
+                        class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 text-primary">
+                        <span class="material-symbols-outlined text-4xl">school</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#181510] dark:text-white">Discover Universities</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Find the perfect match with our AI-powered
+                        search.</p>
+                </div>
+                <div class="flex flex-col items-center text-center p-4">
+                    <div
+                        class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 text-primary">
+                        <span class="material-symbols-outlined text-4xl">upload_file</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#181510] dark:text-white">Submit Application</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Apply with ease through our unified platform.
+                    </p>
+                </div>
+                <div class="flex flex-col items-center text-center p-4">
+                    <div
+                        class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-success/20 text-success">
+                        <span class="material-symbols-outlined text-4xl">verified</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#181510] dark:text-white">Receive Acceptance</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Get your acceptance letter and start your
+                        adventure.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="w-full py-8 bg-white dark:bg-[#1f1a13]">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+                <div
+                    class="inline-block rounded-lg bg-primary/20 px-3 py-1 text-sm text-primary dark:bg-primary/30 dark:text-yellow-300">
+                    Key Features</div>
+                <h2 class="text-3xl font-bold tracking-tighter sm:text-5xl text-[#181510] dark:text-white">Everything
+                    You Need for Success</h2>
+                <p
+                    class="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                    Our platform is packed with features designed to simplify your application process and maximize your
+                    chances of acceptance.
+                </p>
+            </div>
+            <div
+                class="mx-auto grid items-start gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-3">
+                <div
+                    class="grid gap-1 rounded-xl p-6 bg-background-light dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow">
+                    <h3 class="text-lg font-bold text-[#181510] dark:text-white">AI-Powered Matching</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Our smart algorithm matches your profile with
+                        the best-fit universities worldwide.</p>
+                </div>
+                <div
+                    class="grid gap-1 rounded-xl p-6 bg-background-light dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow">
+                    <h3 class="text-lg font-bold text-[#181510] dark:text-white">Simplified Application</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Fill out one application and apply to multiple
+                        universities with a single click.</p>
+                </div>
+                <div
+                    class="grid gap-1 rounded-xl p-6 bg-background-light dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow">
+                    <h3 class="text-lg font-bold text-[#181510] dark:text-white">Expert Guidance</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Get access to experienced consultants for
+                        personalized advice and support.</p>
+                </div>
+                <div
+                    class="grid gap-1 rounded-xl p-6 bg-background-light dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow">
+                    <h3 class="text-lg font-bold text-[#181510] dark:text-white">Real-Time Tracking</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Monitor the status of all your applications from
+                        a single dashboard.</p>
+                </div>
+                <div
+                    class="grid gap-1 rounded-xl p-6 bg-background-light dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow">
+                    <h3 class="text-lg font-bold text-[#181510] dark:text-white">Visa Assistance</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">We guide you through the complex student visa
+                        application process.</p>
+                </div>
+                <div
+                    class="grid gap-1 rounded-xl p-6 bg-background-light dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow">
+                    <h3 class="text-lg font-bold text-[#181510] dark:text-white">Global Network</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Connect with a vast network of over 1,500
+                        partner universities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="w-full py-8" id="contact">
+        <div class="container mx-auto grid items-center justify-center gap-4 px-4 text-center md:px-6">
+            <div class="space-y-3">
+                <h2 class="text-3xl font-bold tracking-tighter md:text-4xl/tight text-[#181510] dark:text-white">Ready
+                    to Start Your Adventure?</h2>
+                <p
+                    class="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                    Create your free account today and take the first step towards studying at your dream university
+                    abroad.
+                </p>
+            </div>
+            <div class="mx-auto w-full max-w-sm space-y-2">
+                {% if user.is_authenticated %}
+                <a href="{% url 'students:dashboard' %}"
+                    class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90">
+                    <span class="truncate">Go to Dashboard</span>
+                </a>
+                {% else %}
+                <a href="{% url 'students:register' %}"
+                    class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90">
+                    <span class="truncate">Sign Up for Free</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock %}
