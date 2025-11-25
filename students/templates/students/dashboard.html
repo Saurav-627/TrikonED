@@ -48,7 +48,7 @@
                     <div>
                         <p class="text-sm text-text-muted mb-1">Pending Review</p>
                         <p class="text-3xl font-bold text-text-primary">
-                            {{ applications|filter_by_status:'pending'|length }}
+                            {{ pending_count }}
                         </p>
                     </div>
                     <div class="w-12 h-12 bg-warning/10 rounded-xl flex items-center justify-center">
@@ -113,114 +113,122 @@
 
                             <!-- Timeline Preview -->
                             <div class="flex items-center space-x-2 mb-4">
-                                {% for log in application.logs.all|slice:":4" %}
-                                <div class="flex-1 h-2 bg-accent-green rounded-full"></div>
-                                {% endfor %}
-                                {% if application.logs.count < 4 %} {% for i in "1234" |slice:application.logs.count %}
-                                    <div class="flex-1 h-2 bg-gray-200 rounded-full">
+                                {% with log_count=application.logs.count %}
+                                <div
+                                    class="flex-1 h-2 {% if log_count >= 1 %}bg-accent-green{% else %}bg-gray-200{% endif %} rounded-full">
+                                </div>
+                                <div
+                                    class="flex-1 h-2 {% if log_count >= 2 %}bg-accent-green{% else %}bg-gray-200{% endif %} rounded-full">
+                                </div>
+                                <div
+                                    class="flex-1 h-2 {% if log_count >= 3 %}bg-accent-green{% else %}bg-gray-200{% endif %} rounded-full">
+                                </div>
+                                <div
+                                    class="flex-1 h-2 {% if log_count >= 4 %}bg-accent-green{% else %}bg-gray-200{% endif %} rounded-full">
+                                </div>
+                                {% endwith %}
                             </div>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
 
-                        <div class="flex gap-3">
-                            <a href="{% url 'applications:detail' application.pk %}"
-                                class="flex-1 text-center px-4 py-2 bg-accent-green/10 text-accent-green font-medium rounded-lg hover:bg-accent-green hover:text-white transition-all">
-                                View Details
-                            </a>
-                            {% if application.status == 'draft' %}
-                            <a href="{% url 'applications:create' %}"
-                                class="flex-1 text-center px-4 py-2 bg-gradient-accent text-white font-medium rounded-lg hover:shadow-md transition-all">
-                                Continue
-                            </a>
-                            {% endif %}
+                            <div class="flex gap-3">
+                                <a href="{% url 'applications:detail' application.pk %}"
+                                    class="flex-1 text-center px-4 py-2 bg-accent-green/10 text-accent-green font-medium rounded-lg hover:bg-accent-green hover:text-white transition-all">
+                                    View Details
+                                </a>
+                                {% if application.status == 'draft' %}
+                                <a href="{% url 'applications:create' %}"
+                                    class="flex-1 text-center px-4 py-2 bg-gradient-accent text-white font-medium rounded-lg hover:shadow-md transition-all">
+                                    Continue
+                                </a>
+                                {% endif %}
+                            </div>
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
-                {% else %}
-                <div class="text-center py-12">
-                    <svg class="w-20 h-20 mx-auto text-text-muted/30 mb-4" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    <h3 class="text-lg font-semibold text-text-primary mb-2">No applications yet</h3>
-                    <p class="text-text-muted mb-6">Start your journey by creating your first application</p>
-                    <a href="{% url 'applications:create' %}"
-                        class="inline-flex items-center px-6 py-3 bg-gradient-accent text-white font-semibold rounded-xl hover:shadow-lg transition-all">
-                        Create Application
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    {% else %}
+                    <div class="text-center py-12">
+                        <svg class="w-20 h-20 mx-auto text-text-muted/30 mb-4" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
-                    </a>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-
-        <!-- Sidebar -->
-        <div class="lg:col-span-1 space-y-6">
-
-            <!-- Documents -->
-            <div class="bg-white rounded-2xl shadow-md p-6">
-                <h3 class="text-lg font-bold mb-4 flex items-center justify-between">
-                    <span>My Documents</span>
-                    <span class="text-sm font-normal text-text-muted">{{ documents.count }}</span>
-                </h3>
-
-                {% if documents %}
-                <div class="space-y-3 mb-4">
-                    {% for doc in documents|slice:":5" %}
-                    <div class="flex items-center justify-between p-3 bg-neutral-light rounded-lg">
-                        <div class="flex items-center flex-1 min-w-0">
-                            <svg class="w-5 h-5 text-accent-green flex-shrink-0 mr-2" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                        <h3 class="text-lg font-semibold text-text-primary mb-2">No applications yet</h3>
+                        <p class="text-text-muted mb-6">Start your journey by creating your first application</p>
+                        <a href="{% url 'applications:create' %}"
+                            class="inline-flex items-center px-6 py-3 bg-gradient-accent text-white font-semibold rounded-xl hover:shadow-lg transition-all">
+                            Create Application
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            <div class="min-w-0 flex-1">
-                                <p class="text-sm font-medium text-text-primary truncate">{{ doc.get_doc_type_display }}
-                                </p>
-                                <p class="text-xs text-text-muted">{{ doc.uploaded_at|date:"M d, Y" }}</p>
-                            </div>
-                        </div>
-                        <a href="{{ doc.file_url.url }}" target="_blank"
-                            class="ml-2 text-accent-green hover:text-accent-green/80">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    d="M12 4v16m8-8H4" />
                             </svg>
                         </a>
                     </div>
-                    {% endfor %}
+                    {% endif %}
                 </div>
-                {% else %}
-                <p class="text-sm text-text-muted mb-4">No documents uploaded yet</p>
-                {% endif %}
-
-                <button
-                    class="block w-full text-center px-4 py-2 bg-accent-green/10 text-accent-green font-medium rounded-lg hover:bg-accent-green hover:text-white transition-all">
-                    Upload Document
-                </button>
             </div>
 
-            <!-- Quick Actions -->
-            <div class="bg-white rounded-2xl shadow-md p-6">
-                <h3 class="text-lg font-bold mb-4">Quick Actions</h3>
-                <div class="space-y-2">
-                    <a href="{% url 'universities:list' %}"
-                        class="block px-4 py-3 bg-neutral-light rounded-lg hover:bg-accent-green/10 hover:text-accent-green transition-all">
-                        Browse Universities
-                    </a>
-                    <a href="{% url 'programs:list' %}"
-                        class="block px-4 py-3 bg-neutral-light rounded-lg hover:bg-accent-green/10 hover:text-accent-green transition-all">
-                        Explore Programs
-                    </a>
+            <!-- Sidebar -->
+            <div class="lg:col-span-1 space-y-6">
+
+                <!-- Documents -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <h3 class="text-lg font-bold mb-4 flex items-center justify-between">
+                        <span>My Documents</span>
+                        <span class="text-sm font-normal text-text-muted">{{ documents.count }}</span>
+                    </h3>
+
+                    {% if documents %}
+                    <div class="space-y-3 mb-4">
+                        {% for doc in documents|slice:":5" %}
+                        <div class="flex items-center justify-between p-3 bg-neutral-light rounded-lg">
+                            <div class="flex items-center flex-1 min-w-0">
+                                <svg class="w-5 h-5 text-accent-green flex-shrink-0 mr-2" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                <div class="min-w-0 flex-1">
+                                    <p class="text-sm font-medium text-text-primary truncate">{{
+                                        doc.get_doc_type_display }}
+                                    </p>
+                                    <p class="text-xs text-text-muted">{{ doc.uploaded_at|date:"M d, Y" }}</p>
+                                </div>
+                            </div>
+                            <a href="{{ doc.file_url.url }}" target="_blank"
+                                class="ml-2 text-accent-green hover:text-accent-green/80">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-sm text-text-muted mb-4">No documents uploaded yet</p>
+                    {% endif %}
+
+                    <button
+                        class="block w-full text-center px-4 py-2 bg-accent-green/10 text-accent-green font-medium rounded-lg hover:bg-accent-green hover:text-white transition-all">
+                        Upload Document
+                    </button>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <h3 class="text-lg font-bold mb-4">Quick Actions</h3>
+                    <div class="space-y-2">
+                        <a href="{% url 'universities:list' %}"
+                            class="block px-4 py-3 bg-neutral-light rounded-lg hover:bg-accent-green/10 hover:text-accent-green transition-all">
+                            Browse Universities
+                        </a>
+                        <a href="{% url 'programs:list' %}"
+                            class="block px-4 py-3 bg-neutral-light rounded-lg hover:bg-accent-green/10 hover:text-accent-green transition-all">
+                            Explore Programs
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </section>
 {% endblock %}

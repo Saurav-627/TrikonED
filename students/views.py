@@ -28,7 +28,9 @@ class StudentDashboardView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         from applications.models import Application
-        context['applications'] = Application.objects.filter(student=self.request.user).select_related('university', 'program').prefetch_related('logs')
+        user_applications = Application.objects.filter(student=self.request.user).select_related('university', 'program').prefetch_related('logs')
+        context['applications'] = user_applications
+        context['pending_count'] = user_applications.filter(status='pending').count()
         context['documents'] = self.request.user.documents.all()
         return context
 
