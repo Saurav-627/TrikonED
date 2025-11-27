@@ -1,180 +1,103 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %}TrikonED - Your Global University Journey Starts Here{% endblock %}
+{% block title %}TrikonED - Your Global University Application Platform{% endblock %}
 
 {% block content %}
-<main class="flex-1">
-    <!-- Hero Section -->
-    <section class="w-full py-4">
-        <div class="px-4 md:px-6">
-            <div
-                class="flex min-h-[480px] flex-col gap-6 rounded-xl gradient-bg items-center justify-center p-4 text-center">
-                <div class="flex flex-col gap-4 max-w-3xl">
-                    <h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-6xl">
-                        Your Global University Journey Starts Here
-                    </h1>
-                    <h2 class="text-white/90 text-base font-normal leading-normal md:text-xl">
-                        Discover, apply, and get accepted to your dream university with TrikonED's seamless and
-                        supportive platform.
-                    </h2>
-                </div>
-                <div class="flex-wrap gap-3 flex justify-center mt-4">
+<main class="flex-1 w-full">
+    <section class="w-full py-20 lg:py-32 bg-white dark:bg-[#1a1307]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="flex flex-col gap-6 text-center lg:text-left">
+                <h1 class="text-5xl lg:text-6xl font-black leading-tight tracking-tighter">Your Journey to a Global
+                    Education Starts Here.</h1>
+                <p class="text-lg text-[#8d7a5e] dark:text-[#a19077]">Discover thousands of universities, manage your
+                    applications, and embark on your international study adventure with TrikonED.</p>
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-4">
                     <a href="{% url 'universities:list' %}"
-                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90">
+                        class="flex w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em]">
                         <span class="truncate">Find Universities</span>
                     </a>
                     {% if user.is_authenticated %}
                     <a href="{% url 'students:dashboard' %}"
-                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-[#f5f3f0] text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:bg-gray-200">
+                        class="flex w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 border border-primary text-primary text-base font-bold leading-normal tracking-[0.015em]">
                         <span class="truncate">My Dashboard</span>
                     </a>
                     {% else %}
                     <a href="{% url 'students:register' %}"
-                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-[#f5f3f0] text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:bg-gray-200">
+                        class="flex w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 border border-primary text-primary text-base font-bold leading-normal tracking-[0.015em]">
                         <span class="truncate">Apply Now</span>
                     </a>
                     {% endif %}
-                    <a href="#contact"
-                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 border-2 border-white text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-white/10">
-                        <span class="truncate">Partner with Us</span>
-                    </a>
+                </div>
+            </div>
+            <div class="flex items-center justify-center">
+                <div class="relative w-full max-w-md aspect-[4/3]">
+                    <div class="absolute top-0 left-0 w-[60%] h-[70%] bg-center bg-no-repeat bg-cover rounded-xl shadow-lg"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA8q5bgdDNu4vh8Rik5q3p4qgcv9atjFs8gb8gJQaKQZTVvgekq4LaDze-l2ribrFr7AZYtbOzzEjtpxbptNbW-Mz6FvH3MItVmZY6Jgncclfe77tQ2BVsywBfw_7dmPrg48akrHy8nfGzj237epWKNnshs0sXduWKOQnyyLQxoa00GvVIfvHW-VbFP37RQfqnFmeNuwAj-sRFEwyok-7kUfILIawQ7-65XAtT2hP2Z5PcqX39FnOA-JuJAjNU_pp1HhJWv3Kmgu93g");'>
+                    </div>
+                    <div class="absolute bottom-0 right-0 w-[70%] h-[60%] bg-center bg-no-repeat bg-cover rounded-xl shadow-lg border-4 border-white dark:border-[#1a1307]"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCFvXYlu94DqavyMPTXg-s1V8bEUwwjWZtKhRKMHX-Dq_FcRkDRZiR8HePQSIcqhJ1WKpvNzkPs61sXgo7RoiTq7TOK36oYJ50jBMDycNOm6FffrMCo3kx7IYFsm8PVsUX9BKeDrgxl9Fb230x6gih4gH2rh2T6aCU1MoaH_SJVD3A2zec1WnNenCNmsRep6_wq_QhsfW6CBjxFAJYww2LvjGa15eH_oACG-0ieRE-SGnrC5vmuKlUMJuRoHdzkHTyQn61HScNwnuvq");'>
+                    </div>
+                    <div class="absolute -bottom-5 -left-5 size-20 bg-primary/20 rounded-full"></div>
+                    <div class="absolute -top-5 -right-5 size-16 bg-green-500/10 rounded-lg transform rotate-12"></div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- How It Works Section -->
-    <section class="w-full py-8">
-        <div class="container mx-auto px-4 md:px-6">
-            <div class="flex flex-col items-center justify-center space-y-4 text-center">
-                <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl text-[#181510] dark:text-white">How It Works
-                </h2>
-                <p
-                    class="max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                    Our streamlined process makes applying to global universities simpler than ever. Follow these easy
-                    steps to begin your journey.
-                </p>
+    <section class="w-full py-20 lg:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black leading-tight tracking-[-0.033em]">A Simpler Path to International
+                    Education</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-[#8d7a5e] dark:text-[#a19077]">We provide the tools you
+                    need to succeed in your university application journey.</p>
             </div>
-            <div class="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-4 lg:gap-12">
-                <div class="flex flex-col items-center text-center p-4">
-                    <div
-                        class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-highlight/20 text-highlight">
-                        <span class="material-symbols-outlined text-4xl">person_add</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div
+                    class="bg-white dark:bg-[#1a1307] rounded-xl shadow-sm p-8 flex flex-col items-start gap-4 border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    <div class="flex items-center justify-center size-12 rounded-lg bg-primary/20 text-primary">
+                        <span class="material-symbols-outlined text-3xl">search</span>
                     </div>
-                    <h3 class="text-xl font-bold text-[#181510] dark:text-white">Student Sign Up</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Create your profile and tell us your goals.</p>
+                    <h3 class="text-xl font-bold">University Search</h3>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077]">Explore a vast database of universities and programs
+                        worldwide. Filter by country, subject, and tuition fees to find your perfect fit.</p>
                 </div>
-                <div class="flex flex-col items-center text-center p-4">
-                    <div
-                        class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 text-primary">
-                        <span class="material-symbols-outlined text-4xl">school</span>
+                <div
+                    class="bg-white dark:bg-[#1a1307] rounded-xl shadow-sm p-8 flex flex-col items-start gap-4 border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    <div class="flex items-center justify-center size-12 rounded-lg bg-green-500/20 text-green-500">
+                        <span class="material-symbols-outlined text-3xl">assignment_turned_in</span>
                     </div>
-                    <h3 class="text-xl font-bold text-[#181510] dark:text-white">Discover Universities</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Find the perfect match with our AI-powered
-                        search.</p>
+                    <h3 class="text-xl font-bold">Streamlined Applications</h3>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077]">Manage all your applications in one place. Our
+                        platform simplifies the process, from document submission to tracking your status.</p>
                 </div>
-                <div class="flex flex-col items-center text-center p-4">
-                    <div
-                        class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 text-primary">
-                        <span class="material-symbols-outlined text-4xl">upload_file</span>
+                <div
+                    class="bg-white dark:bg-[#1a1307] rounded-xl shadow-sm p-8 flex flex-col items-start gap-4 border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    <div class="flex items-center justify-center size-12 rounded-lg bg-yellow-500/20 text-yellow-500">
+                        <span class="material-symbols-outlined text-3xl">support_agent</span>
                     </div>
-                    <h3 class="text-xl font-bold text-[#181510] dark:text-white">Submit Application</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Apply with ease through our unified platform.
-                    </p>
-                </div>
-                <div class="flex flex-col items-center text-center p-4">
-                    <div
-                        class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-success/20 text-success">
-                        <span class="material-symbols-outlined text-4xl">verified</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-[#181510] dark:text-white">Receive Acceptance</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Get your acceptance letter and start your
-                        adventure.</p>
+                    <h3 class="text-xl font-bold">Expert Guidance</h3>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077]">Our experienced consultants are here to help you at
+                        every step, providing personalized advice to strengthen your application profile.</p>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Features Section -->
-    <section class="w-full py-8 bg-white dark:bg-[#1f1a13]">
-        <div class="container mx-auto px-4 md:px-6">
-            <div class="flex flex-col items-center justify-center space-y-4 text-center mb-12">
-                <div
-                    class="inline-block rounded-lg bg-primary/20 px-3 py-1 text-sm text-primary dark:bg-primary/30 dark:text-yellow-300">
-                    Key Features</div>
-                <h2 class="text-3xl font-bold tracking-tighter sm:text-5xl text-[#181510] dark:text-white">Everything
-                    You Need for Success</h2>
-                <p
-                    class="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                    Our platform is packed with features designed to simplify your application process and maximize your
-                    chances of acceptance.
-                </p>
-            </div>
-            <div
-                class="mx-auto grid items-start gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-3">
-                <div
-                    class="grid gap-1 rounded-xl p-6 bg-background-light dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow">
-                    <h3 class="text-lg font-bold text-[#181510] dark:text-white">AI-Powered Matching</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Our smart algorithm matches your profile with
-                        the best-fit universities worldwide.</p>
-                </div>
-                <div
-                    class="grid gap-1 rounded-xl p-6 bg-background-light dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow">
-                    <h3 class="text-lg font-bold text-[#181510] dark:text-white">Simplified Application</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Fill out one application and apply to multiple
-                        universities with a single click.</p>
-                </div>
-                <div
-                    class="grid gap-1 rounded-xl p-6 bg-background-light dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow">
-                    <h3 class="text-lg font-bold text-[#181510] dark:text-white">Expert Guidance</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Get access to experienced consultants for
-                        personalized advice and support.</p>
-                </div>
-                <div
-                    class="grid gap-1 rounded-xl p-6 bg-background-light dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow">
-                    <h3 class="text-lg font-bold text-[#181510] dark:text-white">Real-Time Tracking</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Monitor the status of all your applications from
-                        a single dashboard.</p>
-                </div>
-                <div
-                    class="grid gap-1 rounded-xl p-6 bg-background-light dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow">
-                    <h3 class="text-lg font-bold text-[#181510] dark:text-white">Visa Assistance</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">We guide you through the complex student visa
-                        application process.</p>
-                </div>
-                <div
-                    class="grid gap-1 rounded-xl p-6 bg-background-light dark:bg-background-dark shadow-sm hover:shadow-lg transition-shadow">
-                    <h3 class="text-lg font-bold text-[#181510] dark:text-white">Global Network</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Connect with a vast network of over 1,500
-                        partner universities.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Final CTA Section -->
-    <section class="w-full py-8" id="contact">
-        <div class="container mx-auto grid items-center justify-center gap-4 px-4 text-center md:px-6">
-            <div class="space-y-3">
-                <h2 class="text-3xl font-bold tracking-tighter md:text-4xl/tight text-[#181510] dark:text-white">Ready
-                    to Start Your Adventure?</h2>
-                <p
-                    class="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                    Create your free account today and take the first step towards studying at your dream university
-                    abroad.
-                </p>
-            </div>
-            <div class="mx-auto w-full max-w-sm space-y-2">
+    <section class="w-full py-20 lg:py-24 bg-white dark:bg-[#1a1307]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-black leading-tight tracking-[-0.033em]">Ready to Start Your Adventure?</h2>
+            <p class="mt-4 text-lg text-[#8d7a5e] dark:text-[#a19077]">Create your free TrikonED account today and take
+                the first step towards achieving your academic goals abroad.</p>
+            <div class="mt-8">
                 {% if user.is_authenticated %}
                 <a href="{% url 'students:dashboard' %}"
-                    class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90">
+                    class="flex mx-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em] w-fit">
                     <span class="truncate">Go to Dashboard</span>
                 </a>
                 {% else %}
                 <a href="{% url 'students:register' %}"
-                    class="flex w-full min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90">
-                    <span class="truncate">Sign Up for Free</span>
+                    class="flex mx-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em] w-fit">
+                    <span class="truncate">Get Started for Free</span>
                 </a>
                 {% endif %}
             </div>
