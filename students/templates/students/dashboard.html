@@ -178,10 +178,8 @@
                                     <span
                                         class="material-symbols-outlined text-primary flex-shrink-0 mr-2">description</span>
                                     <div class="min-w-0 flex-1">
-                                        <p class="text-sm font-medium text-[#181510] dark:text-white truncate">{{
-                                            doc.get_doc_type_display }}</p>
-                                        <p class="text-xs text-[#8d7a5e] dark:text-[#a19077]">{{ doc.uploaded_at|date:"M
-                                            d, Y" }}</p>
+                                        <p class="text-sm font-medium text-[#181510] dark:text-white truncate">{{ doc.get_doc_type_display }}</p>
+                                        <p class="text-xs text-[#8d7a5e] dark:text-[#a19077]">{{ doc.uploaded_at|date:"M d, Y" }}</p>
                                     </div>
                                 </div>
                                 <a href="{{ doc.file_url.url }}" target="_blank"
