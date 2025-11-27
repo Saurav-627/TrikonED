@@ -361,8 +361,7 @@
                             Enrollment Trend</h2>
                         <div class="mt-4 h-48 flex items-end gap-2">
                             {% for stat in enrollment_history reversed %}
-                            {% widthratio stat.total_enrollment enrollment_history.0.total_enrollment 100 as
-                            height_percent %}
+                            {% widthratio stat.total_enrollment enrollment_history.0.total_enrollment 100 as height_percent %}
                             <div class="flex-1 bg-primary/20 dark:bg-primary/30 rounded-t-md hover:bg-primary transition-colors"
                                 style="height: {{ height_percent }}%;"
                                 title="{{ stat.academic_year }}: {{ stat.total_enrollment }} students"></div>

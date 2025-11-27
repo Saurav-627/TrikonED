@@ -1,0 +1,195 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}About Us - TrikonED{% endblock %}
+
+{% block content %}
+<main class="flex-1 w-full bg-background-light dark:bg-background-dark">
+    <!-- Hero Section -->
+    <section class="bg-white dark:bg-[#1a1307] border-b border-[#e7e2da] dark:border-[#3a2d1b]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+            <div class="text-center max-w-3xl mx-auto">
+                <h1 class="text-4xl lg:text-5xl font-black text-[#181510] dark:text-white mb-6 leading-tight">
+                    Empowering Students to Achieve Their Dreams
+                </h1>
+                <p class="text-lg text-[#8d7a5e] dark:text-[#a19077] leading-relaxed">
+                    TrikonED is your trusted partner in navigating the journey to higher education in the UAE. We
+                    connect ambitious students with world-class universities and programs.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="py-16 lg:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div
+                    class="bg-white dark:bg-[#1a1307] p-8 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    <div class="size-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-primary text-3xl">flag</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-[#181510] dark:text-white mb-4">Our Mission</h2>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077] leading-relaxed">
+                        To simplify and streamline the university application process, making quality education
+                        accessible to all students. We believe every student deserves the opportunity to pursue their
+                        academic dreams without unnecessary barriers.
+                    </p>
+                </div>
+
+                <div
+                    class="bg-white dark:bg-[#1a1307] p-8 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    <div class="size-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-primary text-3xl">visibility</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-[#181510] dark:text-white mb-4">Our Vision</h2>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077] leading-relaxed">
+                        To become the leading education platform in the UAE, recognized for our commitment to student
+                        success, innovation in educational technology, and partnerships with premier institutions
+                        worldwide.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Offer -->
+    <section class="py-16 lg:py-24 bg-white dark:bg-[#1a1307]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl lg:text-4xl font-black text-[#181510] dark:text-white mb-4">What We Offer</h2>
+                <p class="text-lg text-[#8d7a5e] dark:text-[#a19077] max-w-2xl mx-auto">
+                    Comprehensive services designed to support you at every step of your educational journey
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div
+                    class="p-6 bg-background-light dark:bg-background-dark rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    <div class="size-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary text-2xl">school</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-3">University Discovery</h3>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077]">
+                        Browse through our extensive database of accredited universities across the UAE, with detailed
+                        information about programs, fees, and admission requirements.
+                    </p>
+                </div>
+
+                <div
+                    class="p-6 bg-background-light dark:bg-background-dark rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    <div class="size-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary text-2xl">description</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-3">Application Management</h3>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077]">
+                        Streamlined application process with document management, status tracking, and real-time updates
+                        on your application progress.
+                    </p>
+                </div>
+
+                <div
+                    class="p-6 bg-background-light dark:bg-background-dark rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    <div class="size-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary text-2xl">workspace_premium</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-3">Scholarship Information</h3>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077]">
+                        Access comprehensive scholarship databases and financial aid opportunities to make your
+                        education more affordable.
+                    </p>
+                </div>
+
+                <div
+                    class="p-6 bg-background-light dark:bg-background-dark rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    <div class="size-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary text-2xl">travel_explore</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-3">Visa Guidance</h3>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077]">
+                        Get detailed information about student visa requirements, sponsorship details, and immigration
+                        procedures for international students.
+                    </p>
+                </div>
+
+                <div
+                    class="p-6 bg-background-light dark:bg-background-dark rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    <div class="size-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary text-2xl">support_agent</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-3">Dedicated Support</h3>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077]">
+                        Our team of education consultants is here to guide you through every step, from university
+                        selection to enrollment.
+                    </p>
+                </div>
+
+                <div
+                    class="p-6 bg-background-light dark:bg-background-dark rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    <div class="size-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary text-2xl">verified</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-3">Partner Network</h3>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077]">
+                        Direct partnerships with leading universities ensure faster processing and exclusive benefits
+                        for our students.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 lg:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <p class="text-5xl font-black text-primary mb-2">50+</p>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077] font-medium">Partner Universities</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-5xl font-black text-primary mb-2">500+</p>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077] font-medium">Programs Available</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-5xl font-black text-primary mb-2">10K+</p>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077] font-medium">Students Helped</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-5xl font-black text-primary mb-2">95%</p>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077] font-medium">Success Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 lg:py-24 bg-white dark:bg-[#1a1307]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl lg:text-4xl font-black text-[#181510] dark:text-white mb-6">
+                Ready to Start Your Journey?
+            </h2>
+            <p class="text-lg text-[#8d7a5e] dark:text-[#a19077] mb-8">
+                Join thousands of students who have successfully found their perfect university match through TrikonED.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                {% if user.is_authenticated %}
+                <a href="{% url 'universities:list' %}"
+                    class="px-8 py-4 bg-primary text-[#181510] font-bold rounded-lg hover:opacity-90 transition-all">
+                    Browse Universities
+                </a>
+                {% else %}
+                <a href="{% url 'students:register' %}"
+                    class="px-8 py-4 bg-primary text-[#181510] font-bold rounded-lg hover:opacity-90 transition-all">
+                    Get Started
+                </a>
+                <a href="{% url 'students:login' %}"
+                    class="px-8 py-4 bg-background-light dark:bg-background-dark text-[#181510] dark:text-white font-bold rounded-lg hover:bg-primary/10 transition-all border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    Sign In
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

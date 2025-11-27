@@ -23,8 +23,10 @@
                 href="{% url 'core:landing' %}">Home</a>
             <a class="text-sm font-medium leading-normal {% if 'universities' in request.path %}text-primary{% else %}hover:text-primary transition-colors{% endif %}"
                 href="{% url 'universities:list' %}">Universities</a>
-            <a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">About Us</a>
-            <a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Contact</a>
+            <a class="text-sm font-medium leading-normal {% if request.resolver_match.url_name == 'about' %}text-primary{% else %}hover:text-primary transition-colors{% endif %}"
+                href="{% url 'core:about' %}">About Us</a>
+            <a class="text-sm font-medium leading-normal {% if request.resolver_match.url_name == 'contact' %}text-primary{% else %}hover:text-primary transition-colors{% endif %}"
+                href="{% url 'core:contact' %}">Contact</a>
         </div>
     </div>
     <div class="flex items-center gap-4">

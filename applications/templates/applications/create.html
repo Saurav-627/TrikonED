@@ -4,57 +4,119 @@
 {% block title %}Create Application - TrikonED{% endblock %}
 
 {% block content %}
-<section class="py-12 bg-gradient-primary min-h-screen">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+<main class="flex-1 w-full bg-background-light dark:bg-background-dark">
+    <section class="py-12 min-h-screen">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="bg-white rounded-2xl shadow-xl p-8">
-            <h1 class="text-3xl font-display font-bold text-text-primary mb-6">
-                Start Your Application
-            </h1>
-
-            <form method="post" class="space-y-6">
-                {% csrf_token %}
-
-                <div>
-                    <label class="block text-sm font-semibold text-text-primary mb-2">
-                        University <span class="text-error">*</span>
-                    </label>
-                    {{ form.university }}
+            <div
+                class="bg-white dark:bg-[#1a1307] rounded-xl shadow-lg border border-[#e7e2da] dark:border-[#3a2d1b] p-8">
+                <div class="mb-8">
+                    <div class="size-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary text-3xl">edit_document</span>
+                    </div>
+                    <h1 class="text-3xl font-black text-[#181510] dark:text-white mb-2">
+                        Start Your Application
+                    </h1>
+                    <p class="text-[#8d7a5e] dark:text-[#a19077]">Fill in the details below to begin your university
+                        application journey.</p>
                 </div>
 
-                <div>
-                    <label class="block text-sm font-semibold text-text-primary mb-2">
-                        Program <span class="text-error">*</span>
-                    </label>
-                    {{ form.program }}
-                </div>
+                <form method="post" class="space-y-6">
+                    {% csrf_token %}
 
-                <div>
-                    <label class="block text-sm font-semibold text-text-primary mb-2">
-                        Application Type <span class="text-error">*</span>
-                    </label>
-                    {{ form.application_type }}
-                </div>
+                    {% if form.non_field_errors %}
+                    <div
+                        class="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 p-4 rounded-lg text-sm border border-red-200 dark:border-red-800">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
 
-                <div>
-                    <label class="block text-sm font-semibold text-text-primary mb-2">
-                        Remarks (Optional)
-                    </label>
-                    {{ form.remarks }}
-                </div>
+                    <div>
+                        <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                            University <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.university }}
+                        {% if form.university.errors %}
+                        <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.university.errors.0 }}</p>
+                        {% endif %}
+                    </div>
 
-                <div class="flex gap-4 pt-6">
-                    <a href="{% url 'students:dashboard' %}"
-                        class="flex-1 px-6 py-3 border-2 border-gray-300 text-text-primary font-semibold rounded-xl hover:bg-gray-50 transition-all text-center">
-                        Cancel
-                    </a>
-                    <button type="submit"
-                        class="flex-1 px-6 py-4 bg-gradient-accent text-white font-semibold rounded-xl hover:shadow-lg transition-all">
-                        Submit Application
-                    </button>
-                </div>
-            </form>
+                    <div>
+                        <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                            Program <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.program }}
+                        {% if form.program.errors %}
+                        <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.program.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                            Application Type <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.application_type }}
+                        {% if form.application_type.errors %}
+                        <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.application_type.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                            Remarks <span class="text-[#8d7a5e] dark:text-[#a19077] font-normal">(Optional)</span>
+                        </label>
+                        {{ form.remarks }}
+                        {% if form.remarks.errors %}
+                        <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.remarks.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="flex gap-4 pt-6">
+                        <a href="{% url 'students:dashboard' %}"
+                            class="flex-1 px-6 py-3 border-2 border-[#e7e2da] dark:border-[#3a2d1b] text-[#181510] dark:text-white font-bold rounded-lg hover:bg-background-light dark:hover:bg-background-dark transition-all text-center">
+                            Cancel
+                        </a>
+                        <button type="submit"
+                            class="flex-1 px-6 py-4 bg-primary text-[#181510] font-bold rounded-lg hover:opacity-90 transition-all">
+                            Submit Application
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+</main>
+
+<style>
+    select,
+    textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #e7e2da;
+        background-color: #f8f7f5;
+        color: #181510;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+    }
+
+    .dark select,
+    .dark textarea {
+        border-color: #3a2d1b;
+        background-color: #231b0f;
+        color: white;
+    }
+
+    select:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #ff9900;
+        ring: 1px solid #ff9900;
+    }
+
+    textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+</style>
 {% endblock %}

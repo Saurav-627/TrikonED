@@ -17,3 +17,13 @@ class LandingPageView(TemplateView):
         context['total_universities'] = University.objects.count()
         context['total_programs'] = Program.objects.filter(is_active=True).count()
         return context
+
+
+class AboutView(TemplateView):
+    """About page view"""
+    template_name = 'core/about.html'
+
+
+class ContactView(TemplateView):
+    """Contact page view"""
+    template_name = 'core/contact.html'

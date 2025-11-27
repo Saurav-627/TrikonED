@@ -4,82 +4,102 @@
 {% block title %}Login - TrikonED{% endblock %}
 
 {% block content %}
-<section class="min-h-screen bg-gradient-primary py-12 px-4 flex items-center">
-    <div class="max-w-md mx-auto w-full">
-        <!-- Login Card -->
-        <div class="bg-white rounded-2xl shadow-xl p-8">
-            <h1 class="text-3xl font-display font-bold text-text-primary mb-2">
-                Welcome Back
-            </h1>
-            <p class="text-text-secondary mb-8">
-                Sign in to continue your journey
-            </p>
-
-            {% if form.non_field_errors %}
-            <div class="mb-6 bg-error/10 border-l-4 border-error rounded-xl p-4">
-                <p class="text-sm text-error">{{ form.non_field_errors.0 }}</p>
-            </div>
-            {% endif %}
-
-            <form method="post" class="space-y-6">
-                {% csrf_token %}
-
-                <!-- Username -->
-                <div>
-                    <label for="id_username" class="block text-sm font-semibold text-text-primary mb-2">
-                        Username
-                    </label>
-                    <input type="text" name="username" id="id_username" required
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent-green focus:ring-2 focus:ring-accent-green/20 transition-all"
-                        placeholder="Enter your username">
-                    {% if form.username.errors %}
-                    <p class="mt-2 text-sm text-error">{{ form.username.errors.0 }}</p>
-                    {% endif %}
-                </div>
-
-                <!-- Password -->
-                <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <label for="id_password" class="block text-sm font-semibold text-text-primary">
-                            Password
-                        </label>
-                        <a href="#" class="text-sm text-accent-green hover:text-accent-green/80">
-                            Forgot password?
-                        </a>
+<main class="flex-1 w-full bg-background-light dark:bg-background-dark">
+    <section class="min-h-screen py-12 px-4 flex items-center">
+        <div class="max-w-md mx-auto w-full">
+            <!-- Login Card -->
+            <div
+                class="bg-white dark:bg-[#1a1307] rounded-xl shadow-lg border border-[#e7e2da] dark:border-[#3a2d1b] p-8">
+                <!-- Logo/Icon -->
+                <div class="flex justify-center mb-6">
+                    <div class="size-16 text-primary">
+                        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_6_330)">
+                                <path clip-rule="evenodd"
+                                    d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z"
+                                    fill="currentColor" fill-rule="evenodd"></path>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_6_330">
+                                    <rect fill="white" height="48" width="48"></rect>
+                                </clipPath>
+                            </defs>
+                        </svg>
                     </div>
-                    <input type="password" name="password" id="id_password" required
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent-green focus:ring-2 focus:ring-accent-green/20 transition-all"
-                        placeholder="Enter your password">
-                    {% if form.password.errors %}
-                    <p class="mt-2 text-sm text-error">{{ form.password.errors.0 }}</p>
-                    {% endif %}
                 </div>
 
-                <!-- Remember Me -->
-                <div class="flex items-center">
-                    <input type="checkbox" id="remember" name="remember"
-                        class="w-5 h-5 text-accent-green border-gray-300 rounded focus:ring-accent-green">
-                    <label for="remember" class="ml-2 text-sm text-text-secondary">
-                        Remember me for 30 days
-                    </label>
+                <h1 class="text-3xl font-black text-center text-[#181510] dark:text-white mb-2">
+                    Welcome Back
+                </h1>
+                <p class="text-center text-[#8d7a5e] dark:text-[#a19077] mb-8">
+                    Sign in to continue your journey
+                </p>
+
+                {% if form.non_field_errors %}
+                <div class="mb-6 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 rounded-lg p-4">
+                    <p class="text-sm text-red-700 dark:text-red-300">{{ form.non_field_errors.0 }}</p>
                 </div>
+                {% endif %}
 
-                <!-- Submit Button -->
-                <button type="submit"
-                    class="w-full px-6 py-4 bg-gradient-accent text-white font-semibold rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all">
-                    Sign In
-                </button>
-            </form>
+                <form method="post" class="space-y-6">
+                    {% csrf_token %}
 
-            <!-- Register Link -->
-            <p class="mt-6 text-center text-sm text-text-muted">
-                Don't have an account?
-                <a href="{% url 'students:register' %}"
-                    class="text-accent-green hover:text-accent-green/80 font-semibold">
-                    Create one now
-                </a>
-            </p>
+                    <!-- Username -->
+                    <div>
+                        <label for="id_username" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                            Username
+                        </label>
+                        <input type="text" name="username" id="id_username" required
+                            class="w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                            placeholder="Enter your username">
+                        {% if form.username.errors %}
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.username.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <label for="id_password" class="block text-sm font-bold text-[#181510] dark:text-white">
+                                Password
+                            </label>
+                            <a href="#" class="text-sm text-primary hover:underline">
+                                Forgot password?
+                            </a>
+                        </div>
+                        <input type="password" name="password" id="id_password" required
+                            class="w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                            placeholder="Enter your password">
+                        {% if form.password.errors %}
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.password.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" name="remember"
+                            class="w-5 h-5 text-primary border-[#e7e2da] dark:border-[#3a2d1b] rounded focus:ring-primary">
+                        <label for="remember" class="ml-2 text-sm text-[#8d7a5e] dark:text-[#a19077]">
+                            Remember me for 30 days
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit"
+                        class="w-full px-6 py-4 bg-primary text-[#181510] font-bold rounded-lg hover:opacity-90 transition-all">
+                        Sign In
+                    </button>
+                </form>
+
+                <!-- Register Link -->
+                <p class="mt-6 text-center text-sm text-[#8d7a5e] dark:text-[#a19077]">
+                    Don't have an account?
+                    <a href="{% url 'students:register' %}" class="text-primary hover:underline font-bold">
+                        Create one now
+                    </a>
+                </p>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+</main>
 {% endblock %}

@@ -4,97 +4,121 @@
 {% block title %}Register - TrikonED{% endblock %}
 
 {% block content %}
-<section class="min-h-screen bg-gradient-primary py-12 px-4">
-    <div class="max-w-md mx-auto">
-
-        <!-- Registration Card -->
-        <div class="bg-white rounded-2xl shadow-xl p-8">
-            <h1 class="text-3xl font-display font-bold text-text-primary mb-2">
-                Create Your Account
-            </h1>
-            <p class="text-text-secondary mb-8">
-                Start your journey to UAE universities
-            </p>
-
-            <form method="post" class="space-y-5">
-                {% csrf_token %}
-
-                <!-- Username -->
-                <div>
-                    <label for="id_username" class="block text-sm font-semibold text-text-primary mb-2">
-                        Username <span class="text-error">*</span>
-                    </label>
-                    <input type="text" name="username" id="id_username" required
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent-green focus:ring-2 focus:ring-accent-green/20 transition-all">
-                    {% if form.username.errors %}
-                    <p class="mt-2 text-sm text-error">{{ form.username.errors.0 }}</p>
-                    {% endif %}
+<main class="flex-1 w-full bg-background-light dark:bg-background-dark">
+    <section class="min-h-screen py-12 px-4">
+        <div class="max-w-md mx-auto">
+            <!-- Registration Card -->
+            <div
+                class="bg-white dark:bg-[#1a1307] rounded-xl shadow-lg border border-[#e7e2da] dark:border-[#3a2d1b] p-8">
+                <!-- Logo/Icon -->
+                <div class="flex justify-center mb-6">
+                    <div class="size-16 text-primary">
+                        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_6_330)">
+                                <path clip-rule="evenodd"
+                                    d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z"
+                                    fill="currentColor" fill-rule="evenodd"></path>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_6_330">
+                                    <rect fill="white" height="48" width="48"></rect>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
                 </div>
 
-                <!-- Email -->
-                <div>
-                    <label for="id_email" class="block text-sm font-semibold text-text-primary mb-2">
-                        Email Address <span class="text-error">*</span>
-                    </label>
-                    <input type="email" name="email" id="id_email" required
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent-green focus:ring-2 focus:ring-accent-green/20 transition-all">
-                    {% if form.email.errors %}
-                    <p class="mt-2 text-sm text-error">{{ form.email.errors.0 }}</p>
-                    {% endif %}
-                </div>
+                <h1 class="text-3xl font-black text-center text-[#181510] dark:text-white mb-2">
+                    Create Your Account
+                </h1>
+                <p class="text-center text-[#8d7a5e] dark:text-[#a19077] mb-8">
+                    Start your journey to UAE universities
+                </p>
 
-                <!-- Password -->
-                <div>
-                    <label for="id_password1" class="block text-sm font-semibold text-text-primary mb-2">
-                        Password <span class="text-error">*</span>
-                    </label>
-                    <input type="password" name="password1" id="id_password1" required
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent-green focus:ring-2 focus:ring-accent-green/20 transition-all">
-                    {% if form.password1.errors %}
-                    <p class="mt-2 text-sm text-error">{{ form.password1.errors.0 }}</p>
-                    {% endif %}
-                    <p class="mt-2 text-xs text-text-muted">
-                        Must be at least 8 characters with letters and numbers
-                    </p>
-                </div>
+                <form method="post" class="space-y-5">
+                    {% csrf_token %}
 
-                <!-- Confirm Password -->
-                <div>
-                    <label for="id_password2" class="block text-sm font-semibold text-text-primary mb-2">
-                        Confirm Password <span class="text-error">*</span>
-                    </label>
-                    <input type="password" name="password2" id="id_password2" required
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent-green focus:ring-2 focus:ring-accent-green/20 transition-all">
-                    {% if form.password2.errors %}
-                    <p class="mt-2 text-sm text-error">{{ form.password2.errors.0 }}</p>
-                    {% endif %}
-                </div>
+                    <!-- Username -->
+                    <div>
+                        <label for="id_username" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                            Username <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" name="username" id="id_username" required
+                            class="w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                            placeholder="Choose a username">
+                        {% if form.username.errors %}
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.username.errors.0 }}</p>
+                        {% endif %}
+                    </div>
 
-                <!-- Terms -->
-                <div class="flex items-start">
-                    <input type="checkbox" id="terms" required
-                        class="w-5 h-5 text-accent-green border-gray-300 rounded focus:ring-accent-green mt-0.5">
-                    <label for="terms" class="ml-2 text-sm text-text-secondary">
-                        I agree to the <a href="#" class="text-accent-green hover:underline">Terms of Service</a>
-                        and <a href="#" class="text-accent-green hover:underline">Privacy Policy</a>
-                    </label>
-                </div>
+                    <!-- Email -->
+                    <div>
+                        <label for="id_email" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                            Email Address <span class="text-red-500">*</span>
+                        </label>
+                        <input type="email" name="email" id="id_email" required
+                            class="w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                            placeholder="your.email@example.com">
+                        {% if form.email.errors %}
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.email.errors.0 }}</p>
+                        {% endif %}
+                    </div>
 
-                <!-- Submit Button -->
-                <button type="submit"
-                    class="w-full px-6 py-4 bg-gradient-accent text-white font-semibold rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all">
-                    Create Account
-                </button>
-            </form>
+                    <!-- Password -->
+                    <div>
+                        <label for="id_password1" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                            Password <span class="text-red-500">*</span>
+                        </label>
+                        <input type="password" name="password1" id="id_password1" required
+                            class="w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                            placeholder="Create a strong password">
+                        {% if form.password1.errors %}
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.password1.errors.0 }}</p>
+                        {% endif %}
+                        <p class="mt-2 text-xs text-[#8d7a5e] dark:text-[#a19077]">
+                            Must be at least 8 characters with letters and numbers
+                        </p>
+                    </div>
 
-            <!-- Sign In Link -->
-            <p class="mt-6 text-center text-sm text-text-muted">
-                Already have an account?
-                <a href="{% url 'students:login' %}" class="text-accent-green hover:text-accent-green/80 font-semibold">
-                    Sign in
-                </a>
-            </p>
+                    <!-- Confirm Password -->
+                    <div>
+                        <label for="id_password2" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                            Confirm Password <span class="text-red-500">*</span>
+                        </label>
+                        <input type="password" name="password2" id="id_password2" required
+                            class="w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                            placeholder="Confirm your password">
+                        {% if form.password2.errors %}
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.password2.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Terms -->
+                    <div class="flex items-start">
+                        <input type="checkbox" id="terms" required
+                            class="w-5 h-5 text-primary border-[#e7e2da] dark:border-[#3a2d1b] rounded focus:ring-primary mt-0.5">
+                        <label for="terms" class="ml-2 text-sm text-[#8d7a5e] dark:text-[#a19077]">
+                            I agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a>
+                            and <a href="#" class="text-primary hover:underline">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit"
+                        class="w-full px-6 py-4 bg-primary text-[#181510] font-bold rounded-lg hover:opacity-90 transition-all">
+                        Create Account
+                    </button>
+                </form>
+
+                <!-- Sign In Link -->
+                <p class="mt-6 text-center text-sm text-[#8d7a5e] dark:text-[#a19077]">
+                    Already have an account?
+                    <a href="{% url 'students:login' %}" class="text-primary hover:underline font-bold">
+                        Sign in
+                    </a>
+                </p>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+</main>
 {% endblock %}
