@@ -66,11 +66,13 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
                     <div
                         class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-white/10 bg-white dark:bg-[#1C1C1C]">
-                        <p class="text-[#8d7a5e] dark:text-white/70 text-sm font-medium leading-normal">Tuition Fees</p>
-                        <p class="text-[#181510] dark:text-white tracking-light text-2xl font-bold leading-tight">
-                            {% if program.type.tuition_fees.first %}
-                            {{ program.type.tuition_fees.first.amount|floatformat:0 }}
-                            {{ program.type.tuition_fees.first.currency }} / {{ program.type.tuition_fees.first.get_per_display }}
+                        <p class="text-[#8d7a5e] dark:text-white/70 text-sm font-medium leading-normal">Tuition Fees <span class="text-[#8d7a5e] text-xs leading-normal">({{ program.tuition_fees.first.get_per_display }})</span></p>
+                        <p class="text-[#181510] dark:text-white tracking-light text-md font-bold leading-tight">
+                            {% if program.tuition_fees.first %}
+                            {{ program.tuition_fees.first.currency }} {{ program.tuition_fees.first.amount|floatformat:0 }}
+                            {% if program.tuition_fees.first.max_amount %}
+                            - {{ program.tuition_fees.first.currency }} {{ program.tuition_fees.first.max_amount|floatformat:0 }}
+                            {% endif %}
                             {% else %}
                             Contact University
                             {% endif %}
@@ -80,13 +82,13 @@
                         class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-white/10 bg-white dark:bg-[#1C1C1C]">
                         <p class="text-[#8d7a5e] dark:text-white/70 text-sm font-medium leading-normal">Program Duration
                         </p>
-                        <p class="text-[#181510] dark:text-white tracking-light text-2xl font-bold leading-tight">
+                        <p class="text-[#181510] dark:text-white tracking-light text-md font-bold leading-tight">
                             {{ program.type.duration }} {{ program.type.get_duration_unit_display }}</p>
                     </div>
                     <div
                         class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-white/10 bg-white dark:bg-[#1C1C1C]">
                         <p class="text-[#8d7a5e] dark:text-white/70 text-sm font-medium leading-normal">Next Intake</p>
-                        <p class="text-[#181510] dark:text-white tracking-light text-2xl font-bold leading-tight">
+                        <p class="text-[#181510] dark:text-white tracking-light text-md font-bold leading-tight">
                             {% if program.intakes.first %}
                             {{ program.intakes.first.start_date|date:"F Y" }}
                             {% else %}
@@ -97,7 +99,7 @@
                     <div
                         class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-white/10 bg-white dark:bg-[#1C1C1C]">
                         <p class="text-[#8d7a5e] dark:text-white/70 text-sm font-medium leading-normal">IELTS Score</p>
-                        <p class="text-[#181510] dark:text-white tracking-light text-2xl font-bold leading-tight">
+                        <p class="text-[#181510] dark:text-white tracking-light text-md font-bold leading-tight">
                             {% if program.english_requirements.first and program.english_requirements.first.ielts %}
                             {{ program.english_requirements.first.ielts }}+
                             {% else %}

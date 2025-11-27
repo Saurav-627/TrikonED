@@ -83,10 +83,11 @@ class AcademicIntake(models.Model):
 
 
 class TuitionFee(models.Model):
-    """Tuition fees for program types"""
+    """Tuition fees for programs"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    program_type = models.ForeignKey(ProgramType, on_delete=models.CASCADE, related_name='tuition_fees')
+    program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='tuition_fees')
     amount = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+    max_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, validators=[MinValueValidator(0)])
     currency = models.CharField(max_length=3, default='AED')
     per = models.CharField(max_length=50, choices=[
         ('year', 'Per Year'),
@@ -97,10 +98,12 @@ class TuitionFee(models.Model):
     notes = models.TextField(blank=True)
     
     class Meta:
-        ordering = ['program_type', 'amount']
+        ordering = ['program', 'amount']
     
     def __str__(self):
-        return f"{self.amount} {self.currency} {self.per}"
+        if self.max_amount:
+            return f"{self.currency} {self.amount} - {self.max_amount} {self.per}"
+        return f"{self.currency} {self.amount} {self.per}"
 
 
 class EnglishRequirement(models.Model):
