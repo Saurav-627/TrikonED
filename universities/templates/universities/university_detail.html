@@ -4,197 +4,408 @@
 {% block title %}{{ university.name }} - TrikonED{% endblock %}
 
 {% block content %}
-<!-- University Header -->
-<section class="bg-gradient-primary py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row gap-8 items-start">
-            {% if university.image %}
-            <img src="{{ university.image.url }}" alt="{{ university.name }}"
-                class="w-32 h-32 rounded-2xl object-cover shadow-lg">
-            {% else %}
-            <div class="w-32 h-32 rounded-2xl bg-white flex items-center justify-center shadow-lg">
-                <span class="text-4xl font-bold text-accent-green">{{ university.short_name|slice:":2"|upper }}</span>
-            </div>
-            {% endif %}
-
-            <div class="flex-1">
-                <div class="flex items-start justify-between mb-4">
-                    <div>
-                        <h1 class="text-4xl font-display font-bold text-text-primary mb-2">
-                            {{ university.name }}
-                        </h1>
-                        <p class="text-text-secondary flex items-center">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            </svg>
-                            {{ university.location_emirate.name }}, UAE
-                        </p>
-                    </div>
-                    {% if university.is_partner %}
-                    <span class="px-4 py-2 bg-accent-green text-white rounded-full text-sm font-semibold">
-                        ✓ Partner University
-                    </span>
-                    {% endif %}
-                </div>
-
-                <div class="flex gap-4 text-sm">
-                    <div class="px-4 py-2 bg-white rounded-lg">
-                        <span class="font-semibold">{{ university.university_type|title }}</span>
-                    </div>
-                    <div class="px-4 py-2 bg-white rounded-lg">
-                        <span class="font-semibold">Est. {{ university.established_year }}</span>
-                    </div>
-                    {% if university.ranking %}
-                    <div class="px-4 py-2 bg-white rounded-lg">
-                        <span class="font-semibold">Rank #{{ university.ranking }}</span>
-                    </div>
-                    {% endif %}
+<main class="flex-1 w-full">
+    <div class="px-8 py-4">
+        <div class="flex flex-col w-full max-w-7xl mx-auto flex-1 gap-6">
+            <!-- Header Image -->
+            <div class="@container">
+                <div class="bg-cover bg-center flex flex-col justify-end overflow-hidden bg-white dark:bg-[#1a1307] rounded-xl min-h-80 shadow-sm"
+                    style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 40%), url("{% if university.image %}{{ university.image.url }}{% else %}https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200{% endif %}");'>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
 
-<!-- Main Content -->
-<section class="py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-            <!-- Main Content -->
-            <div class="lg:col-span-2 space-y-8">
-
-                <!-- About -->
-                <div class="bg-white rounded-2xl shadow-md p-8">
-                    <h2 class="text-2xl font-bold mb-4">About</h2>
-                    <p class="text-text-secondary leading-relaxed">{{ university.description }}</p>
+            <!-- Profile Header -->
+            <div class="flex px-4 @container -mt-20">
+                <div
+                    class="flex w-full flex-col gap-4 @[520px]:flex-row @[520px]:justify-between @[520px]:items-end bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-lg border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    <div class="flex gap-6">
+                        {% if university.logo %}
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg min-h-32 w-32 shadow-md"
+                            style='background-image: url("{{ university.logo.url }}");'></div>
+                        {% else %}
+                        <div
+                            class="bg-background-light dark:bg-background-dark rounded-lg min-h-32 w-32 shadow-md flex items-center justify-center">
+                            <span class="text-5xl font-bold text-primary">{{ university.short_name|slice:":2"|upper }}</span>
+                        </div>
+                        {% endif %}
+                        <div class="flex flex-col justify-center">
+                            <p
+                                class="text-[#181510] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">
+                                {{ university.name }}</p>
+                            <p class="text-[#8d7a5e] dark:text-[#a19077] text-base font-normal leading-normal">{{ university.location_emirate.name }}, UAE</p>
+                            {% if university.is_partner %}
+                            <div
+                                class="mt-2 inline-flex items-center gap-2 rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-sm font-medium text-green-700 dark:text-green-300 w-fit">
+                                <span class="material-symbols-outlined text-base">verified</span>
+                                <span>Official Partner</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="flex w-full max-w-[480px] gap-3 @[480px]:w-auto pt-4 @[520px]:pt-0">
+                        {% comment %} <button
+                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-background-light dark:bg-background-dark text-[#181510] dark:text-white text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto hover:bg-primary/10 transition-colors border border-[#e7e2da] dark:border-[#3a2d1b]">
+                            <span class="truncate">Save to Wishlist</span>
+                        </button> {% endcomment %}
+                        <a href="{% url 'applications:create' %}"
+                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-[#181510] text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto hover:opacity-90">
+                            <span class="truncate">Apply Now</span>
+                        </a>
+                    </div>
                 </div>
+            </div>
 
-                <!-- Programs -->
-                <div class="bg-white rounded-2xl shadow-md p-8">
-                    <h2 class="text-2xl font-bold mb-6">Programs Offered</h2>
-                    <div class="space-y-4">
-                        {% for program in university.programs.all %}
-                        <div class="border border-gray-200 rounded-xl p-4 hover:border-accent-green transition-all">
-                            <div class="flex items-start justify-between">
-                                <div class="flex-1">
-                                    <h3 class="font-semibold text-lg mb-1">{{ program.name }}</h3>
-                                    <p class="text-sm text-text-muted mb-2">{{ program.type.name }} • {{
-                                        program.delivery_type|title }}</p>
-                                    <p class="text-sm text-text-secondary">{{ program.description|truncatewords:15 }}
-                                    </p>
+            <!-- Tabs -->
+            <div class="px-4">
+                <div class="flex border-b border-[#e7e2da] dark:border-[#3a2d1b] gap-8 overflow-x-auto">
+                    <a class="flex flex-col items-center justify-center border-b-[3px] {% if active_tab == 'overview' %}border-b-primary{% else %}border-b-transparent{% endif %} pb-[13px] pt-4 whitespace-nowrap"
+                        href="?tab=overview">
+                        <p
+                            class="{% if active_tab == 'overview' %}text-primary{% else %}text-[#8d7a5e] dark:text-[#a19077] hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
+                            Overview</p>
+                    </a>
+                    <a class="flex flex-col items-center justify-center border-b-[3px] {% if active_tab == 'programs' %}border-b-primary{% else %}border-b-transparent{% endif %} pb-[13px] pt-4 whitespace-nowrap"
+                        href="?tab=programs">
+                        <p
+                            class="{% if active_tab == 'programs' %}text-primary{% else %}text-[#8d7a5e] dark:text-[#a19077] hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
+                            Programs</p>
+                    </a>
+                    <a class="flex flex-col items-center justify-center border-b-[3px] {% if active_tab == 'scholarships' %}border-b-primary{% else %}border-b-transparent{% endif %} pb-[13px] pt-4 whitespace-nowrap"
+                        href="?tab=scholarships">
+                        <p
+                            class="{% if active_tab == 'scholarships' %}text-primary{% else %}text-[#8d7a5e] dark:text-[#a19077] hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
+                            Scholarships</p>
+                    </a>
+                    <a class="flex flex-col items-center justify-center border-b-[3px] {% if active_tab == 'visa' %}border-b-primary{% else %}border-b-transparent{% endif %} pb-[13px] pt-4 whitespace-nowrap"
+                        href="?tab=visa">
+                        <p
+                            class="{% if active_tab == 'visa' %}text-primary{% else %}text-[#8d7a5e] dark:text-[#a19077] hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
+                            Visa</p>
+                    </a>
+                    <a class="flex flex-col items-center justify-center border-b-[3px] {% if active_tab == 'contact' %}border-b-primary{% else %}border-b-transparent{% endif %} pb-[13px] pt-4 whitespace-nowrap"
+                        href="?tab=contact">
+                        <p
+                            class="{% if active_tab == 'contact' %}text-primary{% else %}text-[#8d7a5e] dark:text-[#a19077] hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
+                            Contact</p>
+                    </a>
+                    <a class="flex flex-col items-center justify-center border-b-[3px] {% if active_tab == 'stats' %}border-b-primary{% else %}border-b-transparent{% endif %} pb-[13px] pt-4 whitespace-nowrap"
+                        href="?tab=stats">
+                        <p
+                            class="{% if active_tab == 'stats' %}text-primary{% else %}text-[#8d7a5e] dark:text-[#a19077] hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
+                            Stats</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 px-4">
+                <!-- Left Column -->
+                <div class="lg:col-span-2 flex flex-col gap-6">
+
+                    {% if active_tab == 'overview' %}
+                    <!-- About Card -->
+                    <div
+                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
+                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight">About
+                            {{ university.name }}</h2>
+                        <p class="mt-4 text-[#8d7a5e] dark:text-[#a19077] text-base font-normal leading-relaxed">{{ university.description }}</p>
+                    </div>
+
+                    <!-- Highlights/Info Cards -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div
+                            class="bg-white dark:bg-[#1a1307] p-4 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b] flex flex-col items-center text-center">
+                            <span class="material-symbols-outlined text-primary text-3xl">calendar_month</span>
+                            <p class="mt-2 text-sm text-[#8d7a5e] dark:text-[#a19077]">Established</p>
+                            <p class="font-bold text-[#181510] dark:text-white">{{ university.established_year }}</p>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-[#1a1307] p-4 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b] flex flex-col items-center text-center">
+                            <span class="material-symbols-outlined text-primary text-3xl">school</span>
+                            <p class="mt-2 text-sm text-[#8d7a5e] dark:text-[#a19077]">Accreditation</p>
+                            <p class="font-bold text-[#181510] dark:text-white text-xs">{{ university.accreditation|truncatewords:2 }}</p>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-[#1a1307] p-4 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b] flex flex-col items-center text-center">
+                            <span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
+                            <p class="mt-2 text-sm text-[#8d7a5e] dark:text-[#a19077]">University Type</p>
+                            <p class="font-bold text-[#181510] dark:text-white">{{ university.university_type|title }}
+                            </p>
+                        </div>
+                        {% if university.ranking %}
+                        <div
+                            class="bg-white dark:bg-[#1a1307] p-4 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b] flex flex-col items-center text-center">
+                            <span class="material-symbols-outlined text-primary text-3xl">workspace_premium</span>
+                            <p class="mt-2 text-sm text-[#8d7a5e] dark:text-[#a19077]">QS Ranking</p>
+                            <p class="font-bold text-[#181510] dark:text-white">#{{ university.ranking }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Facilities Card -->
+                    <div
+                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
+                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight">
+                            On-Campus Facilities</h2>
+                        <p class="mt-4 text-[#8d7a5e] dark:text-[#a19077] text-base leading-relaxed">{{ university.facilities }}</p>
+                    </div>
+
+                    {% elif active_tab == 'programs' %}
+                    <!-- Programs List -->
+                    <div
+                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
+                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight mb-6">
+                            Programs Offered</h2>
+                        <div class="space-y-4">
+                            {% for program in university.programs.all %}
+                            <div
+                                class="border border-[#e7e2da] dark:border-[#3a2d1b] rounded-xl p-4 hover:border-primary transition-all">
+                                <div class="flex items-start justify-between gap-4">
+                                    <div class="flex-1">
+                                        <h3 class="font-bold text-lg text-[#181510] dark:text-white mb-1">{{ program.name }}</h3>
+                                        <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-2">{{ program.type.name }} • {{ program.delivery_type|title }}</p>
+                                        <p class="text-sm text-[#8d7a5e] dark:text-[#a19077]">{{ program.description|truncatewords:20 }}</p>
+                                    </div>
+                                    <a href="{% url 'programs:detail' program.pk %}"
+                                        class="px-4 py-2 bg-primary/10 text-primary rounded-lg hover:bg-primary hover:text-[#181510] transition-all whitespace-nowrap text-sm font-bold">
+                                        View Details
+                                    </a>
                                 </div>
-                                <a href="{% url 'programs:detail' program.pk %}"
-                                    class="px-4 py-2 bg-accent-green/10 text-accent-green rounded-lg hover:bg-accent-green hover:text-white transition-all whitespace-nowrap">
-                                    View →
-                                </a>
+                            </div>
+                            {% empty %}
+                            <p class="text-[#8d7a5e] dark:text-[#a19077] text-center py-8">No programs available yet.
+                            </p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {% elif active_tab == 'scholarships' %}
+                    <!-- Scholarships -->
+                    <div
+                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
+                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight mb-6">
+                            Available Scholarships</h2>
+                        <div class="space-y-4">
+                            {% for scholarship in university.scholarships.all %}
+                            <div class="border-l-4 border-primary bg-primary/5 rounded-lg p-4">
+                                <div class="flex items-start justify-between mb-2">
+                                    <h3 class="font-bold text-[#181510] dark:text-white">{{ scholarship.name }}</h3>
+                                    {% if scholarship.renewable %}
+                                    <span
+                                        class="px-2 py-1 bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 text-xs rounded-full font-medium">Renewable</span>
+                                    {% endif %}
+                                </div>
+                                <p class="text-2xl font-bold text-primary mb-2">AED {{ scholarship.amount }}</p>
+                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-2">{{ scholarship.coverage }}
+                                </p>
+                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077]"><span
+                                        class="font-semibold">Eligibility:</span> {{ scholarship.eligibility }}</p>
+                                {% if scholarship.application_deadline %}
+                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-2"><span
+                                        class="font-semibold">Deadline:</span> {{ scholarship.application_deadline|date:"F d, Y" }}</p>
+                                {% endif %}
+                            </div>
+                            {% empty %}
+                            <p class="text-[#8d7a5e] dark:text-[#a19077] text-center py-8">No scholarships available at
+                                this time.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {% elif active_tab == 'visa' %}
+                    <!-- Visa Information -->
+                    <div
+                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
+                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight mb-6">
+                            Visa Sponsorship Information</h2>
+                        {% for visa in university.visa_sponsorships.all %}
+                        <div class="space-y-4">
+                            {% if visa.offers_visa %}
+                            <div
+                                class="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                                <span
+                                    class="material-symbols-outlined text-green-600 dark:text-green-400 text-3xl">check_circle</span>
+                                <div>
+                                    <p class="font-bold text-green-700 dark:text-green-300">Visa Sponsorship Available
+                                    </p>
+                                    <p class="text-sm text-green-600 dark:text-green-400">This university offers visa
+                                        sponsorship for international students</p>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div
+                                class="flex items-center gap-3 p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
+                                <span
+                                    class="material-symbols-outlined text-orange-600 dark:text-orange-400 text-3xl">info</span>
+                                <div>
+                                    <p class="font-bold text-orange-700 dark:text-orange-300">Limited Visa Sponsorship
+                                    </p>
+                                    <p class="text-sm text-orange-600 dark:text-orange-400">Please contact the
+                                        university for specific visa requirements</p>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <div class="prose dark:prose-invert max-w-none">
+                                <p class="text-[#8d7a5e] dark:text-[#a19077] leading-relaxed">{{ visa.details }}</p>
                             </div>
                         </div>
                         {% empty %}
-                        <p class="text-text-muted">No programs available yet.</p>
+                        <p class="text-[#8d7a5e] dark:text-[#a19077] text-center py-8">Visa information not available.
+                            Please contact the university directly.</p>
                         {% endfor %}
                     </div>
-                </div>
 
-                <!-- Scholarships -->
-                {% if university.scholarships.all %}
-                <div class="bg-white rounded-2xl shadow-md p-8">
-                    <h2 class="text-2xl font-bold mb-6">Scholarships</h2>
-                    <div class="space-y-4">
-                        {% for scholarship in university.scholarships.all %}
-                        <div class="border-l-4 border-accent-orange bg-accent-orange/5 rounded-lg p-4">
-                            <div class="flex items-start justify-between mb-2">
-                                <h3 class="font-semibold">{{ scholarship.name }}</h3>
-                                {% if scholarship.renewable %}
-                                <span class="px-2 py-1 bg-success/10 text-success text-xs rounded-full">Renewable</span>
-                                {% endif %}
+                    {% elif active_tab == 'contact' %}
+                    <!-- Contact Information -->
+                    <div
+                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
+                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight mb-6">
+                            Contact Information</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined text-primary text-2xl">mail</span>
+                                <div>
+                                    <p class="text-sm font-semibold text-[#181510] dark:text-white mb-1">Email</p>
+                                    <a href="mailto:{{ university.contact_info.email }}"
+                                        class="text-[#8d7a5e] dark:text-[#a19077] hover:text-primary">{{ university.contact_info.email }}</a>
+                                </div>
                             </div>
-                            <p class="text-2xl font-bold text-accent-orange mb-2">AED {{ scholarship.amount }}</p>
-                            <p class="text-sm text-text-secondary mb-2">{{ scholarship.coverage }}</p>
-                            <p class="text-sm text-text-muted">Eligibility: {{ scholarship.eligibility }}</p>
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined text-primary text-2xl">phone</span>
+                                <div>
+                                    <p class="text-sm font-semibold text-[#181510] dark:text-white mb-1">Phone</p>
+                                    <p class="text-[#8d7a5e] dark:text-[#a19077]">{{ university.contact_info.phone }}
+                                    </p>
+                                </div>
+                            </div>
+                            {% if university.contact_info.website %}
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined text-primary text-2xl">language</span>
+                                <div>
+                                    <p class="text-sm font-semibold text-[#181510] dark:text-white mb-1">Website</p>
+                                    <a href="{{ university.contact_info.website }}" target="_blank"
+                                        class="text-[#8d7a5e] dark:text-[#a19077] hover:text-primary">Visit Website
+                                        →</a>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if university.contact_info.address %}
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined text-primary text-2xl">location_on</span>
+                                <div>
+                                    <p class="text-sm font-semibold text-[#181510] dark:text-white mb-1">Address</p>
+                                    <p class="text-[#8d7a5e] dark:text-[#a19077]">{{ university.contact_info.address }}
+                                    </p>
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
-                        {% endfor %}
                     </div>
+
+                    {% elif active_tab == 'stats' %}
+                    <!-- Statistics -->
+                    {% if latest_stats %}
+                    <div
+                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
+                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight mb-6">
+                            Student Statistics ({{ latest_stats.academic_year }})</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
+                                <p class="text-3xl font-bold text-primary">{{ latest_stats.total_enrollment }}</p>
+                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">Total Students</p>
+                            </div>
+                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
+                                <p class="text-3xl font-bold text-primary">{{ latest_stats.international_enrollment }}
+                                </p>
+                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">International</p>
+                            </div>
+                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
+                                <p class="text-3xl font-bold text-primary">{{ latest_stats.faculty_count }}</p>
+                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">Faculty Members</p>
+                            </div>
+                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
+                                <p class="text-3xl font-bold text-primary">{{ latest_stats.male_students }}</p>
+                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">Male Students</p>
+                            </div>
+                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
+                                <p class="text-3xl font-bold text-primary">{{ latest_stats.female_students }}</p>
+                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">Female Students</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div
+                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
+                        <p class="text-[#8d7a5e] dark:text-[#a19077] text-center py-8">No statistics available at this
+                            time.</p>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+
                 </div>
-                {% endif %}
 
-                <!-- Facilities -->
-                <div class="bg-white rounded-2xl shadow-md p-8">
-                    <h2 class="text-2xl font-bold mb-4">Facilities</h2>
-                    <p class="text-text-secondary">{{ university.facilities }}</p>
-                </div>
-            </div>
+                <!-- Right Column (Sidebar) -->
+                <div class="lg:col-span-1 flex flex-col gap-6">
+                    <!-- Enrollment Statistics Card -->
+                    {% if enrollment_history %}
+                    <div
+                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
+                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight">
+                            Enrollment Trend</h2>
+                        <div class="mt-4 h-48 flex items-end gap-2">
+                            {% for stat in enrollment_history reversed %}
+                            {% widthratio stat.total_enrollment enrollment_history.0.total_enrollment 100 as
+                            height_percent %}
+                            <div class="flex-1 bg-primary/20 dark:bg-primary/30 rounded-t-md hover:bg-primary transition-colors"
+                                style="height: {{ height_percent }}%;"
+                                title="{{ stat.academic_year }}: {{ stat.total_enrollment }} students"></div>
+                            {% endfor %}
+                        </div>
+                        <div class="flex justify-around text-xs text-[#8d7a5e] dark:text-[#a19077] mt-2">
+                            {% for stat in enrollment_history reversed %}
+                            <span>'{{ stat.academic_year|slice:"-2:" }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
 
-            <!-- Sidebar -->
-            <div class="lg:col-span-1 space-y-6">
-
-                <!-- Contact Info -->
-                <div class="bg-white rounded-2xl shadow-md p-6 sticky top-24">
-                    <h3 class="font-bold text-lg mb-4">Contact Information</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-start">
-                            <svg class="w-5 h-5 text-accent-green mr-3 mt-0.5" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                            <a href="mailto:{{ university.contact_info.email }}"
-                                class="text-sm hover:text-accent-green">
-                                {{ university.contact_info.email }}
+                    <!-- Quick Actions -->
+                    <div
+                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
+                        <h3 class="text-[#181510] dark:text-white font-bold text-lg mb-4">Quick Actions</h3>
+                        <div class="space-y-3">
+                            <a href="{% url 'applications:create' %}"
+                                class="block w-full px-4 py-3 bg-primary text-[#181510] text-center font-bold rounded-lg hover:opacity-90 transition-all">
+                                Apply Now
                             </a>
-                        </div>
-                        <div class="flex items-start">
-                            <svg class="w-5 h-5 text-accent-green mr-3 mt-0.5" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                            </svg>
-                            <span class="text-sm">{{ university.contact_info.phone }}</span>
-                        </div>
-                        {% if university.contact_info.website %}
-                        <div class="flex items-start">
-                            <svg class="w-5 h-5 text-accent-green mr-3 mt-0.5" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                            </svg>
-                            <a href="{{ university.contact_info.website }}" target="_blank"
-                                class="text-sm hover:text-accent-green">
-                                Visit Website →
-                            </a>
-                        </div>
-                        {% endif %}
-                        <div class="flex items-start">
-                            <svg class="w-5 h-5 text-accent-green mr-3 mt-0.5" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            </svg>
-                            <span class="text-sm">{{ university.contact_info.address }}</span>
+                            <button
+                                class="block w-full px-4 py-3 bg-background-light dark:bg-background-dark text-[#181510] dark:text-white text-center font-bold rounded-lg hover:bg-primary/10 transition-all border border-[#e7e2da] dark:border-[#3a2d1b]">
+                                Download Brochure
+                            </button>
+                            <button
+                                class="block w-full px-4 py-3 bg-background-light dark:bg-background-dark text-[#181510] dark:text-white text-center font-bold rounded-lg hover:bg-primary/10 transition-all border border-[#e7e2da] dark:border-[#3a2d1b]">
+                                Request Info
+                            </button>
                         </div>
                     </div>
 
-                    <a href="{% url 'applications:create' %}"
-                        class="block w-full mt-6 px-6 py-3 bg-gradient-accent text-white text-center font-semibold rounded-xl hover:shadow-lg transition-all">
-                        Apply Now
-                    </a>
-                </div>
-
-                <!-- Accepted Curricula -->
-                {% if university.accepted_curricula.all %}
-                <div class="bg-white rounded-2xl shadow-md p-6">
-                    <h3 class="font-bold text-lg mb-4">Accepted Curricula</h3>
-                    <div class="flex flex-wrap gap-2">
-                        {% for uc in university.accepted_curricula.all %}
-                        <span class="px-3 py-1 bg-accent-green/10 text-accent-green rounded-full text-sm">
-                            {{ uc.curriculum.name }}
-                        </span>
-                        {% endfor %}
+                    <!-- Accepted Curricula -->
+                    {% if university.accepted_curricula.all %}
+                    <div
+                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
+                        <h3 class="text-[#181510] dark:text-white font-bold text-lg mb-4">Accepted Curricula</h3>
+                        <div class="flex flex-wrap gap-2">
+                            {% for uc in university.accepted_curricula.all %}
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                                {{ uc.curriculum.name }}
+                            </span>
+                            {% endfor %}
+                        </div>
                     </div>
+                    {% endif %}
                 </div>
-                {% endif %}
             </div>
         </div>
     </div>
-</section>
+</main>
 {% endblock %}

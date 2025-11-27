@@ -57,5 +57,17 @@ class UniversityDetailView(DetailView):
     
     def get_queryset(self):
         return University.objects.select_related('location_emirate', 'contact_info').prefetch_related(
-            'programs', 'scholarships', 'accepted_curricula__curriculum'
+            'programs', 'programs__type', 'scholarships', 'accepted_curricula__curriculum',
+            'enrollment_stats', 'visa_sponsorships'
         )
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Get the active tab from query params, default to 'overview'
+        context['active_tab'] = self.request.GET.get('tab', 'overview')
+        # Get latest enrollment stats
+        context['latest_stats'] = self.object.enrollment_stats.first()
+        # Get enrollment history for chart (last 4 years)
+        context['enrollment_history'] = self.object.enrollment_stats.all()[:4]
+        return context
+
