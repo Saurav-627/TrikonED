@@ -47,10 +47,17 @@
                             class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-background-light dark:bg-background-dark text-[#181510] dark:text-white text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto hover:bg-primary/10 transition-colors border border-[#e7e2da] dark:border-[#3a2d1b]">
                             <span class="truncate">Save to Wishlist</span>
                         </button> {% endcomment %}
+                        {% if user.is_authenticated %}
                         <a href="{% url 'applications:create' %}"
                             class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-[#181510] text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto hover:opacity-90">
                             <span class="truncate">Apply Now</span>
                         </a>
+                        {% else %}
+                        <a href="{% url 'students:register' %}?next={{ request.path }}"
+                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-[#181510] text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto hover:opacity-90">
+                            <span class="truncate">Sign Up to Apply</span>
+                        </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -374,11 +381,19 @@
                         class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
                         <h3 class="text-[#181510] dark:text-white font-bold text-lg mb-4">Quick Actions</h3>
                         <div class="space-y-3">
+                            {% if user.is_authenticated %}
                             <a href="{% url 'applications:create' %}"
                                 class="block w-full px-4 py-3 bg-primary text-[#181510] text-center font-bold rounded-lg hover:opacity-90 transition-all">
                                 Apply Now
                             </a>
-                            <a href="{{ university.contact_info.website }}" class="block w-full px-4 py-3 bg-background-light dark:bg-background-dark text-[#181510] dark:text-white text-center font-bold rounded-lg hover:bg-primary/10 transition-all border border-[#e7e2da] dark:border-[#3a2d1b]">
+                            {% else %}
+                            <a href="{% url 'students:register' %}?next={{ request.path }}"
+                                class="block w-full px-4 py-3 bg-primary text-[#181510] text-center font-bold rounded-lg hover:opacity-90 transition-all">
+                                Sign Up to Apply
+                            </a>
+                            {% endif %}
+                            <a href="{{ university.contact_info.website }}"
+                                class="block w-full px-4 py-3 bg-background-light dark:bg-background-dark text-[#181510] dark:text-white text-center font-bold rounded-lg hover:bg-primary/10 transition-all border border-[#e7e2da] dark:border-[#3a2d1b]">
                                 Visit Website
                             </a>
                         </div>
