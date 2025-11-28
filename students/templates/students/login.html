@@ -5,8 +5,8 @@
 
 {% block content %}
 <main class="flex-1 w-full bg-background-light dark:bg-background-dark">
-    <section class="min-h-screen py-12 px-4 flex items-center">
-        <div class="max-w-md mx-auto w-full">
+    <section class="py-6 px-4 flex items-center">
+        <div class="max-w-screen-md mx-auto w-full">
             <!-- Login Card -->
             <div
                 class="bg-white dark:bg-[#1a1307] rounded-xl shadow-lg border border-[#e7e2da] dark:border-[#3a2d1b] p-8">
@@ -32,7 +32,7 @@
                     Welcome Back
                 </h1>
                 <p class="text-center text-[#8d7a5e] dark:text-[#a19077] mb-8">
-                    Sign in to continue your journey
+                    Login to continue your journey
                 </p>
 
                 {% if form.non_field_errors %}
@@ -63,9 +63,9 @@
                             <label for="id_password" class="block text-sm font-bold text-[#181510] dark:text-white">
                                 Password
                             </label>
-                            <a href="#" class="text-sm text-primary hover:underline">
+                            {% comment %} <a href="#" class="text-sm text-primary hover:underline">
                                 Forgot password?
-                            </a>
+                            </a> {% endcomment %}
                         </div>
                         <input type="password" name="password" id="id_password" required
                             class="w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
@@ -80,14 +80,14 @@
                         <input type="checkbox" id="remember" name="remember"
                             class="w-5 h-5 text-primary border-[#e7e2da] dark:border-[#3a2d1b] rounded focus:ring-primary">
                         <label for="remember" class="ml-2 text-sm text-[#8d7a5e] dark:text-[#a19077]">
-                            Remember me for 30 days
+                            Remember me
                         </label>
                     </div>
 
                     <!-- Submit Button -->
                     <button type="submit"
                         class="w-full px-6 py-4 bg-primary text-[#181510] font-bold rounded-lg hover:opacity-90 transition-all">
-                        Sign In
+                        Log In
                     </button>
                 </form>
 
