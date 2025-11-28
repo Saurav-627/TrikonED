@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView, CreateView, UpdateView, FormView
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Student, StudentDocument
@@ -16,13 +17,11 @@ class StudentRegisterView(CreateView):
     model = Student
     form_class = StudentRegisterForm
     template_name = 'students/register.html'
-    success_url = reverse_lazy('students:login')
+    success_url = reverse_lazy('students:dashboard')
     
     def form_valid(self, form):
-        # Hash the password properly
-        user = form.save(commit=False)
-        user.set_password(form.cleaned_data['password'])
-        user.save()
+        user = form.save()
+        login(self.request, user)
         return super().form_valid(form)
 
 class StudentDashboardView(LoginRequiredMixin, TemplateView):

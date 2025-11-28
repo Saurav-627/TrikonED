@@ -38,14 +38,20 @@
                 <form method="post" class="space-y-5">
                     {% csrf_token %}
 
+                    {% if form.non_field_errors %}
+                    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                        role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+
                     <!-- Username -->
                     <div>
-                        <label for="id_username" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                        <label for="{{ form.username.id_for_label }}"
+                            class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
                             Username <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" name="username" id="id_username" required
-                            class="w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-                            placeholder="Choose a username">
+                        {{ form.username }}
                         {% if form.username.errors %}
                         <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.username.errors.0 }}</p>
                         {% endif %}
@@ -53,12 +59,11 @@
 
                     <!-- Email -->
                     <div>
-                        <label for="id_email" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                        <label for="{{ form.email.id_for_label }}"
+                            class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
                             Email Address <span class="text-red-500">*</span>
                         </label>
-                        <input type="email" name="email" id="id_email" required
-                            class="w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-                            placeholder="your.email@example.com">
+                        {{ form.email }}
                         {% if form.email.errors %}
                         <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.email.errors.0 }}</p>
                         {% endif %}
@@ -66,14 +71,13 @@
 
                     <!-- Password -->
                     <div>
-                        <label for="id_password1" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                        <label for="{{ form.password.id_for_label }}"
+                            class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
                             Password <span class="text-red-500">*</span>
                         </label>
-                        <input type="password" name="password1" id="id_password1" required
-                            class="w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-                            placeholder="Create a strong password">
-                        {% if form.password1.errors %}
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.password1.errors.0 }}</p>
+                        {{ form.password }}
+                        {% if form.password.errors %}
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.password.errors.0 }}</p>
                         {% endif %}
                         <p class="mt-2 text-xs text-[#8d7a5e] dark:text-[#a19077]">
                             Must be at least 8 characters with letters and numbers
@@ -82,14 +86,13 @@
 
                     <!-- Confirm Password -->
                     <div>
-                        <label for="id_password2" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                        <label for="{{ form.password_confirm.id_for_label }}"
+                            class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
                             Confirm Password <span class="text-red-500">*</span>
                         </label>
-                        <input type="password" name="password2" id="id_password2" required
-                            class="w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-                            placeholder="Confirm your password">
-                        {% if form.password2.errors %}
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.password2.errors.0 }}</p>
+                        {{ form.password_confirm }}
+                        {% if form.password_confirm.errors %}
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.password_confirm.errors.0 }}</p>
                         {% endif %}
                     </div>
 
