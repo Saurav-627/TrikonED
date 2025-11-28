@@ -1,4 +1,6 @@
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from students.models import StudentUniversityVisit
 from .models import University
 import string
 
@@ -49,11 +51,29 @@ class UniversityListView(ListView):
         return context
 
 
-class UniversityDetailView(DetailView):
+from django.contrib.auth.mixins import LoginRequiredMixin
+from students.models import StudentUniversityVisit
+
+class UniversityDetailView(LoginRequiredMixin, DetailView):
     """University detail page"""
     model = University
     template_name = 'universities/university_detail.html'
     context_object_name = 'university'
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
+    
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if request.user.is_authenticated:
+            visit, created = StudentUniversityVisit.objects.get_or_create(
+                student=request.user,
+                university=self.object
+            )
+            if not created:
+                visit.visit_count += 1
+                visit.save()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
     
     def get_queryset(self):
         return University.objects.select_related('location_emirate', 'contact_info').prefetch_related(

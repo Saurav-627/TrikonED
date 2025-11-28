@@ -123,14 +123,15 @@
                                 </div>
 
                                 <div class="flex gap-3">
-                                    <a href="{% url 'applications:detail' application.pk %}"
+                                    <a href="{% url 'applications:detail' application.application_id %}"
                                         class="flex-1 text-center px-4 py-2 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary hover:text-[#181510] transition-all">
                                         View Details
                                     </a>
                                     {% if application.status == 'draft' %}
-                                    <a href="{% url 'applications:create' %}"
-                                        class="flex-1 text-center px-4 py-2 bg-primary text-[#181510] font-bold rounded-lg hover:opacity-90 transition-all">
-                                        Continue
+                                    <a href="{% url 'applications:cancel' application.application_id %}"
+                                        onclick="return confirm('Are you sure you want to cancel this application? This action cannot be undone.');"
+                                        class="flex-1 text-center px-4 py-2 bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-300 font-bold rounded-lg hover:bg-red-200 dark:hover:bg-red-900/40 transition-all">
+                                        Cancel Application
                                     </a>
                                     {% endif %}
                                 </div>

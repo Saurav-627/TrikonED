@@ -29,12 +29,22 @@ class Application(models.Model):
     terms_accepted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    application_id = models.CharField(max_length=20, unique=True, editable=False, null=True)
     
     class Meta:
         ordering = ['-applied_on']
     
+    def save(self, *args, **kwargs):
+        if not self.application_id:
+            last_app = Application.objects.filter(application_id__isnull=False).order_by('-application_id').first()
+            if last_app and last_app.application_id.isdigit():
+                self.application_id = f"{int(last_app.application_id) + 1:06d}"
+            else:
+                self.application_id = '000001'
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return f"{self.student.username} → {self.university.short_name} ({self.status})"
+        return f"#{self.application_id} - {self.student.username} → {self.university.short_name} ({self.status})"
 
 
 class ApplicationLog(models.Model):

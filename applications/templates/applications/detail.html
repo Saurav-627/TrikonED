@@ -55,7 +55,7 @@
                     </div>
                     <div class="bg-background-light dark:bg-background-dark p-4 rounded-lg">
                         <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-1">Application ID</p>
-                        <p class="font-bold text-[#181510] dark:text-white font-mono text-xs">{{ application.pk|slice:":8" }}</p>
+                        <p class="font-bold text-[#181510] dark:text-white font-mono text-lg">#{{ application.application_id }}</p>
                     </div>
                 </div>
 
@@ -118,7 +118,7 @@
                     class="flex-1 px-6 py-3 bg-background-light dark:bg-background-dark text-[#181510] dark:text-white font-bold rounded-lg hover:bg-primary/10 transition-all text-center border border-[#e7e2da] dark:border-[#3a2d1b]">
                     Back to Dashboard
                 </a>
-                <a href="{% url 'universities:detail' application.university.pk %}"
+                <a href="{% url 'universities:detail' application.university.slug %}"
                     class="flex-1 px-6 py-3 bg-primary text-[#181510] font-bold rounded-lg hover:opacity-90 transition-all text-center">
                     View University
                 </a>

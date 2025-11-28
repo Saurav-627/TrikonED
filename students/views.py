@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Student, StudentDocument
-from .forms import StudentRegisterForm, MultipleDocumentUploadForm
+from .forms import StudentRegisterForm, MultipleDocumentUploadForm, StudentProfileForm
 
 class StudentLoginView(LoginView):
     template_name = 'students/login.html'
@@ -35,7 +35,25 @@ class StudentDashboardView(LoginRequiredMixin, TemplateView):
         context['applications'] = user_applications
         context['pending_count'] = user_applications.filter(status='pending').count()
         context['documents'] = self.request.user.documents.all()
+        
+        # Check if profile is complete
+        user = self.request.user
+        profile_complete = all([
+            user.first_name, user.last_name, user.phone, user.gender,
+            user.nationality, user.date_of_birth, user.passport_number, user.passport_expiry
+        ])
+        context['profile_complete'] = profile_complete
+        
         return context
+
+class StudentProfileView(LoginRequiredMixin, UpdateView):
+    model = Student
+    form_class = StudentProfileForm
+    template_name = 'students/profile.html'
+    success_url = reverse_lazy('students:dashboard')
+    
+    def get_object(self):
+        return self.request.user
 
 class StudentDocumentUploadView(LoginRequiredMixin, FormView):
     form_class = MultipleDocumentUploadForm

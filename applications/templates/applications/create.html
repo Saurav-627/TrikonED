@@ -6,7 +6,7 @@
 {% block content %}
 <main class="flex-1 w-full bg-background-light dark:bg-background-dark">
     <section class="py-12 min-h-screen">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div
                 class="bg-white dark:bg-[#1a1307] rounded-xl shadow-lg border border-[#e7e2da] dark:border-[#3a2d1b] p-8">
@@ -21,7 +21,7 @@
                         application journey.</p>
                 </div>
 
-                <form method="post" class="space-y-6">
+                <form method="post" class="space-y-8">
                     {% csrf_token %}
 
                     {% if form.non_field_errors %}
@@ -31,44 +31,139 @@
                     </div>
                     {% endif %}
 
+                    <!-- Application Details -->
                     <div>
-                        <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
-                            University <span class="text-red-500">*</span>
-                        </label>
-                        {{ form.university }}
-                        {% if form.university.errors %}
-                        <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.university.errors.0 }}</p>
-                        {% endif %}
+                        <h2
+                            class="text-xl font-bold text-[#181510] dark:text-white mb-4 pb-2 border-b border-[#e7e2da] dark:border-[#3a2d1b]">
+                            Application Details
+                        </h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    University <span class="text-red-500">*</span>
+                                </label>
+                                {{ form.university }}
+                                {% if form.university.errors %}
+                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.university.errors.0 }}
+                                </p>
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Program <span class="text-red-500">*</span>
+                                </label>
+                                {{ form.program }}
+                                {% if form.program.errors %}
+                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.program.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Application Type <span class="text-red-500">*</span>
+                                </label>
+                                {{ form.application_type }}
+                                {% if form.application_type.errors %}
+                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.application_type.errors.0
+                                    }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Remarks <span
+                                        class="text-[#8d7a5e] dark:text-[#a19077] font-normal">(Optional)</span>
+                                </label>
+                                {{ form.remarks }}
+                                {% if form.remarks.errors %}
+                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.remarks.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
 
+                    <!-- Personal Information -->
                     <div>
-                        <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
-                            Program <span class="text-red-500">*</span>
-                        </label>
-                        {{ form.program }}
-                        {% if form.program.errors %}
-                        <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.program.errors.0 }}</p>
-                        {% endif %}
-                    </div>
+                        <h2
+                            class="text-xl font-bold text-[#181510] dark:text-white mb-4 pb-2 border-b border-[#e7e2da] dark:border-[#3a2d1b]">
+                            Personal Information
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Phone Number <span class="text-red-500">*</span>
+                                </label>
+                                {{ form.phone }}
+                                {% if form.phone.errors %}
+                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.phone.errors.0 }}</p>
+                                {% endif %}
+                            </div>
 
-                    <div>
-                        <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
-                            Application Type <span class="text-red-500">*</span>
-                        </label>
-                        {{ form.application_type }}
-                        {% if form.application_type.errors %}
-                        <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.application_type.errors.0 }}</p>
-                        {% endif %}
-                    </div>
+                            <div>
+                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Gender <span class="text-red-500">*</span>
+                                </label>
+                                {{ form.gender }}
+                                {% if form.gender.errors %}
+                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.gender.errors.0 }}</p>
+                                {% endif %}
+                            </div>
 
-                    <div>
-                        <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
-                            Remarks <span class="text-[#8d7a5e] dark:text-[#a19077] font-normal">(Optional)</span>
-                        </label>
-                        {{ form.remarks }}
-                        {% if form.remarks.errors %}
-                        <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.remarks.errors.0 }}</p>
-                        {% endif %}
+                            <div>
+                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Nationality <span class="text-red-500">*</span>
+                                </label>
+                                {{ form.nationality }}
+                                {% if form.nationality.errors %}
+                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.nationality.errors.0 }}
+                                </p>
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Date of Birth <span class="text-red-500">*</span>
+                                </label>
+                                {{ form.date_of_birth }}
+                                {% if form.date_of_birth.errors %}
+                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.date_of_birth.errors.0 }}
+                                </p>
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Passport Number <span class="text-red-500">*</span>
+                                </label>
+                                {{ form.passport_number }}
+                                {% if form.passport_number.errors %}
+                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.passport_number.errors.0
+                                    }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Passport Expiry <span class="text-red-500">*</span>
+                                </label>
+                                {{ form.passport_expiry }}
+                                {% if form.passport_expiry.errors %}
+                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.passport_expiry.errors.0
+                                    }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                Address <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.address }}
+                            {% if form.address.errors %}
+                            <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.address.errors.0 }}</p>
+                            {% endif %}
+                        </div>
                     </div>
 
                     <div class="flex gap-4 pt-6">
@@ -89,7 +184,9 @@
 
 <style>
     select,
-    textarea {
+    textarea,
+    input[type="text"],
+    input[type="date"] {
         width: 100%;
         padding: 0.75rem 1rem;
         border-radius: 0.5rem;
@@ -101,17 +198,21 @@
     }
 
     .dark select,
-    .dark textarea {
+    .dark textarea,
+    .dark input[type="text"],
+    .dark input[type="date"] {
         border-color: #3a2d1b;
         background-color: #231b0f;
         color: white;
     }
 
     select:focus,
-    textarea:focus {
+    textarea:focus,
+    input[type="text"]:focus,
+    input[type="date"]:focus {
         outline: none;
         border-color: #ff9900;
-        ring: 1px solid #ff9900;
+        box-shadow: 0 0 0 1px #ff9900;
     }
 
     textarea {

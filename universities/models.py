@@ -5,6 +5,7 @@ Complete implementation of university-related models
 import uuid
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils.text import slugify
 from core.models import Emirate, Curriculum
 
 
@@ -27,6 +28,7 @@ class University(models.Model):
     """Main university model"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     image = models.ImageField(upload_to='university_images/', blank=True, null=True)
+    logo = models.ImageField(upload_to='university_logos/', blank=True, null=True)
     name = models.CharField(max_length=255, unique=True)
     short_name = models.CharField(max_length=50, blank=True)
     location_emirate = models.ForeignKey(Emirate, on_delete=models.PROTECT, related_name='universities')
@@ -42,6 +44,7 @@ class University(models.Model):
         ('private', 'Private'),
         ('federal', 'Federal'),
     ], default='private')
+    slug = models.SlugField(max_length=255, unique=True, null=True, blank=True)
     
     class Meta:
         verbose_name_plural = "Universities"
@@ -51,6 +54,11 @@ class University(models.Model):
             models.Index(fields=['university_type']),
         ]
     
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.short_name or self.name
 
