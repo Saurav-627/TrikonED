@@ -57,10 +57,17 @@ class Program(models.Model):
     ], default='on_campus')
     department = models.CharField(max_length=200, blank=True)
     is_active = models.BooleanField(default=True)
+    slug = models.SlugField(max_length=255, unique=True, null=True, blank=True)
     
     class Meta:
         ordering = ['university', 'name']
         unique_together = [['university', 'name']]
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            from django.utils.text import slugify
+            self.slug = slugify(f"{self.name}-{self.university.short_name}")
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return f"{self.name} - {self.university.short_name}"

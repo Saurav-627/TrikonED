@@ -32,7 +32,7 @@
                             <p
                                 class="text-[#181510] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">
                                 {{ university.name }}</p>
-                            <p class="text-[#8d7a5e] dark:text-[#a19077] text-base font-normal leading-normal">{{ university.location_emirate.name }}, UAE</p>
+                            <p class="text-[#8d7a5e] dark:text-[#a19077] text-base font-normal leading-normal">{{ university.location_emirate.name }}, {{ university.location_emirate.country.name }}</p>
                             {% if university.is_partner %}
                             <div
                                 class="mt-2 inline-flex items-center gap-2 rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-sm font-medium text-green-700 dark:text-green-300 w-fit">
@@ -48,9 +48,9 @@
                             <span class="truncate">Save to Wishlist</span>
                         </button> {% endcomment %}
                         {% if user.is_authenticated %}
-                        <a href="{% url 'applications:create' %}"
+                        <a href="?tab=programs"
                             class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-[#181510] text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto hover:opacity-90">
-                            <span class="truncate">Apply Now</span>
+                            <span class="truncate">View Programs to Apply</span>
                         </a>
                         {% else %}
                         <a href="{% url 'students:register' %}?next={{ request.path }}"
@@ -173,7 +173,7 @@
                                         <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-2">{{ program.type.name }} • {{ program.delivery_type|title }}</p>
                                         <p class="text-sm text-[#8d7a5e] dark:text-[#a19077]">{{ program.description|truncatewords:20 }}</p>
                                     </div>
-                                    <a href="{% url 'programs:detail' program.pk %}"
+                                    <a href="{% url 'programs:detail' program.slug %}"
                                         class="px-4 py-2 bg-primary/10 text-primary rounded-lg hover:bg-primary hover:text-[#181510] transition-all whitespace-nowrap text-sm font-bold">
                                         View Details
                                     </a>
@@ -381,9 +381,9 @@
                         <h3 class="text-[#181510] dark:text-white font-bold text-lg mb-4">Quick Actions</h3>
                         <div class="space-y-3">
                             {% if user.is_authenticated %}
-                            <a href="{% url 'applications:create' %}"
+                            <a href="?tab=programs"
                                 class="block w-full px-4 py-3 bg-primary text-[#181510] text-center font-bold rounded-lg hover:opacity-90 transition-all">
-                                Apply Now
+                                View Programs to Apply
                             </a>
                             {% else %}
                             <a href="{% url 'students:register' %}?next={{ request.path }}"

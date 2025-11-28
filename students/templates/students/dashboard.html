@@ -159,6 +159,36 @@
                 <!-- Sidebar -->
                 <div class="lg:col-span-1 space-y-6">
 
+                    <!-- My Profile -->
+                    <div
+                        class="bg-white dark:bg-[#1a1307] rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b] p-6">
+                        <h3 class="text-lg font-bold text-[#181510] dark:text-white mb-4">My Profile</h3>
+                        <div class="flex items-center gap-4 mb-4">
+                            {% if user.profile_picture %}
+                            <img src="{{ user.profile_picture.url }}" alt="Profile"
+                                class="w-12 h-12 rounded-full object-cover border-2 border-primary">
+                            {% else %}
+                            <div
+                                class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xl">
+                                {{ user.first_name|first }}{{ user.last_name|first }}
+                            </div>
+                            {% endif %}
+                            <div>
+                                <p class="font-bold text-[#181510] dark:text-white">{{ user.get_full_name }}</p>
+                                <p class="text-xs text-[#8d7a5e] dark:text-[#a19077]">{{ user.email }}</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2 text-sm text-[#8d7a5e] dark:text-[#a19077] mb-4">
+                            <p><span class="font-medium text-[#181510] dark:text-white">Phone:</span> {{ user.phone }}
+                            </p>
+                            <p><span class="font-medium text-[#181510] dark:text-white">Nationality:</span> {{ user.nationality }}</p>
+                        </div>
+                        <a href="{% url 'students:profile' %}"
+                            class="block w-full text-center px-4 py-2 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary hover:text-[#181510] transition-all">
+                            Edit Profile
+                        </a>
+                    </div>
+
                     <!-- Documents -->
                     <div
                         class="bg-white dark:bg-[#1a1307] rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b] p-6">

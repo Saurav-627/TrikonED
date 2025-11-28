@@ -16,7 +16,7 @@
                     href="{% url 'universities:list' %}">Universities</a>
                 <span class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">/</span>
                 <a class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal hover:text-primary transition-colors"
-                    href="{% url 'universities:detail' program.university.pk %}">{{ program.university.name }}</a>
+                    href="{% url 'universities:detail' program.university.slug %}">{{ program.university.name }}</a>
                 <span class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">/</span>
                 <span class="text-[#181510] dark:text-white text-sm font-medium leading-normal">
                     {{ program.name }}</span>
@@ -26,20 +26,22 @@
             <div class="bg-white dark:bg-[#1a1307] rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b] p-6 mb-6">
                 <div class="flex flex-col md:flex-row gap-6">
                     <div class="flex flex-col sm:flex-row gap-6 flex-1">
-                        <img src="{{ program.university.image.url }}" alt="{{ program.university.name }}" class="bg-center bg-no-repeat aspect-square bg-cover rounded-xl w-full sm:w-32 h-32 flex-shrink-0"/>
+                        <img src="{{ program.university.image.url }}" alt="{{ program.university.name }}"
+                            class="bg-center bg-no-repeat aspect-square bg-cover rounded-xl w-full sm:w-32 h-32 flex-shrink-0" />
                         <div class="flex flex-col justify-center">
                             <h1
                                 class="text-[#181510] dark:text-white text-3xl md:text-4xl font-bold leading-tight tracking-tight mb-2">
                                 {{ program.name }}</h1>
                             <p class="text-[#8d7a5e] dark:text-[#a19077] text-lg font-medium leading-normal mb-1">
                                 {{ program.university.name }}</p>
-                            <p class="text-[#8d7a5e] dark:text-[#a19077] text-base font-normal leading-normal">
-                                {{ program.university.location_emirate.name }}, UAE</p>
+                            <p class="text-[#8d7a5e] dark:text-[#a19077] text-lg font-medium">
+                                {{ program.university.location_emirate.name }}, {{ program.university.location_emirate.country.name }}
+                            </p>
                         </div>
                     </div>
                     <div class="flex items-center md:items-end">
                         {% if user.is_authenticated %}
-                        <a href="{% url 'applications:create' %}?program={{ program.pk }}"
+                        <a href="{% url 'applications:create' %}?program={{ program.pk }}&university={{ program.university.pk }}"
                             class="w-full sm:w-auto flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-all">
                             <span class="truncate">Apply Now</span>
                         </a>

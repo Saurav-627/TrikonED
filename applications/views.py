@@ -17,6 +17,16 @@ class ApplicationCreateView(LoginRequiredMixin, CreateView):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+
+    def get_initial(self):
+        initial = super().get_initial()
+        program_id = self.request.GET.get('program')
+        university_id = self.request.GET.get('university')
+        if program_id:
+            initial['program'] = program_id
+        if university_id:
+            initial['university'] = university_id
+        return initial
     
     def dispatch(self, request, *args, **kwargs):
         if not request.user.documents.exists():
@@ -26,6 +36,7 @@ class ApplicationCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         application = form.save(commit=False)
+        application.student = self.request.user
         application.status = 'pending'  # Set status to pending on submission
         application.save()
         

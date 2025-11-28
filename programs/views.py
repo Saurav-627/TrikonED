@@ -17,6 +17,8 @@ class ProgramDetailView(LoginRequiredMixin, DetailView):
     model = Program
     template_name = 'programs/program_detail.html'
     context_object_name = 'program'
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()

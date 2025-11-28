@@ -61,13 +61,10 @@
 
                             <div>
                                 <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
-                                    Application Type <span class="text-red-500">*</span>
+                                    Level <span class="text-red-500">*</span>
                                 </label>
+                                {{ form.level }}
                                 {{ form.application_type }}
-                                {% if form.application_type.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.application_type.errors.0
-                                    }}</p>
-                                {% endif %}
                             </div>
 
                             <div>
@@ -220,4 +217,39 @@
         resize: vertical;
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const universitySelect = document.getElementById('id_university');
+        const programSelect = document.getElementById('id_program');
+
+        if (universitySelect) {
+            universitySelect.addEventListener('change', function () {
+                const universityId = this.value;
+                const url = new URL(window.location.href);
+                if (universityId) {
+                    url.searchParams.set('university', universityId);
+                } else {
+                    url.searchParams.delete('university');
+                }
+                // Clear program selection when university changes
+                url.searchParams.delete('program');
+                window.location.href = url.toString();
+            });
+        }
+
+        if (programSelect) {
+            programSelect.addEventListener('change', function () {
+                const programId = this.value;
+                const url = new URL(window.location.href);
+                if (programId) {
+                    url.searchParams.set('program', programId);
+                } else {
+                    url.searchParams.delete('program');
+                }
+                window.location.href = url.toString();
+            });
+        }
+    });
+</script>
 {% endblock %}
