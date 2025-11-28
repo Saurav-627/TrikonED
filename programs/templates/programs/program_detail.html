@@ -3,174 +3,169 @@
 
 {% block title %}{{ program.name }} - {{ program.university.name }} - TrikonED{% endblock %}
 
-{% block extra_css %}
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-{% endblock %}
-
 {% block content %}
-<div class="font-display bg-background-light dark:bg-background-dark text-[#212529] dark:text-white/90 min-h-screen">
-    <main class="flex-1">
-        <div class="container mx-auto px-4 py-8">
-            <div class="mx-auto max-w-5xl">
-                <!-- Breadcrumbs -->
-                <div class="flex flex-wrap gap-2 px-4 pb-6">
-                    <a class="text-[#8d7a5e] dark:text-white/60 text-sm font-medium leading-normal hover:text-primary"
-                        href="{% url 'core:landing' %}">Home</a>
-                    <span class="text-[#8d7a5e] dark:text-white/60 text-sm font-medium leading-normal">/</span>
-                    <a class="text-[#8d7a5e] dark:text-white/60 text-sm font-medium leading-normal hover:text-primary"
-                        href="{% url 'universities:list' %}">Universities</a>
-                    <span class="text-[#8d7a5e] dark:text-white/60 text-sm font-medium leading-normal">/</span>
-                    <a class="text-[#8d7a5e] dark:text-white/60 text-sm font-medium leading-normal hover:text-primary"
-                        href="{% url 'universities:detail' program.university.pk %}">{{ program.university.name }}</a>
-                    <span class="text-[#8d7a5e] dark:text-white/60 text-sm font-medium leading-normal">/</span>
-                    <span class="text-[#181510] dark:text-white/90 text-sm font-medium leading-normal">
-                        {{ program.name }}</span>
-                </div>
+<main class="flex-1 w-full bg-background-light dark:bg-background-dark">
+    <div class="px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap gap-2 pb-6">
+                <a class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal hover:text-primary transition-colors"
+                    href="{% url 'core:landing' %}">Home</a>
+                <span class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">/</span>
+                <a class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal hover:text-primary transition-colors"
+                    href="{% url 'universities:list' %}">Universities</a>
+                <span class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">/</span>
+                <a class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal hover:text-primary transition-colors"
+                    href="{% url 'universities:detail' program.university.pk %}">{{ program.university.name }}</a>
+                <span class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">/</span>
+                <span class="text-[#181510] dark:text-white text-sm font-medium leading-normal">
+                    {{ program.name }}</span>
+            </div>
 
-                <!-- Header -->
-                <div class="flex flex-col gap-6 md:gap-8 p-4">
-                    <div class="flex flex-col md:flex-row w-full gap-6 @container">
-                        <div class="flex flex-col sm:flex-row gap-6 flex-1">
-                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-xl w-full sm:w-32 h-32"
-                                data-alt="Logo of {{ program.university.name }}"
-                                style='background-image: url("{% if program.university.image %}{{ program.university.image }}") {% endif %};'>
-                            </div>
-                            <div class="flex flex-col justify-center">
-                                <h1
-                                    class="text-[#181510] dark:text-white text-3xl md:text-4xl font-bold leading-tight tracking-tight">
-                                    {{ program.name }}</h1>
-                                <p class="text-[#8d7a5e] dark:text-white/70 text-lg font-normal leading-normal mt-1">
-                                    {{program.university.name }}</p>
-                                <p class="text-[#8d7a5e] dark:text-white/70 text-base font-normal leading-normal mt-1">
-                                    {{ program.university.location_emirate.name }}, UAE</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center md:items-end">
-                            {% if user.is_authenticated %}
-                            <a href="{% url 'applications:create' %}?program={{ program.pk }}"
-                                class="w-full sm:w-auto flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-[#FF9800] text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:bg-[#FF9800]/90 transition-colors">
-                                <span class="truncate">Apply Now</span>
-                            </a>
-                            {% else %}
-                            <a href="{% url 'students:login' %}?next={{ request.path }}"
-                                class="w-full sm:w-auto flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-[#FF9800] text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:bg-[#FF9800]/90 transition-colors">
-                                <span class="truncate">Login to Apply</span>
-                            </a>
-                            {% endif %}
+            <!-- Header Card -->
+            <div class="bg-white dark:bg-[#1a1307] rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b] p-6 mb-6">
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="flex flex-col sm:flex-row gap-6 flex-1">
+                        <img src="{{ program.university.image.url }}" alt="{{ program.university.name }}" class="bg-center bg-no-repeat aspect-square bg-cover rounded-xl w-full sm:w-32 h-32 flex-shrink-0"/>
+                        <div class="flex flex-col justify-center">
+                            <h1
+                                class="text-[#181510] dark:text-white text-3xl md:text-4xl font-bold leading-tight tracking-tight mb-2">
+                                {{ program.name }}</h1>
+                            <p class="text-[#8d7a5e] dark:text-[#a19077] text-lg font-medium leading-normal mb-1">
+                                {{ program.university.name }}</p>
+                            <p class="text-[#8d7a5e] dark:text-[#a19077] text-base font-normal leading-normal">
+                                {{ program.university.location_emirate.name }}, UAE</p>
                         </div>
                     </div>
-                </div>
-
-                <!-- Stats -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
-                    <div
-                        class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-white/10 bg-white dark:bg-[#1C1C1C]">
-                        <p class="text-[#8d7a5e] dark:text-white/70 text-sm font-medium leading-normal">Tuition Fees <span class="text-[#8d7a5e] text-xs leading-normal">({{ program.tuition_fees.first.get_per_display }})</span></p>
-                        <p class="text-[#181510] dark:text-white tracking-light text-md font-bold leading-tight">
-                            {% if program.tuition_fees.first %}
-                            {{ program.tuition_fees.first.currency }} {{ program.tuition_fees.first.amount|floatformat:0 }}
-                            {% if program.tuition_fees.first.max_amount %}
-                            - {{ program.tuition_fees.first.currency }} {{ program.tuition_fees.first.max_amount|floatformat:0 }}
-                            {% endif %}
-                            {% else %}
-                            Contact University
-                            {% endif %}
-                        </p>
-                    </div>
-                    <div
-                        class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-white/10 bg-white dark:bg-[#1C1C1C]">
-                        <p class="text-[#8d7a5e] dark:text-white/70 text-sm font-medium leading-normal">Program Duration
-                        </p>
-                        <p class="text-[#181510] dark:text-white tracking-light text-md font-bold leading-tight">
-                            {{ program.type.duration }} {{ program.type.get_duration_unit_display }}</p>
-                    </div>
-                    <div
-                        class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-white/10 bg-white dark:bg-[#1C1C1C]">
-                        <p class="text-[#8d7a5e] dark:text-white/70 text-sm font-medium leading-normal">Next Intake</p>
-                        <p class="text-[#181510] dark:text-white tracking-light text-md font-bold leading-tight">
-                            {% if program.intakes.first %}
-                            {{ program.intakes.first.start_date|date:"F Y" }}
-                            {% else %}
-                            See Details
-                            {% endif %}
-                        </p>
-                    </div>
-                    <div
-                        class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-white/10 bg-white dark:bg-[#1C1C1C]">
-                        <p class="text-[#8d7a5e] dark:text-white/70 text-sm font-medium leading-normal">IELTS Score</p>
-                        <p class="text-[#181510] dark:text-white tracking-light text-md font-bold leading-tight">
-                            {% if program.english_requirements.first and program.english_requirements.first.ielts %}
-                            {{ program.english_requirements.first.ielts }}+
-                            {% else %}
-                            N/A
-                            {% endif %}
-                        </p>
+                    <div class="flex items-center md:items-end">
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'applications:create' %}?program={{ program.pk }}"
+                            class="w-full sm:w-auto flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-all">
+                            <span class="truncate">Apply Now</span>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'students:login' %}?next={{ request.path }}"
+                            class="w-full sm:w-auto flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-all">
+                            <span class="truncate">Login to Apply</span>
+                        </a>
+                        {% endif %}
                     </div>
                 </div>
+            </div>
 
-                <!-- Tabs -->
-                <div class="p-4 mt-4">
-                    <div class="pb-3">
-                        <div class="flex border-b border-[#e7e2da] dark:border-white/10 gap-8 overflow-x-auto">
-                            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-primary text-primary pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
-                                data-tab="overview">
-                                <p class="text-sm font-bold leading-normal tracking-[0.015em]">Overview</p>
-                            </a>
-                            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#8d7a5e] dark:text-white/60 hover:text-primary dark:hover:text-primary pb-[13px] pt-4 transition-colors cursor-pointer tab-link whitespace-nowrap"
-                                data-tab="admission">
-                                <p class="text-sm font-bold leading-normal tracking-[0.015em]">Admission Requirements
-                                </p>
-                            </a>
-                            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#8d7a5e] dark:text-white/60 hover:text-primary dark:hover:text-primary pb-[13px] pt-4 transition-colors cursor-pointer tab-link whitespace-nowrap"
-                                data-tab="curriculum">
-                                <p class="text-sm font-bold leading-normal tracking-[0.015em]">Curriculum</p>
-                            </a>
-                            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#8d7a5e] dark:text-white/60 hover:text-primary dark:hover:text-primary pb-[13px] pt-4 transition-colors cursor-pointer tab-link whitespace-nowrap"
-                                data-tab="university">
-                                <p class="text-sm font-bold leading-normal tracking-[0.015em]">University Info</p>
-                            </a>
-                        </div>
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <div
+                    class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307]">
+                    <p class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">Tuition Fees
+                        {% if program.tuition_fees.first %}
+                        <span class="text-xs">({{ program.tuition_fees.first.get_per_display }})</span>
+                        {% endif %}
+                    </p>
+                    <p class="text-[#181510] dark:text-white text-lg font-bold leading-tight">
+                        {% if program.tuition_fees.first %}
+                        {{ program.tuition_fees.first.currency }} {{ program.tuition_fees.first.amount|floatformat:0 }}
+                        {% if program.tuition_fees.first.max_amount %}
+                        - {{ program.tuition_fees.first.currency }} {{ program.tuition_fees.first.max_amount|floatformat:0 }}
+                        {% endif %}
+                        {% else %}
+                        Contact University
+                        {% endif %}
+                    </p>
+                </div>
+                <div
+                    class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307]">
+                    <p class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">Program Duration
+                    </p>
+                    <p class="text-[#181510] dark:text-white text-lg font-bold leading-tight">
+                        {{ program.type.duration }} {{ program.type.get_duration_unit_display }}</p>
+                </div>
+                <div
+                    class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307]">
+                    <p class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">Next Intake</p>
+                    <p class="text-[#181510] dark:text-white text-lg font-bold leading-tight">
+                        {% if program.intakes.first %}
+                        {{ program.intakes.first.start_date|date:"F Y" }}
+                        {% else %}
+                        See Details
+                        {% endif %}
+                    </p>
+                </div>
+                <div
+                    class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307]">
+                    <p class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">IELTS Score</p>
+                    <p class="text-[#181510] dark:text-white text-lg font-bold leading-tight">
+                        {% if program.english_requirements.first and program.english_requirements.first.ielts %}
+                        {{ program.english_requirements.first.ielts }}+
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tabs Section -->
+            <div
+                class="bg-white dark:bg-[#1a1307] rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b] overflow-hidden">
+                <!-- Tab Headers -->
+                <div class="border-b border-[#e7e2da] dark:border-[#3a2d1b]">
+                    <div class="flex gap-8 overflow-x-auto px-6">
+                        <a class="flex flex-col items-center justify-center border-b-[3px] border-b-primary text-primary pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
+                            data-tab="overview">
+                            <p class="text-sm font-bold leading-normal tracking-[0.015em]">Overview</p>
+                        </a>
+                        <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#8d7a5e] dark:text-[#a19077] hover:text-primary transition-colors pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
+                            data-tab="admission">
+                            <p class="text-sm font-bold leading-normal tracking-[0.015em]">Admission Requirements</p>
+                        </a>
+                        <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#8d7a5e] dark:text-[#a19077] hover:text-primary transition-colors pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
+                            data-tab="curriculum">
+                            <p class="text-sm font-bold leading-normal tracking-[0.015em]">Curriculum</p>
+                        </a>
+                        <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#8d7a5e] dark:text-[#a19077] hover:text-primary transition-colors pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
+                            data-tab="university">
+                            <p class="text-sm font-bold leading-normal tracking-[0.015em]">University Info</p>
+                        </a>
                     </div>
+                </div>
 
-                    <!-- Tab Contents -->
-                    <div class="pt-8 text-base text-[#212529] dark:text-white/80 leading-relaxed space-y-4 tab-content"
+                <!-- Tab Contents -->
+                <div class="p-6">
+                    <div class="text-base text-[#181510] dark:text-white leading-relaxed space-y-4 tab-content"
                         id="overview">
-                        <h3 class="text-xl font-bold text-[#181510] dark:text-white">Program Overview</h3>
-                        <div class="prose dark:prose-invert max-w-none">
+                        <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-4">Program Overview</h3>
+                        <div class="prose dark:prose-invert max-w-none text-[#8d7a5e] dark:text-[#a19077]">
                             {{ program.description|linebreaks }}
                         </div>
                     </div>
 
-                    <div class="pt-8 text-base text-[#212529] dark:text-white/80 leading-relaxed space-y-4 tab-content hidden"
+                    <div class="text-base text-[#181510] dark:text-white leading-relaxed space-y-4 tab-content hidden"
                         id="admission">
-                        <h3 class="text-xl font-bold text-[#181510] dark:text-white">Admission Requirements</h3>
-                        <div class="prose dark:prose-invert max-w-none">
+                        <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-4">Admission Requirements</h3>
+                        <div class="prose dark:prose-invert max-w-none text-[#8d7a5e] dark:text-[#a19077]">
                             {{ program.type.entry_requirements|linebreaks }}
                         </div>
                     </div>
 
-                    <div class="pt-8 text-base text-[#212529] dark:text-white/80 leading-relaxed space-y-4 tab-content hidden"
+                    <div class="text-base text-[#181510] dark:text-white leading-relaxed space-y-4 tab-content hidden"
                         id="curriculum">
-                        <h3 class="text-xl font-bold text-[#181510] dark:text-white">Curriculum</h3>
-                        <p>Detailed curriculum information is available upon request. Please contact the university for
-                            the full syllabus.</p>
+                        <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-4">Curriculum</h3>
+                        <p class="text-[#8d7a5e] dark:text-[#a19077]">Detailed curriculum information is available upon
+                            request. Please contact the university for the full syllabus.</p>
                     </div>
 
-                    <div class="pt-8 text-base text-[#212529] dark:text-white/80 leading-relaxed space-y-4 tab-content hidden"
+                    <div class="text-base text-[#181510] dark:text-white leading-relaxed space-y-4 tab-content hidden"
                         id="university">
-                        <h3 class="text-xl font-bold text-[#181510] dark:text-white">About {{ program.university.name }}
-                        </h3>
-                        <div class="prose dark:prose-invert max-w-none">
+                        <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-4">About {{ program.university.name }}</h3>
+                        <div class="prose dark:prose-invert max-w-none text-[#8d7a5e] dark:text-[#a19077]">
                             {{ program.university.description|linebreaks }}
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-    </main>
-</div>
+    </div>
+</main>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -183,11 +178,11 @@
                 // Remove active class from all tabs
                 tabs.forEach(t => {
                     t.classList.remove('border-b-primary', 'text-primary');
-                    t.classList.add('border-b-transparent', 'text-[#8d7a5e]', 'dark:text-white/60');
+                    t.classList.add('border-b-transparent', 'text-[#8d7a5e]', 'dark:text-[#a19077]');
                 });
 
                 // Add active class to clicked tab
-                tab.classList.remove('border-b-transparent', 'text-[#8d7a5e]', 'dark:text-white/60');
+                tab.classList.remove('border-b-transparent', 'text-[#8d7a5e]', 'dark:text-[#a19077]');
                 tab.classList.add('border-b-primary', 'text-primary');
 
                 // Hide all contents
