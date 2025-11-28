@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView, CreateView, UpdateView, FormView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login
+from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Student, StudentDocument
@@ -22,7 +23,7 @@ class StudentRegisterView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return super().form_valid(form)
+        return redirect(self.success_url)
 
 class StudentDashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'students/dashboard.html'
