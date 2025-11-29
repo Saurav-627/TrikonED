@@ -338,6 +338,14 @@
                                 <p class="text-3xl font-bold text-primary">{{ latest_stats.female_students }}</p>
                                 <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">Female Students</p>
                             </div>
+                            {% if latest_stats.extra_data %}
+                            {% for key, value in latest_stats.extra_data.items %}
+                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
+                                <p class="text-3xl font-bold text-primary">{{ value }}</p>
+                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">{{ key|title }}</p>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                     {% else %}

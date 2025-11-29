@@ -9,12 +9,12 @@ class Country(models.Model):
     """Country model - represents countries (primarily UAE)"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    iso_code = models.CharField(max_length=3, unique=True, help_text="ISO 3166-1 alpha-3 code")
+    country_code = models.CharField(max_length=3, unique=True, help_text="ISO 3166-1 alpha-3 code")
     
     class Meta:
         verbose_name_plural = "Countries"
         ordering = ['name']
-        indexes = [models.Index(fields=['iso_code'])]
+        indexes = [models.Index(fields=['country_code'])]
     
     def __str__(self):
         return self.name

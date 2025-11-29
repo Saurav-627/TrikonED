@@ -60,3 +60,24 @@ class ApplicationLog(models.Model):
     
     def __str__(self):
         return f"{self.application.id} - {self.event}"
+
+
+class PendingApplication(Application):
+    class Meta:
+        proxy = True
+        verbose_name = "Pending Application"
+        verbose_name_plural = "Pending Applications"
+
+
+class AcceptedApplication(Application):
+    class Meta:
+        proxy = True
+        verbose_name = "Accepted Application"
+        verbose_name_plural = "Accepted Applications"
+
+
+class RejectedApplication(Application):
+    class Meta:
+        proxy = True
+        verbose_name = "Rejected Application"
+        verbose_name_plural = "Rejected Applications"

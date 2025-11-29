@@ -79,3 +79,28 @@ class ApplicationCancelView(LoginRequiredMixin, DeleteView):
     def get(self, request, *args, **kwargs):
         # Allow GET requests to delete (for simple links)
         return self.delete(request, *args, **kwargs)
+
+
+from django.views import View
+from django.http import HttpResponse
+from .utils import generate_application_pdf
+
+class ApplicationPDFView(View):
+    """Generate and download application as PDF - Admin only"""
+    
+    def get(self, request, application_id):
+        # Check if user is admin
+        if not request.user.is_staff:
+            from django.http import HttpResponseForbidden
+            return HttpResponseForbidden("Only administrators can download application PDFs.")
+        
+        application = get_object_or_404(Application, application_id=application_id)
+        
+        # Generate PDF
+        pdf = generate_application_pdf(application)
+        
+        # Create HTTP response
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="application_{application.application_id}.pdf"'
+        
+        return response

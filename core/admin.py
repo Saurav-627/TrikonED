@@ -4,8 +4,8 @@ from .models import Country, Emirate, Curriculum
 
 @admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'iso_code']
-    search_fields = ['name', 'iso_code']
+    list_display = ('name', 'country_code')
+    search_fields = ('name', 'country_code')
 
 
 @admin.register(Emirate)

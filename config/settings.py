@@ -139,6 +139,10 @@ CRISPY_TEMPLATE_PACK = "tailwind"
 
 
 # Authentication
+AUTHENTICATION_BACKENDS = [
+    'core.backends.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 LOGIN_URL = 'students:login'
 LOGIN_REDIRECT_URL = 'students:dashboard'
 LOGOUT_REDIRECT_URL = 'core:landing'

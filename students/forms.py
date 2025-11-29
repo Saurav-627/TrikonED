@@ -69,13 +69,15 @@ class StudentProfileForm(forms.ModelForm):
 class MultipleDocumentUploadForm(forms.Form):
     passport = forms.FileField(
         label="Passport Copy",
+        required=False,
         widget=forms.FileInput(attrs={'class': 'w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-accent-green'}),
-        help_text="Upload a clear scan of your passport."
+        help_text="Upload a clear scan of your passport. Leave empty to keep existing."
     )
     transcript = forms.FileField(
         label="Academic Transcript",
+        required=False,
         widget=forms.FileInput(attrs={'class': 'w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-accent-green'}),
-        help_text="Upload your latest academic transcript or marksheet."
+        help_text="Upload your latest academic transcript or marksheet. Leave empty to keep existing."
     )
     other_documents = forms.FileField(
         label="Other Documents (Optional)",

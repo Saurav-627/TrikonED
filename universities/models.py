@@ -72,6 +72,7 @@ class EnrollmentStat(models.Model):
     male_students = models.IntegerField(validators=[MinValueValidator(0)])
     female_students = models.IntegerField(validators=[MinValueValidator(0)])
     faculty_count = models.IntegerField(validators=[MinValueValidator(0)])
+    extra_data = models.JSONField(default=dict, blank=True, help_text="Additional statistics")
     academic_year = models.CharField(max_length=20)
     
     class Meta:

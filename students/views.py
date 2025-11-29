@@ -63,25 +63,31 @@ class StudentDocumentUploadView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         student = self.request.user
         
-        # Save Passport
-        passport_file = form.cleaned_data['passport']
-        StudentDocument.objects.create(
-            student=student,
-            doc_type='passport',
-            file_url=passport_file,
-            file_name=passport_file.name
-        )
+        # Save/Replace Passport
+        if 'passport' in form.cleaned_data and form.cleaned_data['passport']:
+            passport_file = form.cleaned_data['passport']
+            # Delete old passport if exists
+            StudentDocument.objects.filter(student=student, doc_type='passport').delete()
+            StudentDocument.objects.create(
+                student=student,
+                doc_type='passport',
+                file_url=passport_file,
+                file_name=passport_file.name
+            )
         
-        # Save Transcript
-        transcript_file = form.cleaned_data['transcript']
-        StudentDocument.objects.create(
-            student=student,
-            doc_type='transcript',
-            file_url=transcript_file,
-            file_name=transcript_file.name
-        )
+        # Save/Replace Transcript
+        if 'transcript' in form.cleaned_data and form.cleaned_data['transcript']:
+            transcript_file = form.cleaned_data['transcript']
+            # Delete old transcript if exists
+            StudentDocument.objects.filter(student=student, doc_type='transcript').delete()
+            StudentDocument.objects.create(
+                student=student,
+                doc_type='transcript',
+                file_url=transcript_file,
+                file_name=transcript_file.name
+            )
         
-        # Save Other Documents
+        # Save Other Documents (append, don't replace)
         files = self.request.FILES.getlist('other_documents')
         for f in files:
             StudentDocument.objects.create(

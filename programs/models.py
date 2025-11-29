@@ -120,6 +120,7 @@ class EnglishRequirement(models.Model):
     ielts = models.DecimalField(max_digits=3, decimal_places=1, null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(9)])
     toefl = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(120)])
     pte = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(90)])
+    extra_requirements = models.JSONField(default=dict, blank=True, help_text="Additional English requirements (e.g. SAT, Duolingo)")
     expiry_date = models.DateField(null=True, blank=True)
     
     def __str__(self):

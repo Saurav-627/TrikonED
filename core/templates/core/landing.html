@@ -83,29 +83,75 @@
             </div>
         </div>
     </section>
-    <!-- Stats Section -->
-    <section class="py-16 lg:py-24 bg-white">
+    <!-- Stats Section with Animated Counters -->
+    <section class="py-16 lg:py-24 bg-white dark:bg-[#1a1307]" id="stats-section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div class="text-center">
-                    <p class="text-5xl font-black text-primary mb-2">50+</p>
+                    <p class="text-5xl font-black text-primary mb-2 counter"
+                        data-target="{{ total_partner_universities }}">0</p>
                     <p class="text-[#8d7a5e] dark:text-[#a19077] font-medium">Partner Universities</p>
                 </div>
                 <div class="text-center">
-                    <p class="text-5xl font-black text-primary mb-2">500+</p>
+                    <p class="text-5xl font-black text-primary mb-2 counter" data-target="{{ total_programs }}">0</p>
                     <p class="text-[#8d7a5e] dark:text-[#a19077] font-medium">Programs Available</p>
                 </div>
                 <div class="text-center">
-                    <p class="text-5xl font-black text-primary mb-2">10K+</p>
+                    <p class="text-5xl font-black text-primary mb-2 counter" data-target="{{ total_student_help }}">0
+                    </p>
                     <p class="text-[#8d7a5e] dark:text-[#a19077] font-medium">Students Helped</p>
                 </div>
                 <div class="text-center">
-                    <p class="text-5xl font-black text-primary mb-2">95%</p>
+                    <p class="text-5xl font-black text-primary mb-2"><span class="counter"
+                            data-target="{{ total_success_rate }}">0</span>%</p>
                     <p class="text-[#8d7a5e] dark:text-[#a19077] font-medium">Success Rate</p>
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        // Animated Counter on Scroll
+        document.addEventListener('DOMContentLoaded', function () {
+            const counters = document.querySelectorAll('.counter');
+            const statsSection = document.getElementById('stats-section');
+            let hasAnimated = false;
+
+            const animateCounter = (counter) => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16); // 60fps
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+
+                updateCounter();
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasAnimated) {
+                        hasAnimated = true;
+                        counters.forEach(counter => {
+                            animateCounter(counter);
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.5 // Trigger when 50% of the section is visible
+            });
+
+            observer.observe(statsSection);
+        });
+    </script>
 
     <section class="w-full py-20 lg:py-24 dark:bg-[#1a1307]">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
