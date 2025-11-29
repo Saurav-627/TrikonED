@@ -5,8 +5,8 @@
 
 {% block content %}
 <main class="flex-1 w-full bg-background-light dark:bg-background-dark">
-    <section class="py-12 min-h-screen">
-        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-4">
+        <div class="max-w-screen-md mx-auto px-4 sm:px-6 lg:px-8">
             <div
                 class="bg-white dark:bg-[#1a1307] rounded-xl shadow-lg border border-[#e7e2da] dark:border-[#3a2d1b] overflow-hidden">
                 <div class="p-8">
@@ -117,8 +117,7 @@
                                 </div>
                             </div>
                             {% if form.other_documents.help_text %}
-                            <p class="text-xs text-[#8d7a5e] dark:text-[#a19077] mt-1">{{ form.other_documents.help_text
-                                }}</p>
+                            <p class="text-xs text-[#8d7a5e] dark:text-[#a19077] mt-1">{{ form.other_documents.help_text }}</p>
                             {% endif %}
                             {% if form.other_documents.errors %}
                             <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.other_documents.errors.0 }}
