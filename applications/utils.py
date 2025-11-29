@@ -117,11 +117,11 @@ def generate_application_pdf(application):
     documents = application.student.documents.all()
     if documents:
         doc_data = [['Document Type', 'File Name', 'Uploaded On']]
-        for doc in documents:
+        for document in documents:
             doc_data.append([
-                doc.get_doc_type_display(),
-                doc.file_name,
-                doc.uploaded_at.strftime('%B %d, %Y')
+                document.get_doc_type_display(),
+                document.file_name,
+                document.uploaded_at.strftime('%B %d, %Y')
             ])
         
         doc_table = Table(doc_data, colWidths=[2*inch, 2.5*inch, 1.5*inch])

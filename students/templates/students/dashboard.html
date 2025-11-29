@@ -23,6 +23,24 @@
         </div>
     </section>
 
+    {% if not profile_complete %}
+    <div class="bg-orange-100 dark:bg-orange-900/30 border-b border-orange-200 dark:border-orange-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-orange-600 dark:text-orange-400">warning</span>
+                    <p class="text-orange-800 dark:text-orange-200 font-medium">Your profile is incomplete. Please
+                        complete your profile to submit applications.</p>
+                </div>
+                <a href="{% url 'students:profile' %}"
+                    class="text-sm font-bold text-orange-700 dark:text-orange-300 hover:underline">
+                    Complete Profile &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
     <!-- Dashboard Content -->
     <section class="py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

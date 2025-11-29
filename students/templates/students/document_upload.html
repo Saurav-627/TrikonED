@@ -35,6 +35,23 @@
                                 {{ form.passport.label }}
                                 <span class="text-red-500">*</span>
                             </label>
+
+                            {% if existing_passport %}
+                            <div
+                                class="mb-2 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <span
+                                        class="material-symbols-outlined text-green-600 dark:text-green-400">check_circle</span>
+                                    <div class="text-sm">
+                                        <p class="font-medium text-green-800 dark:text-green-200">Current File: {{ existing_passport.file_name }}</p>
+                                        <p class="text-xs text-green-600 dark:text-green-400">Uploaded on {{ existing_passport.uploaded_at|date:"M d, Y" }}</p>
+                                    </div>
+                                </div>
+                                <a href="{{ existing_passport.file_url.url }}" target="_blank"
+                                    class="text-primary hover:underline text-sm font-medium">View</a>
+                            </div>
+                            {% endif %}
+
                             <div class="relative">
                                 {{ form.passport }}
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -55,6 +72,23 @@
                                 {{ form.transcript.label }}
                                 <span class="text-red-500">*</span>
                             </label>
+
+                            {% if existing_transcript %}
+                            <div
+                                class="mb-2 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <span
+                                        class="material-symbols-outlined text-green-600 dark:text-green-400">check_circle</span>
+                                    <div class="text-sm">
+                                        <p class="font-medium text-green-800 dark:text-green-200">Current File: {{ existing_transcript.file_name }}</p>
+                                        <p class="text-xs text-green-600 dark:text-green-400">Uploaded on {{ existing_transcript.uploaded_at|date:"M d, Y" }}</p>
+                                    </div>
+                                </div>
+                                <a href="{{ existing_transcript.file_url.url }}" target="_blank"
+                                    class="text-primary hover:underline text-sm font-medium">View</a>
+                            </div>
+                            {% endif %}
+
                             <div class="relative">
                                 {{ form.transcript }}
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -83,7 +117,8 @@
                                 </div>
                             </div>
                             {% if form.other_documents.help_text %}
-                            <p class="text-xs text-[#8d7a5e] dark:text-[#a19077] mt-1">{{ form.other_documents.help_text }}</p>
+                            <p class="text-xs text-[#8d7a5e] dark:text-[#a19077] mt-1">{{ form.other_documents.help_text
+                                }}</p>
                             {% endif %}
                             {% if form.other_documents.errors %}
                             <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.other_documents.errors.0 }}
@@ -149,7 +184,7 @@
     input[type="file"]:focus {
         outline: none;
         border-color: #ff9900;
-        ring: 1px solid #ff9900;
+        box-shadow: 0 0 0 1px #ff9900;
     }
 
     input[type="file"]::file-selector-button {

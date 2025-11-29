@@ -30,10 +30,23 @@ class ApplicationForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         
         # Make personal info read-only
-        personal_fields = ['phone', 'gender', 'nationality', 'date_of_birth', 'passport_number', 'passport_expiry', 'address']
+        # Make personal info read-only ONLY if already populated
+        personal_fields = ['phone', 'nationality', 'date_of_birth', 'passport_number', 'passport_expiry', 'address']
         for field in personal_fields:
-            self.fields[field].widget.attrs['readonly'] = True
-            self.fields[field].widget.attrs['class'] = 'bg-gray-100 cursor-not-allowed'
+            user_value = getattr(self.user, field, None)
+            if user_value:
+                self.fields[field].widget.attrs['readonly'] = True
+                self.fields[field].widget.attrs['class'] = 'bg-gray-100 cursor-not-allowed w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] text-[#8d7a5e]'
+            else:
+                self.fields[field].widget.attrs['class'] = 'w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all'
+
+        # Handle gender separately (Select field)
+        if self.user.gender:
+            self.fields['gender'].widget.attrs['style'] = 'pointer-events: none; background-color: #f3f4f6;'
+            self.fields['gender'].widget.attrs['readonly'] = True
+            self.fields['gender'].widget.attrs['class'] = 'bg-gray-100 cursor-not-allowed w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] text-[#8d7a5e]'
+        else:
+            self.fields['gender'].widget.attrs['class'] = 'w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all'
         
         # Filter programs based on university
         if 'university' in self.data:
@@ -91,14 +104,22 @@ class ApplicationForm(forms.ModelForm):
         application = super().save(commit=False)
         if self.user:
             # Update student profile
+            # Update student profile - only update empty fields
             student = self.user
-            student.phone = self.cleaned_data['phone']
-            student.gender = self.cleaned_data['gender']
-            student.nationality = self.cleaned_data['nationality']
-            student.date_of_birth = self.cleaned_data['date_of_birth']
-            student.passport_number = self.cleaned_data['passport_number']
-            student.passport_expiry = self.cleaned_data['passport_expiry']
-            student.address = self.cleaned_data['address']
+            if not student.phone:
+                student.phone = self.cleaned_data['phone']
+            if not student.gender:
+                student.gender = self.cleaned_data['gender']
+            if not student.nationality:
+                student.nationality = self.cleaned_data['nationality']
+            if not student.date_of_birth:
+                student.date_of_birth = self.cleaned_data['date_of_birth']
+            if not student.passport_number:
+                student.passport_number = self.cleaned_data['passport_number']
+            if not student.passport_expiry:
+                student.passport_expiry = self.cleaned_data['passport_expiry']
+            if not student.address:
+                student.address = self.cleaned_data['address']
             student.save()
             
             application.student = student

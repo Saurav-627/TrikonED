@@ -60,6 +60,13 @@ class StudentDocumentUploadView(LoginRequiredMixin, FormView):
     template_name = 'students/document_upload.html'
     success_url = reverse_lazy('students:dashboard')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        student = self.request.user
+        context['existing_passport'] = student.documents.filter(doc_type='passport').first()
+        context['existing_transcript'] = student.documents.filter(doc_type='transcript').first()
+        return context
+
     def form_valid(self, form):
         student = self.request.user
         
