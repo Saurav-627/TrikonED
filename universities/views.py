@@ -65,13 +65,19 @@ class UniversityDetailView(LoginRequiredMixin, DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         if request.user.is_authenticated:
-            visit, created = StudentUniversityVisit.objects.get_or_create(
-                student=request.user,
-                university=self.object
-            )
-            if not created:
-                visit.visit_count += 1
-                visit.save()
+            # Check if this is a tab switch or reload
+            # Only count if the user is NOT coming from the same page
+            referer = request.META.get('HTTP_REFERER', '')
+            current_path = request.path
+            
+            if not referer or current_path not in referer:
+                visit, created = StudentUniversityVisit.objects.get_or_create(
+                    student=request.user,
+                    university=self.object
+                )
+                if not created:
+                    visit.visit_count += 1
+                    visit.save()
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
     
