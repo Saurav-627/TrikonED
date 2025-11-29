@@ -1,19 +1,14 @@
+{% load static %}
+
 <footer
     class="w-full border-t border-solid border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-background-dark py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div class="md:col-span-1 flex flex-col gap-4">
-                <div class="flex items-center gap-2">
-                    <div class="size-6 text-primary">
-                        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_6_330)">
-                                <path clip-rule="evenodd"
-                                    d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z"
-                                    fill="currentColor" fill-rule="evenodd"></path>
-                            </g>
-                        </svg>
-                    </div>
-                    <h2 class="text-lg font-bold">TrikonED</h2>
+                <div class="flex items-center gap-4">
+                    <a href="{% url 'core:landing' %}">
+                        <img src="{% static 'images/logo2.png' %}" alt="TrikonED Logo" class="h-10 w-auto">
+                    </a>
                 </div>
                 <p class="text-sm text-[#8d7a5e] dark:text-[#a19077]">Simplifying your path to international education.
                 </p>
