@@ -22,7 +22,7 @@ class StudentRegisterView(CreateView):
     
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
+        login(self.request, user, backend='core.backends.EmailOrUsernameModelBackend')
         return redirect(self.success_url)
 
 class StudentDashboardView(LoginRequiredMixin, TemplateView):

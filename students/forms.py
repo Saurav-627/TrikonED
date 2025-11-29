@@ -18,11 +18,15 @@ class StudentRegisterForm(forms.ModelForm):
     
     class Meta:
         model = Student
-        fields = ['username', 'email', 'password']
+        fields = ['first_name', 'last_name', 'email', 'password']
         widgets = {
-            'username': forms.TextInput(attrs={
+            'first_name': forms.TextInput(attrs={
                 'class': 'w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all',
-                'placeholder': 'Choose a username'
+                'placeholder': 'First Name'
+            }),
+            'last_name': forms.TextInput(attrs={
+                'class': 'w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all',
+                'placeholder': 'Last Name'
             }),
             'email': forms.EmailInput(attrs={
                 'class': 'w-full px-4 py-3 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all',
@@ -43,6 +47,28 @@ class StudentRegisterForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password"])
+        
+        # Auto-generate username
+        import random
+        import string
+        
+        first_name = self.cleaned_data.get('first_name', '').lower()
+        last_name = self.cleaned_data.get('last_name', '').lower()
+        
+        # Sanitize names to keep only alphanumeric characters
+        first_name = "".join(c for c in first_name if c.isalnum())
+        last_name = "".join(c for c in last_name if c.isalnum())
+        
+        base_username = f"{first_name}.{last_name}"
+        username = base_username
+        
+        # Ensure uniqueness
+        while Student.objects.filter(username=username).exists():
+            random_suffix = ''.join(random.choices(string.digits, k=4))
+            username = f"{base_username}{random_suffix}"
+            
+        user.username = username
+        
         if commit:
             user.save()
         return user

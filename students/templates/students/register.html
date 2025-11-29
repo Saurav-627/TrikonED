@@ -45,16 +45,28 @@
                     </div>
                     {% endif %}
 
-                    <!-- Username -->
-                    <div>
-                        <label for="{{ form.username.id_for_label }}"
-                            class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
-                            Username <span class="text-red-500">*</span>
-                        </label>
-                        {{ form.username }}
-                        {% if form.username.errors %}
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.username.errors.0 }}</p>
-                        {% endif %}
+                    <!-- First Name and Last Name -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label for="{{ form.first_name.id_for_label }}"
+                                class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                First Name <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.first_name.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <label for="{{ form.last_name.id_for_label }}"
+                                class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                Last Name <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.last_name.errors.0 }}</p>
+                            {% endif %}
+                        </div>
                     </div>
 
                     <!-- Email -->
