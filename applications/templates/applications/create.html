@@ -5,8 +5,8 @@
 
 {% block content %}
 <main class="flex-1 w-full bg-background-light dark:bg-background-dark">
-    <section class="py-12 min-h-screen">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-4">
+        <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8">
 
             <div
                 class="bg-white dark:bg-[#1a1307] rounded-xl shadow-lg border border-[#e7e2da] dark:border-[#3a2d1b] p-8">
@@ -165,11 +165,11 @@
 
                     <div class="flex gap-4 pt-6">
                         <a href="{% url 'students:dashboard' %}"
-                            class="flex-1 px-6 py-3 border-2 border-[#e7e2da] dark:border-[#3a2d1b] text-[#181510] dark:text-white font-bold rounded-lg hover:bg-background-light dark:hover:bg-background-dark transition-all text-center">
+                            class="flex-1 px-6 bg-red-100 py-3 border-2 dark:border-[#3a2d1b] text-red-700 dark:text-white font-bold rounded-lg hover:bg-red-200 dark:hover:bg-background-dark transition-all text-center">
                             Cancel
                         </a>
                         <button type="submit"
-                            class="flex-1 px-6 py-4 bg-primary text-[#181510] font-bold rounded-lg hover:opacity-90 transition-all">
+                            class="flex-1 px-6 py-4 bg-primary text-white font-bold rounded-lg hover:opacity-90 transition-all">
                             Submit Application
                         </button>
                     </div>

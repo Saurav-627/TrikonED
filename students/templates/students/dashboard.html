@@ -16,7 +16,7 @@
                     <p class="text-[#8d7a5e] dark:text-[#a19077]">{{ user.email }}</p>
                 </div>
                 <a href="{% url 'applications:create' %}"
-                    class="px-6 py-3 bg-primary text-[#181510] font-bold rounded-lg hover:opacity-90 transition-all">
+                    class="px-6 py-3 bg-primary text-white font-bold rounded-lg hover:opacity-90 transition-all">
                     + New Application
                 </a>
             </div>
@@ -47,19 +47,19 @@
 
             <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white dark:bg-[#1a1307] rounded-xl shadow-sm border-l-4 border-primary p-6">
+                <div class="bg-primary-10 dark:bg-[#1a1307] rounded-xl shadow-sm border-l-4 border-primary p-6">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-1">Total Applications</p>
                             <p class="text-3xl font-bold text-[#181510] dark:text-white">{{ applications.count }}</p>
                         </div>
-                        <div class="size-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                        <div class="size-12 bg-primary-20 rounded-xl flex items-center justify-center">
                             <span class="material-symbols-outlined text-primary text-2xl">description</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-[#1a1307] rounded-xl shadow-sm border-l-4 border-orange-500 p-6">
+                <div class="bg-accent-20 dark:bg-[#1a1307] rounded-xl shadow-sm border-l-4 border-accent p-6">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-1">Pending Review</p>
@@ -68,20 +68,20 @@
                             </p>
                         </div>
                         <div
-                            class="size-12 bg-orange-100 dark:bg-orange-900/20 rounded-xl flex items-center justify-center">
-                            <span class="material-symbols-outlined text-orange-500 text-2xl">schedule</span>
+                            class="size-12 bg-accent-30 dark:bg-orange-900/20 rounded-xl flex items-center justify-center">
+                            <span class="material-symbols-outlined text-orange-700 text-2xl">schedule</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-[#1a1307] rounded-xl shadow-sm border-l-4 border-[#8d7a5e] p-6">
+                <div class="bg-secondary-10 dark:bg-[#1a1307] rounded-xl shadow-sm border-l-4 border-secondary p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-1">Documents</p>
-                            <p class="text-3xl font-bold text-[#181510] dark:text-white">{{ documents.count }}</p>
+                            <p class="text-sm text-secondary dark:text-[#a19077] mb-1">Documents</p>
+                            <p class="text-3xl font-bold text-text-secondary  dark:text-white">{{ documents.count }}</p>
                         </div>
-                        <div class="size-12 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center">
-                            <span class="material-symbols-outlined text-[#8d7a5e] text-2xl">folder</span>
+                        <div class="size-12 bg-secondary-20 dark:bg-secondary-30 rounded-xl flex items-center justify-center">
+                            <span class="material-symbols-outlined text-text-secondary text-2xl">folder</span>
                         </div>
                     </div>
                 </div>
@@ -139,10 +139,10 @@
 
                                 <div class="flex gap-3">
                                     <a href="{% url 'applications:detail' application.application_id %}"
-                                        class="flex-1 text-center px-4 py-2 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary hover:text-[#181510] transition-all">
+                                        class="flex-1 text-center px-4 py-2 bg-primary-10 border border-primary text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all">
                                         View Details
                                     </a>
-                                    {% if application.status == 'draft' %}
+                                    {% if application.status == 'pending' %}
                                     <a href="{% url 'applications:cancel' application.application_id %}"
                                         onclick="return confirm('Are you sure you want to cancel this application? This action cannot be undone.');"
                                         class="flex-1 text-center px-4 py-2 bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-300 font-bold rounded-lg hover:bg-red-200 dark:hover:bg-red-900/40 transition-all">
@@ -199,7 +199,7 @@
                             <p><span class="font-medium text-[#181510] dark:text-white">Nationality:</span> {{ user.nationality }}</p>
                         </div>
                         <a href="{% url 'students:profile' %}"
-                            class="block w-full text-center px-4 py-2 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary hover:text-[#181510] transition-all">
+                            class="block w-full text-center px-4 py-2 bg-primary-10 text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all">
                             Edit Profile
                         </a>
                     </div>
@@ -217,17 +217,17 @@
                         <div class="space-y-3 mb-4">
                             {% for doc in documents|slice:":5" %}
                             <div
-                                class="flex items-center justify-between p-3 bg-background-light dark:bg-background-dark rounded-lg">
+                                class="flex items-center justify-between p-3 bg-secondary-10 dark:bg-background-dark rounded-lg">
                                 <div class="flex items-center flex-1 min-w-0">
                                     <span
-                                        class="material-symbols-outlined text-primary flex-shrink-0 mr-2">description</span>
+                                        class="material-symbols-outlined text-secondary flex-shrink-0 mr-2">description</span>
                                     <div class="min-w-0 flex-1">
-                                        <p class="text-sm font-medium text-[#181510] dark:text-white truncate">{{ doc.get_doc_type_display }}</p>
-                                        <p class="text-xs text-[#8d7a5e] dark:text-[#a19077]">{{ doc.uploaded_at|date:"M d, Y" }}</p>
+                                        <p class="text-sm font-medium text-text-secondary dark:text-white truncate">{{ doc.get_doc_type_display }}</p>
+                                        <p class="text-xs text-text-secondary dark:text-[#a19077]">{{ doc.uploaded_at|date:"M d, Y" }}</p>
                                     </div>
                                 </div>
                                 <a href="{{ doc.file_url.url }}" target="_blank"
-                                    class="ml-2 text-primary hover:text-primary/80">
+                                    class="ml-2 text-secondary hover:text-primary/80">
                                     <span class="material-symbols-outlined">download</span>
                                 </a>
                             </div>
@@ -238,7 +238,7 @@
                         {% endif %}
 
                         <a href="{% url 'students:upload_document' %}"
-                            class="block w-full text-center px-4 py-2 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary hover:text-[#181510] transition-all">
+                            class="block w-full text-center px-4 py-2 bg-primary-10 text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all">
                             Upload Document
                         </a>
                     </div>
@@ -249,11 +249,11 @@
                         <h3 class="text-lg font-bold text-[#181510] dark:text-white mb-4">Quick Actions</h3>
                         <div class="space-y-2">
                             <a href="{% url 'universities:list' %}"
-                                class="block px-4 py-3 bg-background-light dark:bg-background-dark rounded-lg hover:bg-primary/10 hover:text-primary transition-all text-[#181510] dark:text-white">
+                                class="block px-4 py-3 bg-secondary-10 dark:bg-background-dark rounded-lg hover:text-black transition-all text-secondary dark:text-white">
                                 Browse Universities
                             </a>
                             <a href="{% url 'programs:list' %}"
-                                class="block px-4 py-3 bg-background-light dark:bg-background-dark rounded-lg hover:bg-primary/10 hover:text-primary transition-all text-[#181510] dark:text-white">
+                                class="block px-4 py-3 bg-secondary-10 dark:bg-background-dark rounded-lg  hover:text-black transition-all text-secondary dark:text-white">
                                 Explore Programs
                             </a>
                         </div>

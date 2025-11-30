@@ -24,8 +24,8 @@
                             style='background-image: url("{{ university.logo.url }}");'></div>
                         {% else %}
                         <div
-                            class="bg-background-light dark:bg-background-dark rounded-lg min-h-32 w-32 shadow-md flex items-center justify-center">
-                            <span class="text-5xl font-bold text-primary">{{ university.short_name|slice:":2"|upper }}</span>
+                            class="bg-secondary-10 border border-secondary dark:bg-background-dark rounded-lg min-h-32 w-32 shadow-md flex items-center justify-center">
+                            <span class="text-5xl font-bold text-secondary">{{ university.short_name|slice:":2"|upper }}</span>
                         </div>
                         {% endif %}
                         <div class="flex flex-col justify-center">
@@ -35,7 +35,7 @@
                             <p class="text-[#8d7a5e] dark:text-[#a19077] text-base font-normal leading-normal">{{ university.location_emirate.name }}, {{ university.location_emirate.country.name }}</p>
                             {% if university.is_partner %}
                             <div
-                                class="mt-2 inline-flex items-center gap-2 rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-sm font-medium text-green-700 dark:text-green-300 w-fit">
+                                class="mt-2 inline-flex items-center gap-2 rounded-full bg-secondary-10 border border-secondary text-secondary dark:bg-green-900/50 px-3 py-1 text-sm font-medium text-green-700 dark:text-green-300 w-fit">
                                 <span class="material-symbols-outlined text-base">verified</span>
                                 <span>Official Partner</span>
                             </div>
@@ -49,12 +49,12 @@
                         </button> {% endcomment %}
                         {% if user.is_authenticated %}
                         <a href="?tab=programs"
-                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-[#181510] text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto hover:opacity-90">
+                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto hover:opacity-90">
                             <span class="truncate">View Programs to Apply</span>
                         </a>
                         {% else %}
                         <a href="{% url 'students:register' %}?next={{ request.path }}"
-                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-[#181510] text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto hover:opacity-90">
+                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto hover:opacity-90">
                             <span class="truncate">Sign Up to Apply</span>
                         </a>
                         {% endif %}
@@ -166,7 +166,7 @@
                         <div class="space-y-4">
                             {% for program in university.programs.all %}
                             <div
-                                class="border border-[#e7e2da] dark:border-[#3a2d1b] rounded-xl p-4 hover:border-primary transition-all">
+                                class="bg-accent-10 border border-[#e7e2da] dark:border-[#3a2d1b] rounded-xl p-4 hover:border-primary transition-all">
                                 <div class="flex items-start justify-between gap-4">
                                     <div class="flex-1">
                                         <h3 class="font-bold text-lg text-[#181510] dark:text-white mb-1">{{ program.name }}</h3>
@@ -174,7 +174,7 @@
                                         <p class="text-sm text-[#8d7a5e] dark:text-[#a19077]">{{ program.description|truncatewords:20 }}</p>
                                     </div>
                                     <a href="{% url 'programs:detail' program.slug %}"
-                                        class="px-4 py-2 bg-primary/10 text-primary rounded-lg hover:bg-primary hover:text-[#181510] transition-all whitespace-nowrap text-sm font-bold">
+                                        class="px-4 py-2 bg-primary-20 border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-all whitespace-nowrap text-sm font-bold">
                                         View Details
                                     </a>
                                 </div>
@@ -199,7 +199,7 @@
                                     <h3 class="font-bold text-[#181510] dark:text-white">{{ scholarship.name }}</h3>
                                     {% if scholarship.renewable %}
                                     <span
-                                        class="px-2 py-1 bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 text-xs rounded-full font-medium">Renewable</span>
+                                        class="px-2 py-1 bg-secondary-10 dark:bg-green-900/50 text-secondary dark:text-green-300 text-xs rounded-full font-medium">Renewable</span>
                                     {% endif %}
                                 </div>
                                 <p class="text-2xl font-bold text-primary mb-2">AED {{ scholarship.amount }}</p>
@@ -270,7 +270,7 @@
                             Contact Information</h2>
                         <div class="space-y-4">
                             <div class="flex items-start gap-4">
-                                <span class="material-symbols-outlined text-primary text-2xl">mail</span>
+                                <span class="material-symbols-outlined text-secondary text-2xl">mail</span>
                                 <div>
                                     <p class="text-sm font-semibold text-[#181510] dark:text-white mb-1">Email</p>
                                     <a href="mailto:{{ university.contact_info.email }}"
@@ -278,7 +278,7 @@
                                 </div>
                             </div>
                             <div class="flex items-start gap-4">
-                                <span class="material-symbols-outlined text-primary text-2xl">phone</span>
+                                <span class="material-symbols-outlined text-secondary text-2xl">phone</span>
                                 <div>
                                     <p class="text-sm font-semibold text-[#181510] dark:text-white mb-1">Phone</p>
                                     <p class="text-[#8d7a5e] dark:text-[#a19077]">{{ university.contact_info.phone }}
@@ -287,7 +287,7 @@
                             </div>
                             {% if university.contact_info.website %}
                             <div class="flex items-start gap-4">
-                                <span class="material-symbols-outlined text-primary text-2xl">language</span>
+                                <span class="material-symbols-outlined text-secondary text-2xl">language</span>
                                 <div>
                                     <p class="text-sm font-semibold text-[#181510] dark:text-white mb-1">Website</p>
                                     <a href="{{ university.contact_info.website }}" target="_blank"
@@ -298,7 +298,7 @@
                             {% endif %}
                             {% if university.contact_info.address %}
                             <div class="flex items-start gap-4">
-                                <span class="material-symbols-outlined text-primary text-2xl">location_on</span>
+                                <span class="material-symbols-outlined text-secondary text-2xl">location_on</span>
                                 <div>
                                     <p class="text-sm font-semibold text-[#181510] dark:text-white mb-1">Address</p>
                                     <p class="text-[#8d7a5e] dark:text-[#a19077]">{{ university.contact_info.address }}
@@ -317,31 +317,31 @@
                         <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight mb-6">
                             Student Statistics ({{ latest_stats.academic_year }})</h2>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
-                                <p class="text-3xl font-bold text-primary">{{ latest_stats.total_enrollment }}</p>
+                            <div class="text-center p-4 bg-secondary-10 border border-secondary dark:bg-background-dark rounded-lg">
+                                <p class="text-3xl font-bold text-secondary">{{ latest_stats.total_enrollment }}</p>
                                 <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">Total Students</p>
                             </div>
-                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
-                                <p class="text-3xl font-bold text-primary">{{ latest_stats.international_enrollment }}
+                            <div class="text-center p-4 bg-secondary-10 border border-secondary dark:bg-background-dark rounded-lg">
+                                <p class="text-3xl font-bold text-secondary">{{ latest_stats.international_enrollment }}
                                 </p>
                                 <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">International</p>
                             </div>
-                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
-                                <p class="text-3xl font-bold text-primary">{{ latest_stats.faculty_count }}</p>
+                            <div class="text-center p-4 bg-secondary-10 border border-secondary dark:bg-background-dark rounded-lg">
+                                <p class="text-3xl font-bold text-secondary">{{ latest_stats.faculty_count }}</p>
                                 <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">Faculty Members</p>
                             </div>
-                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
-                                <p class="text-3xl font-bold text-primary">{{ latest_stats.male_students }}</p>
+                            <div class="text-center p-4 bg-secondary-10 border border-secondary dark:bg-background-dark rounded-lg">
+                                <p class="text-3xl font-bold text-secondary">{{ latest_stats.male_students }}</p>
                                 <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">Male Students</p>
                             </div>
-                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
-                                <p class="text-3xl font-bold text-primary">{{ latest_stats.female_students }}</p>
+                            <div class="text-center p-4 bg-secondary-10 border border-secondary dark:bg-background-dark rounded-lg">
+                                <p class="text-3xl font-bold text-secondary">{{ latest_stats.female_students }}</p>
                                 <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">Female Students</p>
                             </div>
                             {% if latest_stats.extra_data %}
                             {% for key, value in latest_stats.extra_data.items %}
-                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
-                                <p class="text-3xl font-bold text-primary">{{ value }}</p>
+                            <div class="text-center p-4 bg-secondary-10 border border-secondary dark:bg-background-dark rounded-lg">
+                                <p class="text-3xl font-bold text-secondary">{{ value }}</p>
                                 <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">{{ key|title }}</p>
                             </div>
                             {% endfor %}
@@ -370,7 +370,7 @@
                         <div class="mt-4 h-48 flex items-end gap-2">
                             {% for stat in enrollment_history reversed %}
                             {% widthratio stat.total_enrollment enrollment_history.0.total_enrollment 100 as height_percent %}
-                            <div class="flex-1 bg-primary/20 dark:bg-primary/30 rounded-t-md hover:bg-primary transition-colors"
+                            <div class="flex-1 bg-primary-20 dark:bg-primary-30 rounded-t-md hover:bg-primary transition-colors"
                                 style="height: {{ height_percent }}%;"
                                 title="{{ stat.academic_year }}: {{ stat.total_enrollment }} students"></div>
                             {% endfor %}
@@ -390,17 +390,17 @@
                         <div class="space-y-3">
                             {% if user.is_authenticated %}
                             <a href="?tab=programs"
-                                class="block w-full px-4 py-3 bg-primary text-[#181510] text-center font-bold rounded-lg hover:opacity-90 transition-all">
+                                class="block w-full px-4 py-3 bg-primary text-white text-center font-bold rounded-lg hover:opacity-90 transition-all">
                                 View Programs to Apply
                             </a>
                             {% else %}
                             <a href="{% url 'students:register' %}?next={{ request.path }}"
-                                class="block w-full px-4 py-3 bg-primary text-[#181510] text-center font-bold rounded-lg hover:opacity-90 transition-all">
+                                class="block w-full px-4 py-3 bg-primary text-white text-center font-bold rounded-lg hover:opacity-90 transition-all">
                                 Sign Up to Apply
                             </a>
                             {% endif %}
                             <a href="{{ university.contact_info.website }}"
-                                class="block w-full px-4 py-3 bg-background-light dark:bg-background-dark text-[#181510] dark:text-white text-center font-bold rounded-lg hover:bg-primary/10 transition-all border border-[#e7e2da] dark:border-[#3a2d1b]">
+                                class="block w-full px-4 py-3 bg-secondary dark:bg-background-dark text-white dark:text-white text-center font-bold rounded-lg hover:opacity-90 transition-all border border-[#e7e2da] dark:border-[#3a2d1b]">
                                 Visit Website
                             </a>
                         </div>
@@ -413,7 +413,7 @@
                         <h3 class="text-[#181510] dark:text-white font-bold text-lg mb-4">Accepted Curricula</h3>
                         <div class="flex flex-wrap gap-2">
                             {% for uc in university.accepted_curricula.all %}
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                            <span class="px-3 py-1 bg-accent-20 text-primary rounded-full text-sm font-medium">
                                 {{ uc.curriculum.name }}
                             </span>
                             {% endfor %}

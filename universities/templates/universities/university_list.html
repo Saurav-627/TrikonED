@@ -14,7 +14,7 @@
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-lg font-bold text-[#181510] dark:text-white">Filters</h3>
                         <a href="{% url 'universities:list' %}"
-                            class="text-sm font-medium text-primary hover:underline">Clear all</a>
+                            class="text-sm font-medium text-accent hover:underline hover:text-primary">Clear all</a>
                     </div>
 
                     <form method="get" action="{% url 'universities:list' %}" id="filter-form">
@@ -25,7 +25,7 @@
                                     for="emirate">Emirate</label>
                                 <div class="relative">
                                     <select name="emirate"
-                                        class="w-full appearance-none rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white text-sm py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                                        class="w-full appearance-none rounded-lg border border-secondary dark:border-[#3a2d1b] bg-secondary-10 dark:bg-background-dark text-[#181510] dark:text-white text-sm py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                                         id="emirate" onchange="this.form.submit()">
                                         <option value="">All Emirates</option>
                                         {% for emirate in emirates %}
@@ -41,12 +41,12 @@
                                 <label class="flex items-center gap-3 cursor-pointer group">
                                     <div class="relative flex items-center">
                                         <input name="partner" value="true"
-                                            class="peer h-5 w-5 rounded border-2 border-[#e7e2da] dark:border-[#3a2d1b] text-primary focus:ring-primary focus:ring-offset-0 checked:bg-primary checked:border-primary transition-all"
+                                            class="peer h-5 w-5 rounded border border-[#e7e2da] dark:border-[#3a2d1b] text-primary focus:ring-primary focus:ring-offset-0 checked:bg-primary checked:border-primary transition-all"
                                             id="partner" type="checkbox" {% if request.GET.partner %}checked{% endif %}
                                             onchange="this.form.submit()" />
                                     </div>
                                     <span
-                                        class="text-sm text-[#8d7a5e] dark:text-[#a19077] group-hover:text-primary transition-colors">TrikonED
+                                        class="text-sm text-secondary">TrikonED
                                         Partner</span>
                                 </label>
                             </div>
@@ -57,12 +57,12 @@
                                     for="type">University Type</label>
                                 <div class="relative">
                                     <select name="type"
-                                        class="w-full appearance-none rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-background-light dark:bg-background-dark text-[#181510] dark:text-white text-sm py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                                        class="w-full appearance-none rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-secondary-10 border border-secondary dark:bg-background-dark text-[#181510] dark:text-white text-sm py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                                         id="type" onchange="this.form.submit()">
                                         <option value="">All Types</option>
                                         <option value="public" {% if request.GET.type == 'public' %}selected{% endif %}>Public</option>
                                         <option value="private" {% if request.GET.type == 'private' %}selected{% endif %}>Private</option>
-                                        <option value="international" {% if request.GET.type == 'international' %}selected{% endif %}>International</option>
+                                        {% comment %} <option value="international" {% if request.GET.type == 'international' %}selected{% endif %}>International</option> {% endcomment %}
                                     </select>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                     <div class="w-full md:max-w-lg">
                         <form method="get" action="{% url 'universities:list' %}" class="relative">
                             <input name="search"
-                                class="w-full h-12 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307] text-[#181510] dark:text-white pl-12 pr-4 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none placeholder:text-[#8d7a5e]/60"
+                                class="w-full h-12 rounded-lg border border-secondary dark:border-[#3a2d1b] bg-secondary-10 dark:bg-[#1a1307] text-black dark:text-white pl-12 pr-4 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none placeholder:text-secondary"
                                 placeholder="Search by name, program..." value="{{ request.GET.search }}" />
                             <div class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#8d7a5e]">
                                 <span class="material-symbols-outlined">search</span>
@@ -133,10 +133,10 @@
                             <div class="absolute top-3 left-3 flex flex-col gap-2">
                                 {% if university.is_partner %}
                                 <span
-                                    class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-primary text-[#181510]">Partner</span>
+                                    class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-primary text-white">Partner</span>
                                 {% endif %}
                                 {% if university.ranking and university.ranking <= 100 %} <span
-                                    class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-[#181510] text-white">
+                                    class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-secondary text-white border border-secondary">
                                     Top 100</span>
                                     {% endif %}
                             </div>
@@ -164,7 +164,7 @@
                                     {{ university.name }}</h3>
                                 <div class="flex items-center gap-1 text-sm text-[#8d7a5e] dark:text-[#a19077]">
                                     <span class="material-symbols-outlined text-lg">location_on</span>
-                                    {{ university.location_emirate.name }}, UAE
+                                    {{ university.location_emirate.name }}, {{ university.location_emirate.country.name }}
                                 </div>
                             </div>
 
@@ -190,7 +190,7 @@
 
 
                             <a href="{% url 'universities:detail' university.slug %}"
-                                class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary/10 hover:bg-primary text-primary hover:text-[#181510] text-sm font-bold leading-normal tracking-[0.015em] transition-all duration-300">
+                                class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary-10 border border-primary hover:bg-primary text-primary hover:text-white text-sm font-bold leading-normal tracking-[0.015em] transition-all duration-300">
                                 View Details
                             </a>
                         </div>

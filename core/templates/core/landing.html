@@ -14,17 +14,17 @@
                     applications, and embark on your international study adventure with TrikonED.</p>
                 <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-4">
                     <a href="{% url 'universities:list' %}"
-                        class="flex w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em]">
+                        class="flex w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em]">
                         <span class="truncate">Find Universities</span>
                     </a>
                     {% if user.is_authenticated %}
                     <a href="{% url 'students:dashboard' %}"
-                        class="flex w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 border border-primary text-primary text-base font-bold leading-normal tracking-[0.015em]">
+                        class="flex w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-secondary text-white text-base font-bold leading-normal tracking-[0.015em]">
                         <span class="truncate">My Dashboard</span>
                     </a>
                     {% else %}
                     <a href="{% url 'students:register' %}"
-                        class="flex w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 border border-primary text-primary text-base font-bold leading-normal tracking-[0.015em]">
+                        class="flex w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-secondary text-white text-base font-bold leading-normal tracking-[0.015em]">
                         <span class="truncate">Apply Now</span>
                     </a>
                     {% endif %}
@@ -88,21 +88,21 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div class="text-center">
-                    <p class="text-5xl font-black text-primary mb-2 counter"
+                    <p class="text-5xl font-black text-secondary mb-2 counter"
                         data-target="{{ total_partner_universities }}">0</p>
                     <p class="text-[#8d7a5e] dark:text-[#a19077] font-medium">Partner Universities</p>
                 </div>
                 <div class="text-center">
-                    <p class="text-5xl font-black text-primary mb-2 counter" data-target="{{ total_programs }}">0</p>
+                    <p class="text-5xl font-black text-secondary mb-2 counter" data-target="{{ total_programs }}">0</p>
                     <p class="text-[#8d7a5e] dark:text-[#a19077] font-medium">Programs Available</p>
                 </div>
                 <div class="text-center">
-                    <p class="text-5xl font-black text-primary mb-2 counter" data-target="{{ total_student_help }}">0
+                    <p class="text-5xl font-black text-secondary mb-2 counter" data-target="{{ total_student_help }}">0
                     </p>
                     <p class="text-[#8d7a5e] dark:text-[#a19077] font-medium">Students Helped</p>
                 </div>
                 <div class="text-center">
-                    <p class="text-5xl font-black text-primary mb-2"><span class="counter"
+                    <p class="text-5xl font-black text-secondary mb-2"><span class="counter"
                             data-target="{{ total_success_rate }}">0</span>%</p>
                     <p class="text-[#8d7a5e] dark:text-[#a19077] font-medium">Success Rate</p>
                 </div>
@@ -161,12 +161,12 @@
             <div class="mt-8">
                 {% if user.is_authenticated %}
                 <a href="{% url 'students:dashboard' %}"
-                    class="flex mx-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em] w-fit">
+                    class="flex mx-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] w-fit">
                     <span class="truncate">Go to Dashboard</span>
                 </a>
                 {% else %}
                 <a href="{% url 'students:register' %}"
-                    class="flex mx-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-primary text-[#181510] text-base font-bold leading-normal tracking-[0.015em] w-fit">
+                    class="flex mx-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] w-fit">
                     <span class="truncate">Get Started for Free</span>
                 </a>
                 {% endif %}

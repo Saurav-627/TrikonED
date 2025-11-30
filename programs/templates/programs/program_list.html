@@ -26,7 +26,7 @@
                                 <label class="flex items-center gap-3 cursor-pointer group">
                                     <div class="relative flex items-center">
                                         <input name="active_only" value="true"
-                                            class="peer h-5 w-5 rounded border-2 border-[#e7e2da] dark:border-[#3a2d1b] text-primary focus:ring-primary focus:ring-offset-0 checked:bg-primary checked:border-primary transition-all"
+                                            class="peer h-5 w-5 rounded border-2 border-secondary dark:border-[#3a2d1b] text-primary focus:ring-primary focus:ring-offset-0 checked:bg-primary checked:border-primary transition-all"
                                             id="active_only" type="checkbox" {% if request.GET.active_only %}checked{% endif %} onchange="this.form.submit()" />
                                     </div>
                                     <span
@@ -55,7 +55,7 @@
                     <div class="w-full md:max-w-lg">
                         <form method="get" action="{% url 'programs:list' %}" class="relative">
                             <input name="search"
-                                class="w-full h-12 rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307] text-[#181510] dark:text-white pl-12 pr-4 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none placeholder:text-[#8d7a5e]/60"
+                                class="w-full h-12 rounded-lg border border-secondary text-text-secondary dark:border-[#3a2d1b] bg-secondary-10 dark:bg-[#1a1307] dark:text-white pl-12 pr-4 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none placeholder:text-secondary"
                                 placeholder="Search programs..." value="{{ request.GET.search }}" />
                             <div class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#8d7a5e]">
                                 <span class="material-symbols-outlined">search</span>
@@ -78,11 +78,11 @@
                         <!-- Header with Badges -->
                         <div class="p-6 pb-4">
                             <div class="flex items-start justify-between mb-4">
-                                <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold">
+                                <span class="px-3 py-1 bg-primary-10 text-primary rounded-full text-xs font-bold">
                                     {{ program.type.level.name }}
                                 </span>
                                 <span
-                                    class="px-3 py-1 bg-background-light dark:bg-background-dark text-[#8d7a5e] dark:text-[#a19077] rounded-full text-xs font-medium">
+                                    class="px-3 py-1 bg-secondary-10 dark:bg-background-dark text-text-secondary dark:text-[#a19077] rounded-full text-xs font-medium">
                                     {{ program.delivery_type|title }}
                                 </span>
                             </div>
@@ -108,7 +108,7 @@
                                 class="flex items-center justify-between mb-4 pb-4 border-t border-[#e7e2da] dark:border-[#3a2d1b] pt-4">
                                 <div class="flex items-center gap-2">
                                     <span class="material-symbols-outlined text-primary text-lg">schedule</span>
-                                    <span class="text-sm text-[#8d7a5e] dark:text-[#a19077]">{{ program.duration }} {{ program.duration_unit }}</span>
+                                    <span class="text-sm text-[#8d7a5e] dark:text-[#a19077]">{{ program.type.duration }} {{ program.type.duration_unit }}</span>
                                 </div>
                                 {% if program.is_active %}
                                 <span
@@ -120,7 +120,7 @@
                             </div>
 
                             <a href="{% url 'programs:detail' program.pk %}"
-                                class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary/10 hover:bg-primary text-primary hover:text-[#181510] text-sm font-bold leading-normal tracking-[0.015em] transition-all duration-300">
+                                class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary-10 border border-primary hover:bg-primary text-primary hover:text-white text-sm font-bold leading-normal tracking-[0.015em] transition-all duration-300">
                                 View Details
                             </a>
                         </div>
