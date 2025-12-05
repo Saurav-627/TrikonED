@@ -44,7 +44,7 @@ class ApplicationCreateView(LoginRequiredMixin, CreateView):
         ApplicationLog.objects.create(
             application=application,
             event='Application Submitted',
-            details=f'Application submitted for {application.program.name} at {application.university.name}'
+            details=f'Application submitted on TrikonED for the {application.program.name} ({application.university.name}) '
         )
         
         messages.success(self.request, 'Application submitted successfully!')

@@ -118,7 +118,24 @@
                                     </span>
                                 </div>
 
-                                <div class="flex items-center text-sm text-[#8d7a5e] dark:text-[#a19077] mb-4">
+                                <!-- Status Message -->
+                                <div class="mt-3 p-3 rounded-lg 
+                                    {% if application.status == 'accepted' %}bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800
+                                    {% elif application.status == 'rejected' %}bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800
+                                    {% elif application.status == 'under_review' %}bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800
+                                    {% else %}bg-gray-50 dark:bg-gray-900/10 border border-gray-200 dark:border-gray-800
+                                    {% endif %}">
+                                    <p class="text-sm 
+                                        {% if application.status == 'accepted' %}text-green-700 dark:text-green-300
+                                        {% elif application.status == 'rejected' %}text-red-700 dark:text-red-300
+                                        {% elif application.status == 'under_review' %}text-blue-700 dark:text-blue-300
+                                        {% else %}text-gray-700 dark:text-gray-300
+                                        {% endif %}">
+                                        {{ application.get_status_message }}
+                                    </p>
+                                </div>
+
+                                <div class="mt-3 flex items-center text-sm text-[#8d7a5e] dark:text-[#a19077] mb-4">
                                     <span class="material-symbols-outlined text-base mr-1">calendar_today</span>
                                     Applied on {{ application.applied_on|date:"M d, Y" }}
                                 </div>

@@ -13,11 +13,34 @@ class ContactInfoAdmin(admin.ModelAdmin):
 
 @admin.register(University)
 class UniversityAdmin(admin.ModelAdmin):
-    list_display = ['name', 'short_name', 'location_emirate', 'university_type', 'is_partner', 'ranking']
+    list_display = ['name', 'short_name', 'get_location', 'university_type', 'is_partner', 'ranking']
     list_filter = ['is_partner', 'university_type', 'location_emirate']
-    search_fields = ['name', 'short_name']
+    search_fields = ['name', 'short_name', 'location_city']
+    prepopulated_fields = {'slug': ('name',)}
+    
+    fieldsets = (
+        ('Basic Information', {
+            'fields': ('name', 'short_name', 'slug', 'image', 'logo')
+        }),
+        ('Location', {
+            'fields': ('location_emirate', 'location_city'),
+            'description': 'For UAE universities: Select emirate. For other countries: Enter city/state in "Location City" field.'
+        }),
+        ('Details', {
+            'fields': ('description', 'established_year', 'university_type', 'is_partner', 'ranking')
+        }),
+        ('Additional Information', {
+            'fields': ('accreditation', 'facilities', 'contact_info')
+        }),
+    )
     readonly_fields = ['id']
     actions = ['delete_all_universities']
+
+    def get_location(self, obj):
+        """Display location in admin list"""
+        return obj.get_location_display()
+    get_location.short_description = 'Location'
+    get_location.admin_order_field = 'location_emirate'
 
     def delete_all_universities(self, request, queryset):
         # Delete all universities, not just the selected ones (if that's what "All data" means)
@@ -36,23 +59,55 @@ class UniversityAdmin(admin.ModelAdmin):
 
 @admin.register(EnrollmentStat)
 class EnrollmentStatAdmin(admin.ModelAdmin):
-    list_display = ['university', 'academic_year', 'total_enrollment', 'faculty_count']
-    list_filter = ['academic_year']
+    list_display = ['get_university_name', 'academic_year', 'total_enrollment', 'faculty_count']
+    list_filter = ['academic_year', 'university']
+    search_fields = ['university__name', 'academic_year']
+    autocomplete_fields = ['university']
+    
+    def get_university_name(self, obj):
+        """Display full university name"""
+        return obj.university.name
+    get_university_name.short_description = 'University'
+    get_university_name.admin_order_field = 'university__name'
 
 
 @admin.register(Scholarship)
 class ScholarshipAdmin(admin.ModelAdmin):
-    list_display = ['name', 'university', 'amount', 'renewable']
+    list_display = ['name', 'get_university_name', 'amount', 'renewable']
     list_filter = ['renewable', 'university']
+    search_fields = ['name', 'university__name', 'description']
+    autocomplete_fields = ['university']
+    
+    def get_university_name(self, obj):
+        """Display full university name"""
+        return obj.university.name
+    get_university_name.short_description = 'University'
+    get_university_name.admin_order_field = 'university__name'
 
 
 @admin.register(VisaSponsorship)
 class VisaSponsorshipAdmin(admin.ModelAdmin):
-    list_display = ['university', 'offers_visa']
-    list_filter = ['offers_visa']
+    list_display = ['get_university_name', 'offers_visa']
+    list_filter = ['offers_visa', 'university']
+    search_fields = ['university__name']
+    autocomplete_fields = ['university']
+    
+    def get_university_name(self, obj):
+        """Display full university name"""
+        return obj.university.name
+    get_university_name.short_description = 'University'
+    get_university_name.admin_order_field = 'university__name'
 
 
 @admin.register(UniversityCurriculum)
 class UniversityCurriculumAdmin(admin.ModelAdmin):
-    list_display = ['university', 'curriculum']
-    list_filter = ['university']
+    list_display = ['get_university_name', 'curriculum']
+    list_filter = ['university', 'curriculum']
+    search_fields = ['university__name', 'curriculum__name']
+    autocomplete_fields = ['university']
+    
+    def get_university_name(self, obj):
+        """Display full university name"""
+        return obj.university.name
+    get_university_name.short_description = 'University'
+    get_university_name.admin_order_field = 'university__name'

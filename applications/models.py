@@ -30,11 +30,21 @@ class Application(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     application_id = models.CharField(max_length=20, unique=True, editable=False, null=True)
-    lead_quality = models.CharField(max_length=20, choices=[
-        ('high', 'High Lead'),
-        ('medium', 'Medium Lead'),
-        ('low', 'Low Lead'),
-    ], default='medium')
+    lead_quality = models.CharField(
+        max_length=20,
+        choices=[
+            ('high', 'High Lead'),
+            ('medium', 'Medium Lead'),
+            ('low', 'Low Lead'),
+        ],
+        default='low',
+        help_text="Quality of the lead based on application completeness"
+    )
+    custom_status_message = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Custom message from admin (e.g., rejection reason, additional notes). If empty, default status message will be shown."
+    )
     
     class Meta:
         ordering = ['-applied_on']
@@ -47,7 +57,22 @@ class Application(models.Model):
             else:
                 self.application_id = '000001'
         super().save(*args, **kwargs)
-
+    
+    def get_status_message(self):
+        """Return custom status message if set, otherwise return default message based on status"""
+        if self.custom_status_message:
+            return self.custom_status_message
+        
+        # Default messages based on status
+        default_messages = {
+            'draft': 'Your application is saved as draft. Please complete and submit it.',
+            'pending': 'Your application has been submitted and is pending review.',
+            'under_review': 'Your application is currently under review by the admissions team.',
+            'accepted': 'Congratulations! Your application has been accepted.',
+            'rejected': 'Unfortunately, your application was not successful at this time.',
+        }
+        return default_messages.get(self.status, 'Application status updated.')
+    
     def __str__(self):
         return f"#{self.application_id} - {self.student.username} → {self.university.short_name} ({self.status})"
 

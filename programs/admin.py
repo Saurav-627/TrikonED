@@ -16,10 +16,18 @@ class TuitionFeeInline(admin.TabularInline):
 
 @admin.register(Program)
 class ProgramAdmin(admin.ModelAdmin):
-    list_display = ['name', 'university', 'type', 'delivery_type', 'is_active']
-    list_filter = ['delivery_type', 'is_active', 'university']
-    search_fields = ['name', 'university__name']
+    list_display = ['name', 'get_university_name', 'type', 'delivery_type', 'is_active', 'slug']
+    list_filter = ['type', 'delivery_type', 'is_active', 'university']
+    search_fields = ['name', 'university__name', 'slug']
+    prepopulated_fields = {'slug': ('name',)}
+    autocomplete_fields = ['university']
     inlines = [TuitionFeeInline]
+    
+    def get_university_name(self, obj):
+        """Display full university name instead of short name"""
+        return obj.university.name
+    get_university_name.short_description = 'University'
+    get_university_name.admin_order_field = 'university__name'
 
 @admin.register(AcademicIntake)
 class AcademicIntakeAdmin(admin.ModelAdmin):

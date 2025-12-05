@@ -185,9 +185,9 @@
                                 <h3
                                     class="text-xl font-bold text-[#181510] dark:text-white leading-tight mb-1 group-hover:text-primary transition-colors">
                                     {{ university.name }}</h3>
-                                <div class="flex items-center gap-1 text-sm text-[#8d7a5e] dark:text-[#a19077]">
-                                    <span class="material-symbols-outlined text-lg">location_on</span>
-                                    {{ university.location_emirate.name }}, {{ university.location_emirate.country.name }}
+                                <div class="flex items-center gap-2 text-sm text-[#8d7a5e] dark:text-[#a19077]">
+                                    <span class="material-symbols-outlined text-base">location_on</span>
+                                    {{ university.get_location_display }}
                                 </div>
                             </div>
 

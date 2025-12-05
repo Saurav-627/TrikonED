@@ -41,7 +41,7 @@
                             <p class="text-[#8d7a5e] dark:text-[#a19077] text-lg font-medium leading-normal mb-1">
                                 {{ program.university.name }}</p>
                             <p class="text-[#8d7a5e] dark:text-[#a19077] text-lg font-medium">
-                                {{ program.university.location_emirate.name }}, {{ program.university.location_emirate.country.name }}
+                                {{ program.university.get_location_display }}
                             </p>
                         </div>
                     </div>
