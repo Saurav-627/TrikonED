@@ -29,7 +29,9 @@ class ApplicationForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         
-        # Make personal info read-only
+        # Check if this is coming from a program page (has initial values from URL)
+        from_program_page = bool(self.initial.get('program') and self.initial.get('university'))
+        
         # Make personal info read-only ONLY if already populated
         personal_fields = ['phone', 'nationality', 'date_of_birth', 'passport_number', 'passport_expiry', 'address']
         for field in personal_fields:
@@ -57,9 +59,10 @@ class ApplicationForm(forms.ModelForm):
                 pass
         elif self.initial.get('university'):
             self.fields['program'].queryset = Program.objects.filter(university_id=self.initial['university'])
-            # If university is pre-filled from URL, disable the field
-            self.fields['university'].widget.attrs['style'] = 'pointer-events: none; background-color: #f3f4f6;'
-            self.fields['university'].widget.attrs['readonly'] = True
+            # Only disable if coming from program page
+            if from_program_page:
+                self.fields['university'].widget.attrs['style'] = 'pointer-events: none; background-color: #f3f4f6;'
+                self.fields['university'].widget.attrs['readonly'] = True
         else:
             self.fields['program'].queryset = Program.objects.none()
 
@@ -73,9 +76,10 @@ class ApplicationForm(forms.ModelForm):
         elif self.initial.get('program'):
             try:
                 selected_program = Program.objects.get(pk=self.initial['program'])
-                # If program is pre-filled, disable the field
-                self.fields['program'].widget.attrs['style'] = 'pointer-events: none; background-color: #f3f4f6;'
-                self.fields['program'].widget.attrs['readonly'] = True
+                # Only disable if coming from program page
+                if from_program_page:
+                    self.fields['program'].widget.attrs['style'] = 'pointer-events: none; background-color: #f3f4f6;'
+                    self.fields['program'].widget.attrs['readonly'] = True
             except Program.DoesNotExist:
                 pass
         

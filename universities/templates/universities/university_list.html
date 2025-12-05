@@ -19,7 +19,24 @@
 
                     <form method="get" action="{% url 'universities:list' %}" id="filter-form">
                         <div class="space-y-6">
-                            <!-- Emirate Filter -->
+                            <!-- Country Filter -->
+                            <div>
+                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2"
+                                    for="country">Country</label>
+                                <div class="relative">
+                                    <select name="country"
+                                        class="w-full appearance-none rounded-lg border border-secondary dark:border-[#3a2d1b] bg-secondary-10 dark:bg-background-dark text-[#181510] dark:text-white text-sm py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                                        id="country" onchange="this.form.submit()">
+                                        <option value="">All Countries</option>
+                                        {% for country in countries %}
+                                        <option value="{{ country.id }}" {% if request.GET.country == country.id|stringformat:"s" %}selected{% endif %}>{{ country.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Emirate Filter (only show if UAE is selected) -->
+                            {% if filtered_emirates %}
                             <div>
                                 <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2"
                                     for="emirate">Emirate</label>
@@ -28,12 +45,15 @@
                                         class="w-full appearance-none rounded-lg border border-secondary dark:border-[#3a2d1b] bg-secondary-10 dark:bg-background-dark text-[#181510] dark:text-white text-sm py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                                         id="emirate" onchange="this.form.submit()">
                                         <option value="">All Emirates</option>
-                                        {% for emirate in emirates %}
+                                        {% for emirate in filtered_emirates %}
                                         <option value="{{ emirate.id }}" {% if request.GET.emirate == emirate.id|stringformat:"s" %}selected{% endif %}>{{ emirate.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
+                                <!-- Hidden input to preserve country selection -->
+                                <input type="hidden" name="country" value="{{ selected_country }}" />
                             </div>
+                            {% endif %}
 
                             <!-- Partner Status -->
                             <div>
@@ -45,8 +65,7 @@
                                             id="partner" type="checkbox" {% if request.GET.partner %}checked{% endif %}
                                             onchange="this.form.submit()" />
                                     </div>
-                                    <span
-                                        class="text-sm text-secondary">TrikonED
+                                    <span class="text-sm text-secondary">TrikonED
                                         Partner</span>
                                 </label>
                             </div>
@@ -60,9 +79,13 @@
                                         class="w-full appearance-none rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-secondary-10 border border-secondary dark:bg-background-dark text-[#181510] dark:text-white text-sm py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                                         id="type" onchange="this.form.submit()">
                                         <option value="">All Types</option>
-                                        <option value="public" {% if request.GET.type == 'public' %}selected{% endif %}>Public</option>
-                                        <option value="private" {% if request.GET.type == 'private' %}selected{% endif %}>Private</option>
-                                        {% comment %} <option value="international" {% if request.GET.type == 'international' %}selected{% endif %}>International</option> {% endcomment %}
+                                        <option value="public" {% if request.GET.type == 'public' %}selected{% endif %}>
+                                            Public</option>
+                                        <option value="private" {% if request.GET.type == 'private' %}selected{% endif %}>
+                                            Private</option>
+                                        {% comment %} <option value="international" {% if
+                                            request.GET.type == 'international' %}selected{% endif %}>International
+                                        </option> {% endcomment %}
                                     </select>
                                 </div>
                             </div>
@@ -214,7 +237,7 @@
                 {% if universities.has_other_pages %}
                 <div class="flex items-center justify-center mt-12 gap-2">
                     {% if universities.has_previous %}
-                    <a href="?page={{ universities.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.emirate %}&emirate={{ request.GET.emirate }}{% endif %}{% if request.GET.partner %}&partner={{ request.GET.partner }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}"
+                    <a href="?page={{ universities.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.country %}&country={{ request.GET.country }}{% endif %}{% if request.GET.emirate %}&emirate={{ request.GET.emirate }}{% endif %}{% if request.GET.partner %}&partner={{ request.GET.partner }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}"
                         class="flex size-10 items-center justify-center rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307] text-[#181510] dark:text-white hover:bg-background-light dark:hover:bg-background-dark transition-colors">
                         <span class="material-symbols-outlined">chevron_left</span>
                     </a>
@@ -227,7 +250,7 @@
                         {{ num }}
                     </span>
                     {% elif num > universities.number|add:'-3' and num < universities.number|add:'3' %} <a
-                        href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.emirate %}&emirate={{ request.GET.emirate }}{% endif %}{% if request.GET.partner %}&partner={{ request.GET.partner }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}"
+                        href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.country %}&country={{ request.GET.country }}{% endif %}{% if request.GET.emirate %}&emirate={{ request.GET.emirate }}{% endif %}{% if request.GET.partner %}&partner={{ request.GET.partner }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}"
                         class="flex size-10 items-center justify-center rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307] text-[#181510] dark:text-white hover:bg-background-light dark:hover:bg-background-dark transition-colors">
                         {{ num }}
                         </a>
@@ -235,7 +258,7 @@
                         {% endfor %}
 
                         {% if universities.has_next %}
-                        <a href="?page={{ universities.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.emirate %}&emirate={{ request.GET.emirate }}{% endif %}{% if request.GET.partner %}&partner={{ request.GET.partner }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}"
+                        <a href="?page={{ universities.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.country %}&country={{ request.GET.country }}{% endif %}{% if request.GET.emirate %}&emirate={{ request.GET.emirate }}{% endif %}{% if request.GET.partner %}&partner={{ request.GET.partner }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}"
                             class="flex size-10 items-center justify-center rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307] text-[#181510] dark:text-white hover:bg-background-light dark:hover:bg-background-dark transition-colors">
                             <span class="material-symbols-outlined">chevron_right</span>
                         </a>

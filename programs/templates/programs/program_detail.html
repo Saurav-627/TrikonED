@@ -27,7 +27,8 @@
                 <div class="flex flex-col md:flex-row gap-6">
                     <div class="flex flex-col sm:flex-row gap-6 flex-1">
                         {% if program.university.image and program.university.image.url %}
-                        <img src="{{ program.university.image.url }}" alt="{{ program.university.name }}" class="bg-center bg-no-repeat aspect-square bg-cover rounded-xl w-full sm:w-32 h-32 flex-shrink-0">
+                        <img src="{{ program.university.image.url }}" alt="{{ program.university.name }}"
+                            class="bg-center bg-no-repeat aspect-square bg-cover rounded-xl w-full sm:w-32 h-32 flex-shrink-0">
                         {% else %}
                         <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200"
                             alt="{{ program.university.name }}"
@@ -152,6 +153,58 @@
                         <div class="prose dark:prose-invert max-w-none text-[#8d7a5e] dark:text-[#a19077]">
                             {{ program.type.entry_requirements|linebreaks }}
                         </div>
+
+                        <!-- English Requirements -->
+                        {% if program.english_requirements.first %}
+                        <div class="mt-6 pt-6 border-t border-[#e7e2da] dark:border-[#3a2d1b]">
+                            <h4 class="text-lg font-bold text-[#181510] dark:text-white mb-4">English Language
+                                Requirements</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-10 gap-4">
+                                {% if program.english_requirements.first.ielts %}
+                                <div
+                                    class="bg-background-light dark:bg-background-dark rounded-lg p-4 border border-[#e7e2da] dark:border-[#3a2d1b]">
+                                    <p
+                                        class="text-xs font-bold uppercase tracking-wider text-[#8d7a5e] dark:text-[#a19077] mb-1">
+                                        IELTS</p>
+                                    <p class="text-2xl font-bold text-primary">{{ program.english_requirements.first.ielts }}+</p>
+                                </div>
+                                {% endif %}
+
+                                {% if program.english_requirements.first.toefl %}
+                                <div
+                                    class="bg-background-light dark:bg-background-dark rounded-lg p-4 border border-[#e7e2da] dark:border-[#3a2d1b]">
+                                    <p
+                                        class="text-xs font-bold uppercase tracking-wider text-[#8d7a5e] dark:text-[#a19077] mb-1">
+                                        TOEFL</p>
+                                    <p class="text-2xl font-bold text-primary">{{ program.english_requirements.first.toefl }}+</p>
+                                </div>
+                                {% endif %}
+
+                                {% if program.english_requirements.first.pte %}
+                                <div
+                                    class="bg-background-light dark:bg-background-dark rounded-lg p-4 border border-[#e7e2da] dark:border-[#3a2d1b]">
+                                    <p
+                                        class="text-xs font-bold uppercase tracking-wider text-[#8d7a5e] dark:text-[#a19077] mb-1">
+                                        PTE</p>
+                                    <p class="text-2xl font-bold text-primary">{{ program.english_requirements.first.pte }}+</p>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            {% if program.english_requirements.first.extra_requirements %}
+                            <div
+                                class="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                                <p class="text-sm font-semibold text-blue-700 dark:text-blue-300 mb-2">Additional
+                                    Requirements:</p>
+                                <ul class="list-disc list-inside text-sm text-blue-600 dark:text-blue-400 space-y-1">
+                                    {% for key, value in program.english_requirements.first.extra_requirements.items %}
+                                    <li>{{ key }}: {{ value }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
                     </div>
 
                     <div class="text-base text-[#181510] dark:text-white leading-relaxed space-y-4 tab-content hidden"

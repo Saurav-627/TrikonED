@@ -65,6 +65,7 @@ class StudentDocumentUploadView(LoginRequiredMixin, FormView):
         student = self.request.user
         context['existing_passport'] = student.documents.filter(doc_type='passport').first()
         context['existing_transcript'] = student.documents.filter(doc_type='transcript').first()
+        context['existing_other_documents'] = student.documents.filter(doc_type='other').order_by('-uploaded_at')
         return context
 
     def form_valid(self, form):

@@ -13,12 +13,17 @@ class UniversityListView(ListView):
     paginate_by = 12
     
     def get_queryset(self):
-        queryset = University.objects.select_related('location_emirate', 'contact_info').prefetch_related('programs')
+        queryset = University.objects.select_related('location_emirate', 'location_emirate__country', 'contact_info').prefetch_related('programs')
         
         # Search
         search = self.request.GET.get('search', '')
         if search:
             queryset = queryset.filter(name__icontains=search)
+        
+        # Filter by country
+        country = self.request.GET.get('country', '')
+        if country:
+            queryset = queryset.filter(location_emirate__country_id=country)
         
         # Filter by emirate
         emirate = self.request.GET.get('emirate', '')
@@ -44,8 +49,22 @@ class UniversityListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        from core.models import Emirate
-        context['emirates'] = Emirate.objects.all()
+        from core.models import Emirate, Country
+        
+        # Get all countries and emirates
+        context['countries'] = Country.objects.all()
+        context['emirates'] = Emirate.objects.select_related('country').all()
+        
+        # Get selected country
+        selected_country = self.request.GET.get('country', '')
+        context['selected_country'] = selected_country
+        
+        # Filter emirates by selected country
+        if selected_country:
+            context['filtered_emirates'] = Emirate.objects.filter(country_id=selected_country)
+        else:
+            context['filtered_emirates'] = Emirate.objects.none()
+        
         context['alphabet'] = string.ascii_uppercase
         context['current_letter'] = self.request.GET.get('letter', '')
         return context
