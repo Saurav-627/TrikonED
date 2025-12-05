@@ -33,7 +33,7 @@ class ApplicationAdmin(admin.ModelAdmin):
             # Create log entry for status change
             status_messages = {
                 'pending': 'Application is pending review',
-                'under_review': 'Application is now under review by the admissions team',
+                'under_review': 'Application is now under review by the TrikonED team',
                 'accepted': 'Congratulations! Your application has been accepted',
                 'rejected': 'Unfortunately, your application was not successful at this time',
             }

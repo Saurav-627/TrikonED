@@ -1,5 +1,5 @@
 from django import forms
-from .models import Student, StudentDocument
+from .models import Student, StudentDocument, StudentTestScore
 
 class StudentRegisterForm(forms.ModelForm):
     password = forms.CharField(
@@ -111,3 +111,57 @@ class MultipleDocumentUploadForm(forms.Form):
         widget=forms.FileInput(attrs={'class': 'w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-accent-green'}),
         help_text="You can select multiple files (e.g., Certificates, Recommendations)."
     )
+
+
+class StudentTestScoreForm(forms.ModelForm):
+    """Form for students to add their English proficiency test scores"""
+    
+    class Meta:
+        model = StudentTestScore
+        fields = ['test_type', 'test_date', 'listening_score', 'reading_score', 
+                  'speaking_score', 'writing_score', 'overall_score', 'report_file']
+        widgets = {
+            'test_type': forms.Select(attrs={
+                'class': 'w-full px-4 py-3 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark text-text-primary dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all'
+            }),
+            'test_date': forms.DateInput(attrs={
+                'type': 'date',
+                'class': 'w-full px-4 py-3 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark text-text-primary dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all'
+            }),
+            'listening_score': forms.NumberInput(attrs={
+                'step': '0.1',
+                'class': 'w-full px-4 py-3 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark text-text-primary dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all',
+                'placeholder': 'e.g., 7.5'
+            }),
+            'reading_score': forms.NumberInput(attrs={
+                'step': '0.1',
+                'class': 'w-full px-4 py-3 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark text-text-primary dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all',
+                'placeholder': 'e.g., 7.5'
+            }),
+            'speaking_score': forms.NumberInput(attrs={
+                'step': '0.1',
+                'class': 'w-full px-4 py-3 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark text-text-primary dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all',
+                'placeholder': 'e.g., 7.5'
+            }),
+            'writing_score': forms.NumberInput(attrs={
+                'step': '0.1',
+                'class': 'w-full px-4 py-3 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark text-text-primary dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all',
+                'placeholder': 'e.g., 7.5'
+            }),
+            'overall_score': forms.NumberInput(attrs={
+                'step': '0.1',
+                'class': 'w-full px-4 py-3 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark text-text-primary dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all',
+                'placeholder': 'e.g., 7.5'
+            }),
+            'report_file': forms.FileInput(attrs={
+                'class': 'w-full px-4 py-3 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark text-text-primary dark:text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all',
+                'accept': '.pdf,.jpg,.jpeg,.png'
+            }),
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Make all score fields optional
+        for field in ['listening_score', 'reading_score', 'speaking_score', 'writing_score', 'overall_score', 'report_file']:
+            self.fields[field].required = False
+

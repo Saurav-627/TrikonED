@@ -11,4 +11,11 @@ urlpatterns = [
     path('dashboard/', views.StudentDashboardView.as_view(), name='dashboard'),
     path('profile/', views.StudentProfileView.as_view(), name='profile'),
     path('documents/upload/', views.StudentDocumentUploadView.as_view(), name='upload_document'),
+    
+    # Test Score URLs
+    path('test-scores/', views.TestScoreListView.as_view(), name='test_scores'),
+    path('test-scores/add/', views.TestScoreCreateView.as_view(), name='add_test_score'),
+    path('test-scores/<uuid:pk>/edit/', views.TestScoreUpdateView.as_view(), name='edit_test_score'),
+    path('test-scores/<uuid:pk>/delete/', views.TestScoreDeleteView.as_view(), name='delete_test_score'),
 ]
+

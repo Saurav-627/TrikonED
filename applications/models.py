@@ -30,6 +30,11 @@ class Application(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     application_id = models.CharField(max_length=20, unique=True, editable=False, null=True)
+    lead_quality = models.CharField(max_length=20, choices=[
+        ('high', 'High Lead'),
+        ('medium', 'Medium Lead'),
+        ('low', 'Low Lead'),
+    ], default='medium')
     
     class Meta:
         ordering = ['-applied_on']

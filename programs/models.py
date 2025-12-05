@@ -115,13 +115,35 @@ class TuitionFee(models.Model):
 
 class EnglishRequirement(models.Model):
     """English language requirements"""
+    TEST_TYPES = [
+        ('IELTS', 'IELTS'),
+        ('TOEFL', 'TOEFL'),
+        ('PTE', 'PTE'),
+        ('Duolingo', 'Duolingo'),
+        ('Cambridge', 'Cambridge'),
+        ('SAT', 'SAT'),
+        ('GMAT', 'GMAT'),
+        ('Other', 'Other'),
+    ]
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='english_requirements')
-    ielts = models.DecimalField(max_digits=3, decimal_places=1, null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(9)])
-    toefl = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(120)])
-    pte = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(90)])
-    extra_requirements = models.JSONField(default=dict, blank=True, help_text="Additional English requirements (e.g. SAT, Duolingo)")
-    expiry_date = models.DateField(null=True, blank=True)
+    test_type = models.CharField(max_length=50, choices=TEST_TYPES, default='IELTS')
     
+    # Scores
+    listening_score = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    reading_score = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    speaking_score = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    writing_score = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    overall_score = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    
+    custom_range_label = models.CharField(max_length=100, blank=True, help_text="e.g. 100-200 for SAT/TOEFL")
+    
+    extra_requirements = models.JSONField(default=dict, blank=True, help_text="Additional details")
+    
+    class Meta:
+        verbose_name = "English Proficiency Requirement"
+        verbose_name_plural = "English Proficiency Requirements"
+
     def __str__(self):
-        return f"{self.program.name} - English Requirements"
+        return f"{self.program.name} - {self.test_type}"

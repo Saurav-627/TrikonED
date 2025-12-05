@@ -15,7 +15,7 @@
                     </h1>
                     <p class="text-[#8d7a5e] dark:text-[#a19077]">{{ user.email }}</p>
                 </div>
-                <a href="{% url 'applications:create' %}"
+                <a href="{% url 'applications:wizard' %}"
                     class="px-6 py-3 bg-primary text-white font-bold rounded-lg hover:opacity-90 transition-all">
                     + New Application
                 </a>
@@ -80,7 +80,8 @@
                             <p class="text-sm text-secondary dark:text-[#a19077] mb-1">Documents</p>
                             <p class="text-3xl font-bold text-text-secondary  dark:text-white">{{ documents.count }}</p>
                         </div>
-                        <div class="size-12 bg-secondary-20 dark:bg-secondary-30 rounded-xl flex items-center justify-center">
+                        <div
+                            class="size-12 bg-secondary-20 dark:bg-secondary-30 rounded-xl flex items-center justify-center">
                             <span class="material-symbols-outlined text-text-secondary text-2xl">folder</span>
                         </div>
                     </div>
@@ -161,7 +162,7 @@
                             <h3 class="text-lg font-bold text-[#181510] dark:text-white mb-2">No applications yet</h3>
                             <p class="text-[#8d7a5e] dark:text-[#a19077] mb-6">Start your journey by creating your first
                                 application</p>
-                            <a href="{% url 'applications:create' %}"
+                            <a href="{% url 'applications:wizard' %}"
                                 class="inline-flex items-center px-6 py-3 bg-primary text-white font-bold rounded-lg hover:opacity-90 transition-all">
                                 Create Application
                                 <span class="material-symbols-outlined ml-2">add</span>
@@ -241,6 +242,73 @@
                             class="block w-full text-center px-4 py-2 bg-primary-10 text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all">
                             Upload Document
                         </a>
+                    </div>
+
+                    <!-- English Proficiency Test Scores -->
+                    <div
+                        class="bg-white dark:bg-[#1a1307] rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b] p-6">
+                        <h3
+                            class="text-lg font-bold text-[#181510] dark:text-white mb-4 flex items-center justify-between">
+                            <span>Test Scores</span>
+                            <span class="text-sm font-normal text-[#8d7a5e] dark:text-[#a19077]">{{ test_scores|length }}</span>
+                        </h3>
+
+                        {% if expired_test_scores %}
+                        <div
+                            class="mb-4 p-3 bg-red-100 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                            <div class="flex items-start gap-2">
+                                <span
+                                    class="material-symbols-outlined text-red-600 dark:text-red-400 text-sm">warning</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-red-700 dark:text-red-300">
+                                        {{ expired_test_scores|length }} test score{{ expired_test_scores|length|pluralize }} expired
+                                    </p>
+                                    <p class="text-xs text-red-600 dark:text-red-400 mt-1">
+                                        Please add new test scores to continue applying
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if test_scores %}
+                        <div class="space-y-3 mb-4">
+                            {% for score in test_scores|slice:":3" %}
+                            <div
+                                class="flex items-center justify-between p-3 bg-secondary-10 dark:bg-background-dark rounded-lg">
+                                <div class="flex items-center flex-1 min-w-0">
+                                    <span
+                                        class="material-symbols-outlined text-secondary flex-shrink-0 mr-2">school</span>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="text-sm font-medium text-text-secondary dark:text-white">{{ score.test_type }}</p>
+                                        <p class="text-xs text-text-secondary dark:text-[#a19077]">
+                                            Overall: {{ score.overall_score|default:"N/A" }} | Expires: {{ score.expiry_date|date:"M d, Y" }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <a href="{% url 'students:edit_test_score' score.pk %}"
+                                    class="ml-2 text-secondary hover:text-primary/80">
+                                    <span class="material-symbols-outlined">edit</span>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-4">No test scores added yet</p>
+                        {% endif %}
+
+                        <div class="flex gap-2">
+                            <a href="{% url 'students:add_test_score' %}"
+                                class="flex-1 text-center px-4 py-2 bg-primary-10 text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all">
+                                Add Test Score
+                            </a>
+                            {% if test_scores %}
+                            <a href="{% url 'students:test_scores' %}"
+                                class="flex-1 text-center px-4 py-2 bg-secondary-10 text-secondary font-bold rounded-lg hover:bg-secondary hover:text-black transition-all">
+                                View All
+                            </a>
+                            {% endif %}
+                        </div>
                     </div>
 
                     <!-- Quick Actions -->

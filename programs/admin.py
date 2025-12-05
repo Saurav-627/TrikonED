@@ -39,5 +39,17 @@ class TuitionFeeAdmin(admin.ModelAdmin):
 
 @admin.register(EnglishRequirement)
 class EnglishRequirementAdmin(admin.ModelAdmin):
-    list_display = ['program', 'ielts', 'toefl', 'pte']
+    list_display = ['program', 'test_type', 'overall_score', 'listening_score', 'reading_score', 'speaking_score', 'writing_score']
+    list_filter = ['test_type']
     search_fields = ['program__name']
+    fieldsets = (
+        ('Test Information', {
+            'fields': ('program', 'test_type', 'custom_range_label')
+        }),
+        ('Scores', {
+            'fields': ('listening_score', 'reading_score', 'speaking_score', 'writing_score', 'overall_score')
+        }),
+        ('Additional Requirements', {
+            'fields': ('extra_requirements',)
+        }),
+    )

@@ -58,12 +58,61 @@ class StudentUniversityVisit(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='university_visits')
     university = models.ForeignKey('universities.University', on_delete=models.CASCADE, related_name='student_visits')
-    visited_at = models.DateTimeField(auto_now_add=True)
+    first_visit_date = models.DateTimeField(auto_now_add=True)
+    latest_visit_date = models.DateTimeField(auto_now=True)
     visit_count = models.IntegerField(default=1)
     
     class Meta:
         unique_together = [['student', 'university']]
-        ordering = ['-visited_at']
+        ordering = ['-latest_visit_date']
     
     def __str__(self):
         return f"{self.student.username} visited {self.university.short_name}"
+
+
+class StudentTestScore(models.Model):
+    """Student English proficiency test scores"""
+    TEST_TYPES = [
+        ('IELTS', 'IELTS'),
+        ('TOEFL', 'TOEFL'),
+        ('PTE', 'PTE'),
+        ('Duolingo', 'Duolingo'),
+        ('Cambridge', 'Cambridge'),
+        ('SAT', 'SAT'),
+        ('GMAT', 'GMAT'),
+        ('Other', 'Other'),
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='test_scores')
+    test_type = models.CharField(max_length=50, choices=TEST_TYPES)
+    test_date = models.DateField()
+    validity_years = models.IntegerField(default=2)
+    expiry_date = models.DateField(blank=True, null=True)
+    
+    # Scores
+    listening_score = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    reading_score = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    speaking_score = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    writing_score = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    overall_score = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    
+    report_file = models.FileField(upload_to='test_reports/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-test_date']
+
+    def save(self, *args, **kwargs):
+        if self.test_date and self.validity_years:
+            # Calculate expiry date
+            try:
+                self.expiry_date = self.test_date.replace(year=self.test_date.year + self.validity_years)
+            except ValueError:
+                # Handle leap year case
+                self.expiry_date = self.test_date.replace(year=self.test_date.year + self.validity_years, day=28)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.student.username} - {self.test_type} ({self.overall_score})"

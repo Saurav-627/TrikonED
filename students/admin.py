@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Student, StudentDocument, StudentUniversityVisit
+from .models import Student, StudentDocument, StudentUniversityVisit, StudentTestScore
 
 @admin.register(Student)
 class StudentAdmin(UserAdmin):
@@ -19,4 +19,37 @@ class StudentDocumentAdmin(admin.ModelAdmin):
 
 @admin.register(StudentUniversityVisit)
 class StudentUniversityVisitAdmin(admin.ModelAdmin):
-    list_display = ['student', 'university', 'visited_at', 'visit_count']
+    list_display = ['student', 'university', 'first_visit_date', 'latest_visit_date', 'visit_count']
+    list_filter = ['university']
+    search_fields = ['student__username', 'university__name']
+
+@admin.register(StudentTestScore)
+class StudentTestScoreAdmin(admin.ModelAdmin):
+    list_display = ['student', 'test_type', 'overall_score', 'test_date', 'expiry_date', 'is_expired']
+    list_filter = ['test_type', 'test_date']
+    search_fields = ['student__username']
+    readonly_fields = ['expiry_date', 'created_at', 'updated_at']
+    
+    fieldsets = (
+        ('Student & Test Info', {
+            'fields': ('student', 'test_type', 'test_date', 'validity_years', 'expiry_date')
+        }),
+        ('Scores', {
+            'fields': ('listening_score', 'reading_score', 'speaking_score', 'writing_score', 'overall_score')
+        }),
+        ('Report', {
+            'fields': ('report_file',)
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    def is_expired(self, obj):
+        from django.utils import timezone
+        if obj.expiry_date:
+            return obj.expiry_date < timezone.now().date()
+        return False
+    is_expired.boolean = True
+    is_expired.short_description = 'Expired'

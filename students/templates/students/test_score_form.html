@@ -1,0 +1,164 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Test Score - TrikonED{% endblock %}
+
+{% block content %}
+<main class="flex-1 w-full bg-background-light dark:bg-background-dark">
+    <!-- Page Header -->
+    <section class="bg-white dark:bg-[#1a1307] border-b border-[#e7e2da] dark:border-[#3a2d1b] py-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-4 mb-4">
+                <a href="{% url 'students:dashboard' %}" 
+                   class="text-[#8d7a5e] dark:text-[#a19077] hover:text-primary transition-all">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </a>
+                <h1 class="text-3xl font-black text-[#181510] dark:text-white">
+                    {% if object %}Edit{% else %}Add{% endif %} English Proficiency Test Score
+                </h1>
+            </div>
+            <p class="text-[#8d7a5e] dark:text-[#a19077] ml-12">
+                {% if object %}Update your test score information{% else %}Add your English proficiency test results{% endif %}
+            </p>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="py-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-[#1a1307] rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b] p-8">
+                <form method="post" enctype="multipart/form-data" id="testScoreForm">
+                    {% csrf_token %}
+                    
+                    {% if form.non_field_errors %}
+                    <div class="mb-6 p-4 bg-red-100 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                        <p class="text-red-700 dark:text-red-300">{{ form.non_field_errors }}</p>
+                    </div>
+                    {% endif %}
+
+                    <!-- Test Information -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-bold text-[#181510] dark:text-white mb-4">Test Information</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Test Type -->
+                            <div>
+                                <label for="{{ form.test_type.id_for_label }}" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Test Type <span class="text-red-500">*</span>
+                                </label>
+                                {{ form.test_type }}
+                                {% if form.test_type.errors %}
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ form.test_type.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Test Date -->
+                            <div>
+                                <label for="{{ form.test_date.id_for_label }}" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Test Date <span class="text-red-500">*</span>
+                                </label>
+                                {{ form.test_date }}
+                                {% if form.test_date.errors %}
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ form.test_date.errors.0 }}</p>
+                                {% endif %}
+                                <p class="mt-1 text-xs text-[#8d7a5e] dark:text-[#a19077]">
+                                    Expiry will be automatically calculated (2 years from test date)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scores -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-bold text-[#181510] dark:text-white mb-4">Test Scores</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Listening Score -->
+                            <div>
+                                <label for="{{ form.listening_score.id_for_label }}" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Listening Score
+                                </label>
+                                {{ form.listening_score }}
+                                {% if form.listening_score.errors %}
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ form.listening_score.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Reading Score -->
+                            <div>
+                                <label for="{{ form.reading_score.id_for_label }}" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Reading Score
+                                </label>
+                                {{ form.reading_score }}
+                                {% if form.reading_score.errors %}
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ form.reading_score.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Speaking Score -->
+                            <div>
+                                <label for="{{ form.speaking_score.id_for_label }}" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Speaking Score
+                                </label>
+                                {{ form.speaking_score }}
+                                {% if form.speaking_score.errors %}
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ form.speaking_score.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Writing Score -->
+                            <div>
+                                <label for="{{ form.writing_score.id_for_label }}" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Writing Score
+                                </label>
+                                {{ form.writing_score }}
+                                {% if form.writing_score.errors %}
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ form.writing_score.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- Overall Score -->
+                            <div class="md:col-span-2">
+                                <label for="{{ form.overall_score.id_for_label }}" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                    Overall Score
+                                </label>
+                                {{ form.overall_score }}
+                                {% if form.overall_score.errors %}
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ form.overall_score.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Report Upload -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-bold text-[#181510] dark:text-white mb-4">Test Report (Optional)</h2>
+                        <div>
+                            <label for="{{ form.report_file.id_for_label }}" class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                Upload Test Report
+                            </label>
+                            {{ form.report_file }}
+                            {% if form.report_file.errors %}
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ form.report_file.errors.0 }}</p>
+                            {% endif %}
+                            <p class="mt-1 text-xs text-[#8d7a5e] dark:text-[#a19077]">
+                                Accepted formats: PDF, JPG, PNG (Max 5MB)
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="flex gap-4">
+                        <button type="submit" 
+                                class="flex-1 px-6 py-3 bg-primary text-white font-bold rounded-lg hover:opacity-90 transition-all">
+                            {% if object %}Update{% else %}Add{% endif %} Test Score
+                        </button>
+                        <a href="{% url 'students:dashboard' %}" 
+                           class="flex-1 text-center px-6 py-3 bg-gray-100 dark:bg-gray-800 text-[#181510] dark:text-white font-bold rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
