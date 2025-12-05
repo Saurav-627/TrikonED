@@ -39,6 +39,14 @@ class University(models.Model):
         blank=True,
         help_text="Select emirate if university is in UAE, otherwise leave blank"
     )
+    country = models.ForeignKey(
+        'core.Country',
+        on_delete=models.PROTECT,
+        related_name='universities',
+        null=True,
+        blank=True,
+        help_text="Select country for non-UAE universities"
+    )
     location_city = models.CharField(
         max_length=255,
         blank=True,
@@ -63,6 +71,7 @@ class University(models.Model):
         ordering = ['name']
         indexes = [
             models.Index(fields=['location_emirate', 'is_partner']),
+            models.Index(fields=['country']),
             models.Index(fields=['slug']),
         ]
     
@@ -70,8 +79,12 @@ class University(models.Model):
         """Return location string - emirate for UAE, city for others"""
         if self.location_emirate:
             return f"{self.location_emirate.name}, {self.location_emirate.country.name}"
+        elif self.country and self.location_city:
+            return f"{self.location_city}, {self.country.name}"
         elif self.location_city:
             return self.location_city
+        elif self.country:
+            return self.country.name
         return "Location not specified"
     
     def save(self, *args, **kwargs):

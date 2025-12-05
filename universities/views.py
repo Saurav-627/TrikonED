@@ -13,22 +13,35 @@ class UniversityListView(ListView):
     paginate_by = 12
     
     def get_queryset(self):
-        queryset = University.objects.select_related('location_emirate', 'location_emirate__country', 'contact_info').prefetch_related('programs')
+        from django.db.models import Q
+        from core.models import Country, Emirate
+        
+        queryset = University.objects.select_related('location_emirate', 'location_emirate__country', 'country', 'contact_info').prefetch_related('programs')
         
         # Search
         search = self.request.GET.get('search', '')
         if search:
             queryset = queryset.filter(name__icontains=search)
         
-        # Filter by country
-        country = self.request.GET.get('country', '')
-        if country:
-            queryset = queryset.filter(location_emirate__country_id=country)
+        # Filter by country - convert name to ID for filtering
+        country_name = self.request.GET.get('country', '')
+        if country_name:
+            try:
+                country = Country.objects.get(name__iexact=country_name)
+                queryset = queryset.filter(
+                    Q(location_emirate__country_id=country.id) | Q(country_id=country.id)
+                )
+            except Country.DoesNotExist:
+                queryset = queryset.none()
         
-        # Filter by emirate
-        emirate = self.request.GET.get('emirate', '')
-        if emirate:
-            queryset = queryset.filter(location_emirate_id=emirate)
+        # Filter by emirate - convert name to ID for filtering
+        emirate_name = self.request.GET.get('emirate', '')
+        if emirate_name:
+            try:
+                emirate = Emirate.objects.get(name__iexact=emirate_name)
+                queryset = queryset.filter(location_emirate_id=emirate.id)
+            except Emirate.DoesNotExist:
+                queryset = queryset.none()
         
         # Filter by type
         uni_type = self.request.GET.get('type', '')
@@ -55,13 +68,17 @@ class UniversityListView(ListView):
         context['countries'] = Country.objects.all()
         context['emirates'] = Emirate.objects.select_related('country').all()
         
-        # Get selected country
-        selected_country = self.request.GET.get('country', '')
-        context['selected_country'] = selected_country
+        # Get selected country name from URL
+        selected_country_name = self.request.GET.get('country', '')
+        context['selected_country'] = selected_country_name
         
-        # Filter emirates by selected country
-        if selected_country:
-            context['filtered_emirates'] = Emirate.objects.filter(country_id=selected_country)
+        # Filter emirates by selected country (convert name to ID)
+        if selected_country_name:
+            try:
+                country = Country.objects.get(name__iexact=selected_country_name)
+                context['filtered_emirates'] = Emirate.objects.filter(country_id=country.id)
+            except Country.DoesNotExist:
+                context['filtered_emirates'] = Emirate.objects.none()
         else:
             context['filtered_emirates'] = Emirate.objects.none()
         

@@ -14,7 +14,7 @@ class ContactInfoAdmin(admin.ModelAdmin):
 @admin.register(University)
 class UniversityAdmin(admin.ModelAdmin):
     list_display = ['name', 'short_name', 'get_location', 'university_type', 'is_partner', 'ranking']
-    list_filter = ['is_partner', 'university_type', 'location_emirate']
+    list_filter = ['is_partner', 'university_type', 'country', 'location_emirate']
     search_fields = ['name', 'short_name', 'location_city']
     prepopulated_fields = {'slug': ('name',)}
     
@@ -23,8 +23,8 @@ class UniversityAdmin(admin.ModelAdmin):
             'fields': ('name', 'short_name', 'slug', 'image', 'logo')
         }),
         ('Location', {
-            'fields': ('location_emirate', 'location_city'),
-            'description': 'For UAE universities: Select emirate. For other countries: Enter city/state in "Location City" field.'
+            'fields': ('country', 'location_emirate', 'location_city'),
+            'description': 'For UAE universities: Select emirate (country will be auto-set). For international: Select country and enter city.'
         }),
         ('Details', {
             'fields': ('description', 'established_year', 'university_type', 'is_partner', 'ranking')

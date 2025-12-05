@@ -29,7 +29,7 @@
                                         id="country" onchange="this.form.submit()">
                                         <option value="">All Countries</option>
                                         {% for country in countries %}
-                                        <option value="{{ country.id }}" {% if request.GET.country == country.id|stringformat:"s" %}selected{% endif %}>{{ country.name }}</option>
+                                        <option value="{{ country.name|lower }}" {% if request.GET.country == country.name|lower %}selected{% endif %}>{{ country.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -46,12 +46,10 @@
                                         id="emirate" onchange="this.form.submit()">
                                         <option value="">All Emirates</option>
                                         {% for emirate in filtered_emirates %}
-                                        <option value="{{ emirate.id }}" {% if request.GET.emirate == emirate.id|stringformat:"s" %}selected{% endif %}>{{ emirate.name }}</option>
+                                        <option value="{{ emirate.name|lower }}" {% if request.GET.emirate == emirate.name|lower %}selected{% endif %}>{{ emirate.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
-                                <!-- Hidden input to preserve country selection -->
-                                <input type="hidden" name="country" value="{{ selected_country }}" />
                             </div>
                             {% endif %}
 
@@ -84,13 +82,61 @@
                                         <option value="private" {% if request.GET.type == 'private' %}selected{% endif %}>
                                             Private</option>
                                         {% comment %} <option value="international" {% if
-                                            request.GET.type == 'international' %}selected{% endif %}>International
+                                            request.GET.type=='international' %}selected{% endif %}>International
                                         </option> {% endcomment %}
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </form>
+
+                    <script>
+                        // Function to clean up empty parameters before form submission
+                        function cleanAndSubmitForm(form) {
+                            // Get all form elements
+                            const formData = new FormData(form);
+                            const params = new URLSearchParams();
+
+                            // Only add non-empty parameters
+                            for (let [key, value] of formData.entries()) {
+                                if (value && value.trim() !== '') {
+                                    params.append(key, value);
+                                }
+                            }
+
+                            // Build clean URL
+                            const baseUrl = form.action;
+                            const queryString = params.toString();
+                            const newUrl = queryString ? `${baseUrl}?${queryString}` : baseUrl;
+
+                            // Navigate to clean URL
+                            window.location.href = newUrl;
+                        }
+
+                        // Clear emirate when country changes
+                        document.getElementById('country').addEventListener('change', function () {
+                            const form = document.getElementById('filter-form');
+                            const emirateSelect = document.getElementById('emirate');
+
+                            // If emirate dropdown exists, clear it
+                            if (emirateSelect) {
+                                emirateSelect.value = '';
+                            }
+
+                            // Clean and submit
+                            cleanAndSubmitForm(form);
+                        });
+
+                        // Clean empty parameters for all other form changes
+                        const formSelects = document.querySelectorAll('#filter-form select, #filter-form input[type="checkbox"]');
+                        formSelects.forEach(function (element) {
+                            if (element.id !== 'country') {  // Already handled country above
+                                element.addEventListener('change', function () {
+                                    cleanAndSubmitForm(document.getElementById('filter-form'));
+                                });
+                            }
+                        });
+                    </script>
                 </div>
             </aside>
 
