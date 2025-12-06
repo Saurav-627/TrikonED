@@ -4,20 +4,20 @@
 {% block title %}Create Application - TrikonED{% endblock %}
 
 {% block content %}
-<main class="flex-1 w-full bg-background-light dark:bg-background-dark">
+<main class="flex-1 w-full bg-background">
     <section class="py-4">
         <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8">
 
             <div
-                class="bg-white dark:bg-[#1a1307] rounded-xl shadow-lg border border-[#e7e2da] dark:border-[#3a2d1b] p-8">
+                class="bg-white rounded-xl shadow-lg border border-border p-8">
                 <div class="mb-8">
                     <div class="size-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                         <span class="material-symbols-outlined text-primary text-3xl">edit_document</span>
                     </div>
-                    <h1 class="text-3xl font-black text-[#181510] dark:text-white mb-2">
+                    <h1 class="text-3xl font-black text-text-primary mb-2">
                         Start Your Application
                     </h1>
-                    <p class="text-[#8d7a5e] dark:text-[#a19077]">Fill in the details below to begin your university
+                    <p class="text-text-secondary">Fill in the details below to begin your university
                         application journey.</p>
                 </div>
 
@@ -26,7 +26,7 @@
 
                     {% if form.non_field_errors %}
                     <div
-                        class="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 p-4 rounded-lg text-sm border border-red-200 dark:border-red-800">
+                        class="bg-red-50 text-red-700 p-4 rounded-lg text-sm border border-red-200">
                         {{ form.non_field_errors }}
                     </div>
                     {% endif %}
@@ -34,33 +34,33 @@
                     <!-- Application Details -->
                     <div>
                         <h2
-                            class="text-xl font-bold text-[#181510] dark:text-white mb-4 pb-2 border-b border-[#e7e2da] dark:border-[#3a2d1b]">
+                            class="text-xl font-bold text-text-primary mb-4 pb-2 border-b border-border">
                             Application Details
                         </h2>
                         <div class="space-y-4">
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     University <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.university }}
                                 {% if form.university.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.university.errors.0 }}
+                                <p class="text-red-600 text-xs mt-1">{{ form.university.errors.0 }}
                                 </p>
                                 {% endif %}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Program <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.program }}
                                 {% if form.program.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.program.errors.0 }}</p>
+                                <p class="text-red-600 text-xs mt-1">{{ form.program.errors.0 }}</p>
                                 {% endif %}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Level <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.level }}
@@ -68,13 +68,13 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Remarks <span
-                                        class="text-[#8d7a5e] dark:text-[#a19077] font-normal">(Optional)</span>
+                                        class="text-text-secondary font-normal">(Optional)</span>
                                 </label>
                                 {{ form.remarks }}
                                 {% if form.remarks.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.remarks.errors.0 }}</p>
+                                <p class="text-red-600 text-xs mt-1">{{ form.remarks.errors.0 }}</p>
                                 {% endif %}
                             </div>
                         </div>
@@ -83,89 +83,89 @@
                     <!-- Personal Information -->
                     <div>
                         <h2
-                            class="text-xl font-bold text-[#181510] dark:text-white mb-4 pb-2 border-b border-[#e7e2da] dark:border-[#3a2d1b]">
+                            class="text-xl font-bold text-text-primary mb-4 pb-2 border-b border-border">
                             Personal Information
                         </h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Phone Number <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.phone }}
                                 {% if form.phone.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.phone.errors.0 }}</p>
+                                <p class="text-red-600 text-xs mt-1">{{ form.phone.errors.0 }}</p>
                                 {% endif %}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Gender <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.gender }}
                                 {% if form.gender.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.gender.errors.0 }}</p>
+                                <p class="text-red-600 text-xs mt-1">{{ form.gender.errors.0 }}</p>
                                 {% endif %}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Nationality <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.nationality }}
                                 {% if form.nationality.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.nationality.errors.0 }}
+                                <p class="text-red-600 text-xs mt-1">{{ form.nationality.errors.0 }}
                                 </p>
                                 {% endif %}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Date of Birth <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.date_of_birth }}
                                 {% if form.date_of_birth.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.date_of_birth.errors.0 }}
+                                <p class="text-red-600 text-xs mt-1">{{ form.date_of_birth.errors.0 }}
                                 </p>
                                 {% endif %}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Passport Number <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.passport_number }}
                                 {% if form.passport_number.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.passport_number.errors.0
+                                <p class="text-red-600 text-xs mt-1">{{ form.passport_number.errors.0
                                     }}</p>
                                 {% endif %}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Passport Expiry <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.passport_expiry }}
                                 {% if form.passport_expiry.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.passport_expiry.errors.0
+                                <p class="text-red-600 text-xs mt-1">{{ form.passport_expiry.errors.0
                                     }}</p>
                                 {% endif %}
                             </div>
                         </div>
 
                         <div class="mt-4">
-                            <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                            <label class="block text-sm font-bold text-text-primary mb-2">
                                 Address <span class="text-red-500">*</span>
                             </label>
                             {{ form.address }}
                             {% if form.address.errors %}
-                            <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.address.errors.0 }}</p>
+                            <p class="text-red-600 text-xs mt-1">{{ form.address.errors.0 }}</p>
                             {% endif %}
                         </div>
                     </div>
 
                     <div class="flex gap-4 pt-6">
                         <a href="{% url 'students:dashboard' %}"
-                            class="flex-1 px-6 bg-red-100 py-3 border-2 dark:border-[#3a2d1b] text-red-700 dark:text-white font-bold rounded-lg hover:bg-red-200 dark:hover:bg-background-dark transition-all text-center">
+                            class="flex-1 px-6 bg-red-100 py-3 border-2 text-red-700 font-bold rounded-lg hover:bg-red-200 transition-all text-center">
                             Cancel
                         </a>
                         <button type="submit"

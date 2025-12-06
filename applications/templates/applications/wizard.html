@@ -4,7 +4,7 @@
 {% block title %}Application Wizard - Step {{ current_step }} - TrikonED{% endblock %}
 
 {% block content %}
-<main class="flex-1 w-full bg-background-light dark:bg-background-dark">
+<main class="flex-1 w-full bg-background">
     <section class="py-4">
         <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -14,22 +14,22 @@
                     <!-- Step 1 -->
                     <div class="flex items-center flex-1">
                         <div
-                            class="flex items-center justify-center w-10 h-10 rounded-full {% if current_step >= 1 %}bg-primary text-white{% else %}bg-gray-200 dark:bg-gray-700 text-gray-500{% endif %} font-bold">
+                            class="flex items-center justify-center w-10 h-10 rounded-full {% if current_step >= 1 %}bg-primary text-white{% else %}bg-gray-200 text-gray-500{% endif %} font-bold">
                             1
                         </div>
                         <div
-                            class="flex-1 h-1 {% if current_step > 1 %}bg-primary{% else %}bg-gray-200 dark:bg-gray-700{% endif %} mx-2">
+                            class="flex-1 h-1 {% if current_step > 1 %}bg-primary{% else %}bg-gray-200{% endif %} mx-2">
                         </div>
                     </div>
 
                     <!-- Step 2 -->
                     <div class="flex items-center flex-1">
                         <div
-                            class="flex items-center justify-center w-10 h-10 rounded-full {% if current_step >= 2 %}bg-primary text-white{% else %}bg-gray-200 dark:bg-gray-700 text-gray-500{% endif %} font-bold">
+                            class="flex items-center justify-center w-10 h-10 rounded-full {% if current_step >= 2 %}bg-primary text-white{% else %}bg-gray-200 text-gray-500{% endif %} font-bold">
                             2
                         </div>
                         <div
-                            class="flex-1 h-1 {% if current_step > 2 %}bg-primary{% else %}bg-gray-200 dark:bg-gray-700{% endif %} mx-2">
+                            class="flex-1 h-1 {% if current_step > 2 %}bg-primary{% else %}bg-gray-200{% endif %} mx-2">
                         </div>
                     </div>
 
@@ -37,7 +37,7 @@
                     {% if english_required or current_step == 3 %}
                     <div class="flex items-center">
                         <div
-                            class="flex items-center justify-center w-10 h-10 rounded-full {% if current_step >= 3 %}bg-primary text-white{% else %}bg-gray-200 dark:bg-gray-700 text-gray-500{% endif %} font-bold">
+                            class="flex items-center justify-center w-10 h-10 rounded-full {% if current_step >= 3 %}bg-primary text-white{% else %}bg-gray-200 text-gray-500{% endif %} font-bold">
                             3
                         </div>
                     </div>
@@ -60,8 +60,7 @@
                 </div>
             </div>
 
-            <div
-                class="bg-white dark:bg-[#1a1307] rounded-xl shadow-lg border border-[#e7e2da] dark:border-[#3a2d1b] p-8">
+            <div class="bg-white rounded-xl shadow-lg border border-border p-8">
 
                 {% if current_step == 1 %}
                 <!-- STEP 1: Personal Information -->
@@ -69,49 +68,47 @@
                     <div class="size-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                         <span class="material-symbols-outlined text-primary text-3xl">person</span>
                     </div>
-                    <h1 class="text-3xl font-black text-[#181510] dark:text-white mb-2">Personal Information</h1>
-                    <p class="text-[#8d7a5e] dark:text-[#a19077]">Tell us about yourself and select your program</p>
+                    <h1 class="text-3xl font-black text-text-primary mb-2">Personal Information</h1>
+                    <p class="text-text-secondary">Tell us about yourself and select your program</p>
                 </div>
 
                 <form method="post" class="space-y-8">
                     {% csrf_token %}
                     {% if form.non_field_errors %}
-                    <div
-                        class="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 p-4 rounded-lg text-sm border border-red-200 dark:border-red-800">
+                    <div class="bg-red-50 text-red-700 p-4 rounded-lg text-sm border border-red-200">
                         {{ form.non_field_errors }}
                     </div>
                     {% endif %}
 
                     <!-- Application Details -->
                     <div>
-                        <h2
-                            class="text-xl font-bold text-[#181510] dark:text-white mb-4 pb-2 border-b border-[#e7e2da] dark:border-[#3a2d1b]">
+                        <h2 class="text-xl font-bold text-text-primary mb-4 pb-2 border-b border-border">
                             Application Details
                         </h2>
                         <div class="space-y-4">
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     University <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.university }}
                                 {% if form.university.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.university.errors.0 }}
+                                <p class="text-red-600 text-xs mt-1">{{ form.university.errors.0 }}
                                 </p>
                                 {% endif %}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Program <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.program }}
                                 {% if form.program.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.program.errors.0 }}</p>
+                                <p class="text-red-600 text-xs mt-1">{{ form.program.errors.0 }}</p>
                                 {% endif %}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Level <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.level }}
@@ -119,13 +116,12 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
-                                    Remarks <span
-                                        class="text-[#8d7a5e] dark:text-[#a19077] font-normal">(Optional)</span>
+                                <label class="block text-sm font-bold text-text-primary mb-2">
+                                    Remarks <span class="text-text-secondary font-normal">(Optional)</span>
                                 </label>
                                 {{ form.remarks }}
                                 {% if form.remarks.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.remarks.errors.0 }}</p>
+                                <p class="text-red-600 text-xs mt-1">{{ form.remarks.errors.0 }}</p>
                                 {% endif %}
                             </div>
                         </div>
@@ -133,90 +129,89 @@
 
                     <!-- Personal Information -->
                     <div>
-                        <h2
-                            class="text-xl font-bold text-[#181510] dark:text-white mb-4 pb-2 border-b border-[#e7e2da] dark:border-[#3a2d1b]">
+                        <h2 class="text-xl font-bold text-text-primary mb-4 pb-2 border-b border-border">
                             Personal Information
                         </h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Phone Number <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.phone }}
                                 {% if form.phone.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.phone.errors.0 }}</p>
+                                <p class="text-red-600 text-xs mt-1">{{ form.phone.errors.0 }}</p>
                                 {% endif %}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Gender <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.gender }}
                                 {% if form.gender.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.gender.errors.0 }}</p>
+                                <p class="text-red-600 text-xs mt-1">{{ form.gender.errors.0 }}</p>
                                 {% endif %}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Nationality <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.nationality }}
                                 {% if form.nationality.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.nationality.errors.0 }}
+                                <p class="text-red-600 text-xs mt-1">{{ form.nationality.errors.0 }}
                                 </p>
                                 {% endif %}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Date of Birth <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.date_of_birth }}
                                 {% if form.date_of_birth.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.date_of_birth.errors.0 }}
+                                <p class="text-red-600 text-xs mt-1">{{ form.date_of_birth.errors.0 }}
                                 </p>
                                 {% endif %}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Passport Number <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.passport_number }}
                                 {% if form.passport_number.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.passport_number.errors.0
+                                <p class="text-red-600 text-xs mt-1">{{ form.passport_number.errors.0
                                     }}</p>
                                 {% endif %}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-bold text-text-primary mb-2">
                                     Passport Expiry <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.passport_expiry }}
                                 {% if form.passport_expiry.errors %}
-                                <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.passport_expiry.errors.0
+                                <p class="text-red-600 text-xs mt-1">{{ form.passport_expiry.errors.0
                                     }}</p>
                                 {% endif %}
                             </div>
                         </div>
 
                         <div class="mt-4">
-                            <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                            <label class="block text-sm font-bold text-text-primary mb-2">
                                 Address <span class="text-red-500">*</span>
                             </label>
                             {{ form.address }}
                             {% if form.address.errors %}
-                            <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{ form.address.errors.0 }}</p>
+                            <p class="text-red-600 text-xs mt-1">{{ form.address.errors.0 }}</p>
                             {% endif %}
                         </div>
                     </div>
 
                     <div class="flex gap-4 pt-6">
                         <a href="{% url 'students:dashboard' %}"
-                            class="flex-1 px-6 py-3 bg-gray-100 dark:bg-gray-800 text-[#181510] dark:text-white font-bold rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all text-center">
+                            class="flex-1 px-6 py-3 bg-gray-100 text-text-primary font-bold rounded-lg hover:bg-gray-200 transition-all text-center">
                             Cancel
                         </a>
                         <button type="submit" name="action" value="next"
@@ -232,16 +227,15 @@
                     <div class="size-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                         <span class="material-symbols-outlined text-primary text-3xl">folder</span>
                     </div>
-                    <h1 class="text-3xl font-black text-[#181510] dark:text-white mb-2">Upload Documents</h1>
-                    <p class="text-[#8d7a5e] dark:text-[#a19077]">Upload your documents (all optional)</p>
+                    <h1 class="text-3xl font-black text-text-primary mb-2">Upload Documents</h1>
+                    <p class="text-text-secondary">Upload your documents (all optional)</p>
                 </div>
 
                 <!-- Existing Documents -->
                 {% if existing_passport or existing_transcript or existing_other_documents %}
-                <div
-                    class="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                    <h3 class="text-sm font-bold text-green-700 dark:text-green-300 mb-2">✓ Existing Documents</h3>
-                    <div class="space-y-2 text-sm text-green-600 dark:text-green-400">
+                <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <h3 class="text-sm font-bold text-green-700 mb-2">✓ Existing Documents</h3>
+                    <div class="space-y-2 text-sm text-green-600">
                         {% if existing_passport %}<p>• Passport: {{ existing_passport.file_name }}</p>{% endif %}
                         {% if existing_transcript %}<p>• Transcript: {{ existing_transcript.file_name }}</p>{% endif %}
                         {% if existing_other_documents %}
@@ -257,33 +251,33 @@
                     {% csrf_token %}
 
                     <div>
-                        <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                        <label class="block text-sm font-bold text-text-primary mb-2">
                             {{ form.passport.label }}
                         </label>
                         {{ form.passport }}
-                        <p class="text-xs text-[#8d7a5e] dark:text-[#a19077] mt-1">{{ form.passport.help_text }}</p>
+                        <p class="text-xs text-text-secondary mt-1">{{ form.passport.help_text }}</p>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                        <label class="block text-sm font-bold text-text-primary mb-2">
                             {{ form.transcript.label }}
                         </label>
                         {{ form.transcript }}
-                        <p class="text-xs text-[#8d7a5e] dark:text-[#a19077] mt-1">{{ form.transcript.help_text }}</p>
+                        <p class="text-xs text-text-secondary mt-1">{{ form.transcript.help_text }}</p>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                        <label class="block text-sm font-bold text-text-primary mb-2">
                             {{ form.other_documents.label }}
                         </label>
                         {{ form.other_documents }}
-                        <p class="text-xs text-[#8d7a5e] dark:text-[#a19077] mt-1">{{ form.other_documents.help_text }}
+                        <p class="text-xs text-text-secondary mt-1">{{ form.other_documents.help_text }}
                         </p>
                     </div>
 
                     <div class="flex gap-4 pt-6">
                         <button type="submit" name="action" value="prev"
-                            class="flex-1 px-6 py-3 bg-gray-100 dark:bg-gray-800 text-[#181510] dark:text-white font-bold rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">
+                            class="flex-1 px-6 py-3 bg-gray-100 text-text-primary font-bold rounded-lg hover:bg-gray-200 transition-all">
                             ← Back
                         </button>
                         <button type="submit" name="action" value="next"
@@ -299,26 +293,24 @@
                     <div class="size-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                         <span class="material-symbols-outlined text-primary text-3xl">school</span>
                     </div>
-                    <h1 class="text-3xl font-black text-[#181510] dark:text-white mb-2">English Proficiency</h1>
-                    <p class="text-[#8d7a5e] dark:text-[#a19077]">Provide your English test scores (optional)</p>
+                    <h1 class="text-3xl font-black text-text-primary mb-2">English Proficiency</h1>
+                    <p class="text-text-secondary">Provide your English test scores (optional)</p>
                 </div>
 
                 <form method="post" class="space-y-6">
                     {% csrf_token %}
 
-                    <div
-                        class="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                    <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
                         <div class="flex items-start gap-2">
                             {{ form.use_existing_score }}
-                            <label for="{{ form.use_existing_score.id_for_label }}"
-                                class="text-sm text-blue-700 dark:text-blue-300">
+                            <label for="{{ form.use_existing_score.id_for_label }}" class="text-sm text-blue-700">
                                 {{ form.use_existing_score.label }}
                             </label>
                         </div>
                     </div>
 
                     <div id="existingScoreField" style="display: none;">
-                        <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                        <label class="block text-sm font-bold text-text-primary mb-2">
                             {{ form.existing_score.label }}
                         </label>
                         {{ form.existing_score }}
@@ -327,37 +319,33 @@
                     <div id="newScoreFields">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">Test
+                                <label class="block text-sm font-bold text-text-primary mb-2">Test
                                     Type</label>
                                 {{ form.test_type }}
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">Test
+                                <label class="block text-sm font-bold text-text-primary mb-2">Test
                                     Date</label>
                                 {{ form.test_date }}
                             </div>
                             <div>
-                                <label
-                                    class="block text-sm font-bold text-[#181510] dark:text-white mb-2">Listening</label>
+                                <label class="block text-sm font-bold text-text-primary mb-2">Listening</label>
                                 {{ form.listening_score }}
                             </div>
                             <div>
-                                <label
-                                    class="block text-sm font-bold text-[#181510] dark:text-white mb-2">Reading</label>
+                                <label class="block text-sm font-bold text-text-primary mb-2">Reading</label>
                                 {{ form.reading_score }}
                             </div>
                             <div>
-                                <label
-                                    class="block text-sm font-bold text-[#181510] dark:text-white mb-2">Speaking</label>
+                                <label class="block text-sm font-bold text-text-primary mb-2">Speaking</label>
                                 {{ form.speaking_score }}
                             </div>
                             <div>
-                                <label
-                                    class="block text-sm font-bold text-[#181510] dark:text-white mb-2">Writing</label>
+                                <label class="block text-sm font-bold text-text-primary mb-2">Writing</label>
                                 {{ form.writing_score }}
                             </div>
                             <div class="md:col-span-2">
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2">Overall
+                                <label class="block text-sm font-bold text-text-primary mb-2">Overall
                                     Score</label>
                                 {{ form.overall_score }}
                             </div>
@@ -366,7 +354,7 @@
 
                     <div class="flex gap-4 pt-6">
                         <button type="submit" name="action" value="prev"
-                            class="flex-1 px-6 py-3 bg-gray-100 dark:bg-gray-800 text-[#181510] dark:text-white font-bold rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">
+                            class="flex-1 px-6 py-3 bg-gray-100 text-text-primary font-bold rounded-lg hover:bg-gray-200 transition-all">
                             ← Back
                         </button>
                         <button type="submit" name="action" value="next"
@@ -411,17 +399,6 @@
         color: #181510;
         font-size: 0.875rem;
         transition: all 0.2s;
-    }
-
-    .dark select,
-    .dark textarea,
-    .dark input[type="text"],
-    .dark input[type="date"],
-    .dark input[type="number"],
-    .dark input[type="file"] {
-        border-color: #3a2d1b;
-        background-color: #231b0f;
-        color: white;
     }
 
     select:focus,

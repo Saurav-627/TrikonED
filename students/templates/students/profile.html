@@ -10,29 +10,29 @@
             <!-- Header -->
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-[#181510] dark:text-white text-3xl font-bold leading-tight tracking-[-0.015em]">
+                    <h1 class="text-text-primary text-3xl font-bold leading-tight tracking-[-0.015em]">
                         My Profile
                     </h1>
-                    <p class="text-[#8d7a5e] dark:text-[#a19077] text-base mt-2">
+                    <p class="text-text-secondary text-base mt-2">
                         Update your personal information
                     </p>
                 </div>
                 <a href="{% url 'students:dashboard' %}"
-                    class="flex items-center gap-2 px-4 py-2 bg-background-light dark:bg-background-dark text-[#181510] dark:text-white rounded-lg hover:bg-primary/10 transition-all border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    class="flex items-center gap-2 px-4 py-2 bg-background text-text-primary rounded-lg hover:bg-primary/10 transition-all border border-border">
                     <span class="material-symbols-outlined text-xl">arrow_back</span>
                     <span class="font-medium">Back to Dashboard</span>
                 </a>
             </div>
 
             <!-- Profile Form -->
-            <div class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-border">
                 <form method="post" enctype="multipart/form-data" class="space-y-6">
                     {% csrf_token %}
                     
                     {% if form.errors %}
-                    <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-                        <p class="text-red-700 dark:text-red-300 font-medium">Please correct the errors below:</p>
-                        <ul class="list-disc list-inside mt-2 text-red-600 dark:text-red-400">
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                        <p class="text-red-700 font-medium">Please correct the errors below:</p>
+                        <ul class="list-disc list-inside mt-2 text-red-600">
                             {% for field in form %}
                                 {% for error in field.errors %}
                                     <li>{{ field.label }}: {{ error }}</li>
@@ -44,46 +44,46 @@
 
                     <!-- Personal Information -->
                     <div>
-                        <h2 class="text-[#181510] dark:text-white text-xl font-bold mb-4">Personal Information</h2>
+                        <h2 class="text-text-primary text-xl font-bold mb-4">Personal Information</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-medium text-text-primary mb-2">
                                     First Name <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.first_name }}
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-medium text-text-primary mb-2">
                                     Last Name <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.last_name }}
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-medium text-text-primary mb-2">
                                     Email <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.email }}
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-medium text-text-primary mb-2">
                                     Phone <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.phone }}
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-medium text-text-primary mb-2">
                                     Gender <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.gender }}
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-medium text-text-primary mb-2">
                                     Date of Birth <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.date_of_birth }}
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-medium text-text-primary mb-2">
                                     Nationality <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.nationality }}
@@ -93,16 +93,16 @@
 
                     <!-- Passport Information -->
                     <div>
-                        <h2 class="text-[#181510] dark:text-white text-xl font-bold mb-4">Passport Information</h2>
+                        <h2 class="text-text-primary text-xl font-bold mb-4">Passport Information</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-medium text-text-primary mb-2">
                                     Passport Number <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.passport_number }}
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-[#181510] dark:text-white mb-2">
+                                <label class="block text-sm font-medium text-text-primary mb-2">
                                     Passport Expiry <span class="text-red-500">*</span>
                                 </label>
                                 {{ form.passport_expiry }}
@@ -112,9 +112,9 @@
 
                     <!-- Address -->
                     <div>
-                        <h2 class="text-[#181510] dark:text-white text-xl font-bold mb-4">Address</h2>
+                        <h2 class="text-text-primary text-xl font-bold mb-4">Address</h2>
                         <div>
-                            <label class="block text-sm font-medium text-[#181510] dark:text-white mb-2">
+                            <label class="block text-sm font-medium text-text-primary mb-2">
                                 Full Address <span class="text-red-500">*</span>
                             </label>
                             {{ form.address }}
@@ -123,7 +123,7 @@
 
                     <!-- Profile Picture -->
                     <div>
-                        <h2 class="text-[#181510] dark:text-white text-xl font-bold mb-4">Profile Picture</h2>
+                        <h2 class="text-text-primary text-xl font-bold mb-4">Profile Picture</h2>
                         {% if user.profile_picture %}
                         <div class="mb-4">
                             <img src="{{ user.profile_picture.url }}" alt="Profile Picture" 
@@ -131,7 +131,7 @@
                         </div>
                         {% endif %}
                         <div>
-                            <label class="block text-sm font-medium text-[#181510] dark:text-white mb-2">
+                            <label class="block text-sm font-medium text-text-primary mb-2">
                                 Upload New Picture
                             </label>
                             {{ form.profile_picture }}
@@ -145,7 +145,7 @@
                             Save Changes
                         </button>
                         <a href="{% url 'students:dashboard' %}"
-                            class="flex-1 md:flex-none px-6 py-3 bg-red-100 dark:bg-red-900/20 text-red-700 hover:bg-red-200 text-center font-bold rounded-lg transition-all">
+                            class="flex-1 md:flex-none px-6 py-3 bg-red-100 text-red-700 hover:bg-red-200 text-center font-bold rounded-lg transition-all">
                             Cancel
                         </a>
                     </div>

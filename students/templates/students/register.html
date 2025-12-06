@@ -4,12 +4,12 @@
 {% block title %}Register - TrikonED{% endblock %}
 
 {% block content %}
-<main class="flex-1 w-full bg-background-light dark:bg-background-dark">
+<main class="flex-1 w-full bg-background">
     <section class="py-6 px-4">
         <div class="max-w-screen-md mx-auto">
             <!-- Registration Card -->
             <div
-                class="bg-white dark:bg-[#1a1307] rounded-xl shadow-lg border border-[#e7e2da] dark:border-[#3a2d1b] p-8">
+                class="bg-white rounded-xl shadow-lg border border-border p-8">
                 <!-- Logo/Icon -->
                 <div class="flex justify-center mb-1">
                     <div class="">
@@ -17,10 +17,10 @@
                     </div>
                 </div>
 
-                <h1 class="text-3xl font-black text-center text-[#181510] dark:text-white mb-2">
+                <h1 class="text-3xl font-black text-center text-text-primary mb-2">
                     Create Your Account
                 </h1>
-                <p class="text-center text-[#8d7a5e] dark:text-[#a19077] mb-8">
+                <p class="text-center text-text-secondary mb-8">
                     Start your journey to UAE universities
                 </p>
 
@@ -28,7 +28,7 @@
                     {% csrf_token %}
 
                     {% if form.non_field_errors %}
-                    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg"
                         role="alert">
                         {{ form.non_field_errors }}
                     </div>
@@ -38,22 +38,22 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                             <label for="{{ form.first_name.id_for_label }}"
-                                class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                class="block text-sm font-bold text-text-primary mb-2">
                                 First Name <span class="text-red-500">*</span>
                             </label>
                             {{ form.first_name }}
                             {% if form.first_name.errors %}
-                            <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.first_name.errors.0 }}</p>
+                            <p class="mt-2 text-sm text-red-600">{{ form.first_name.errors.0 }}</p>
                             {% endif %}
                         </div>
                         <div>
                             <label for="{{ form.last_name.id_for_label }}"
-                                class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                                class="block text-sm font-bold text-text-primary mb-2">
                                 Last Name <span class="text-red-500">*</span>
                             </label>
                             {{ form.last_name }}
                             {% if form.last_name.errors %}
-                            <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.last_name.errors.0 }}</p>
+                            <p class="mt-2 text-sm text-red-600">{{ form.last_name.errors.0 }}</p>
                             {% endif %}
                         </div>
                     </div>
@@ -61,26 +61,26 @@
                     <!-- Email -->
                     <div>
                         <label for="{{ form.email.id_for_label }}"
-                            class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                            class="block text-sm font-bold text-text-primary mb-2">
                             Email Address <span class="text-red-500">*</span>
                         </label>
                         {{ form.email }}
                         {% if form.email.errors %}
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.email.errors.0 }}</p>
+                        <p class="mt-2 text-sm text-red-600">{{ form.email.errors.0 }}</p>
                         {% endif %}
                     </div>
 
                     <!-- Password -->
                     <div>
                         <label for="{{ form.password.id_for_label }}"
-                            class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                            class="block text-sm font-bold text-text-primary mb-2">
                             Password <span class="text-red-500">*</span>
                         </label>
                         {{ form.password }}
                         {% if form.password.errors %}
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.password.errors.0 }}</p>
+                        <p class="mt-2 text-sm text-red-600">{{ form.password.errors.0 }}</p>
                         {% endif %}
-                        <p class="mt-2 text-xs text-[#8d7a5e] dark:text-[#a19077]">
+                        <p class="mt-2 text-xs text-text-secondary">
                             Must be at least 8 characters with letters and numbers
                         </p>
                     </div>
@@ -88,20 +88,20 @@
                     <!-- Confirm Password -->
                     <div>
                         <label for="{{ form.password_confirm.id_for_label }}"
-                            class="block text-sm font-bold text-[#181510] dark:text-white mb-2">
+                            class="block text-sm font-bold text-text-primary mb-2">
                             Confirm Password <span class="text-red-500">*</span>
                         </label>
                         {{ form.password_confirm }}
                         {% if form.password_confirm.errors %}
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.password_confirm.errors.0 }}</p>
+                        <p class="mt-2 text-sm text-red-600">{{ form.password_confirm.errors.0 }}</p>
                         {% endif %}
                     </div>
 
                     <!-- Terms -->
                     <div class="flex items-center">
                         <input type="checkbox" id="terms" required
-                            class="w-5 h-5 text-primary border-secondary dark:border-[#3a2d1b] rounded focus:ring-primary mt-0.5">
-                        <label for="terms" class="ml-2 text-sm text-[#8d7a5e] dark:text-[#a19077]">
+                            class="w-5 h-5 text-primary border-secondary rounded focus:ring-primary mt-0.5">
+                        <label for="terms" class="ml-2 text-sm text-text-secondary">
                             I agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a>
                             and <a href="#" class="text-primary hover:underline">Privacy Policy</a>
                         </label>
@@ -115,7 +115,7 @@
                 </form>
 
                 <!-- Sign In Link -->
-                <p class="mt-6 text-center text-sm text-[#8d7a5e] dark:text-[#a19077]">
+                <p class="mt-6 text-center text-sm text-text-secondary">
                     Already have an account?
                     <a href="{% url 'students:login' %}" class="text-primary hover:underline font-bold">
                         Sign in

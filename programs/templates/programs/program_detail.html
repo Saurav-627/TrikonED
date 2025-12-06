@@ -4,26 +4,26 @@
 {% block title %}{{ program.name }} - {{ program.university.name }} - TrikonED{% endblock %}
 
 {% block content %}
-<main class="flex-1 w-full bg-background-light dark:bg-background-dark">
+<main class="flex-1 w-full bg-background">
     <div class="px-4 sm:px-6 lg:px-8 py-8">
         <div class="max-w-7xl mx-auto">
             <!-- Breadcrumbs -->
             <div class="flex flex-wrap gap-2 pb-6">
-                <a class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal hover:text-primary transition-colors"
+                <a class="text-text-secondary text-sm font-medium leading-normal hover:text-primary transition-colors"
                     href="{% url 'core:landing' %}">Home</a>
-                <span class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">/</span>
-                <a class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal hover:text-primary transition-colors"
+                <span class="text-text-secondary text-sm font-medium leading-normal">/</span>
+                <a class="text-text-secondary text-sm font-medium leading-normal hover:text-primary transition-colors"
                     href="{% url 'universities:list' %}">Universities</a>
-                <span class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">/</span>
-                <a class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal hover:text-primary transition-colors"
+                <span class="text-text-secondary text-sm font-medium leading-normal">/</span>
+                <a class="text-text-secondary text-sm font-medium leading-normal hover:text-primary transition-colors"
                     href="{% url 'universities:detail' program.university.slug %}">{{ program.university.name }}</a>
-                <span class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">/</span>
-                <span class="text-[#181510] dark:text-white text-sm font-medium leading-normal">
+                <span class="text-text-secondary text-sm font-medium leading-normal">/</span>
+                <span class="text-text-primary text-sm font-medium leading-normal">
                     {{ program.name }}</span>
             </div>
 
             <!-- Header Card -->
-            <div class="bg-white dark:bg-[#1a1307] rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b] p-6 mb-6">
+            <div class="bg-white rounded-xl border border-border p-6 mb-6">
                 <div class="flex flex-col md:flex-row gap-6">
                     <div class="flex flex-col sm:flex-row gap-6 flex-1">
                         {% if program.university.image and program.university.image.url %}
@@ -36,11 +36,11 @@
                         {% endif %}
                         <div class="flex flex-col justify-center">
                             <h1
-                                class="text-[#181510] dark:text-white text-3xl md:text-4xl font-bold leading-tight tracking-tight mb-2">
+                                class="text-text-primary text-3xl md:text-4xl font-bold leading-tight tracking-tight mb-2">
                                 {{ program.name }}</h1>
-                            <p class="text-[#8d7a5e] dark:text-[#a19077] text-lg font-medium leading-normal mb-1">
+                            <p class="text-text-secondary text-lg font-medium leading-normal mb-1">
                                 {{ program.university.name }}</p>
-                            <p class="text-[#8d7a5e] dark:text-[#a19077] text-lg font-medium">
+                            <p class="text-text-secondary text-lg font-medium">
                                 {{ program.university.get_location_display }}
                             </p>
                         </div>
@@ -63,14 +63,13 @@
 
             <!-- Stats Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                <div
-                    class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307]">
-                    <p class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">Tuition Fees
+                <div class="flex flex-col gap-2 rounded-xl p-6 border border-border bg-white">
+                    <p class="text-text-secondary text-sm font-medium leading-normal">Tuition Fees
                         {% if program.tuition_fees.first %}
                         <span class="text-xs">({{ program.tuition_fees.first.get_per_display }})</span>
                         {% endif %}
                     </p>
-                    <p class="text-[#181510] dark:text-white text-lg font-bold leading-tight">
+                    <p class="text-text-primary text-lg font-bold leading-tight">
                         {% if program.tuition_fees.first %}
                         {{ program.tuition_fees.first.currency }} {{ program.tuition_fees.first.amount|floatformat:0 }}
                         {% if program.tuition_fees.first.max_amount %}
@@ -81,17 +80,15 @@
                         {% endif %}
                     </p>
                 </div>
-                <div
-                    class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307]">
-                    <p class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">Program Duration
+                <div class="flex flex-col gap-2 rounded-xl p-6 border border-border bg-white">
+                    <p class="text-text-secondary text-sm font-medium leading-normal">Program Duration
                     </p>
-                    <p class="text-[#181510] dark:text-white text-lg font-bold leading-tight">
+                    <p class="text-text-primary text-lg font-bold leading-tight">
                         {{ program.type.duration }} {{ program.type.get_duration_unit_display }}</p>
                 </div>
-                <div
-                    class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307]">
-                    <p class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">Next Intake</p>
-                    <p class="text-[#181510] dark:text-white text-lg font-bold leading-tight">
+                <div class="flex flex-col gap-2 rounded-xl p-6 border border-border bg-white">
+                    <p class="text-text-secondary text-sm font-medium leading-normal">Next Intake</p>
+                    <p class="text-text-primary text-lg font-bold leading-tight">
                         {% if program.intakes.first %}
                         {{ program.intakes.first.start_date|date:"F Y" }}
                         {% else %}
@@ -99,10 +96,9 @@
                         {% endif %}
                     </p>
                 </div>
-                <div
-                    class="flex flex-col gap-2 rounded-xl p-6 border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307]">
-                    <p class="text-[#8d7a5e] dark:text-[#a19077] text-sm font-medium leading-normal">IELTS Score</p>
-                    <p class="text-[#181510] dark:text-white text-lg font-bold leading-tight">
+                <div class="flex flex-col gap-2 rounded-xl p-6 border border-border bg-white">
+                    <p class="text-text-secondary text-sm font-medium leading-normal">IELTS Score</p>
+                    <p class="text-text-primary text-lg font-bold leading-tight">
                         {% if program.english_requirements.first and program.english_requirements.first.ielts %}
                         {{ program.english_requirements.first.ielts }}+
                         {% else %}
@@ -113,24 +109,23 @@
             </div>
 
             <!-- Tabs Section -->
-            <div
-                class="bg-white dark:bg-[#1a1307] rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b] overflow-hidden">
+            <div class="bg-white rounded-xl border border-border overflow-hidden">
                 <!-- Tab Headers -->
-                <div class="border-b border-[#e7e2da] dark:border-[#3a2d1b]">
+                <div class="border-b border-border">
                     <div class="flex gap-8 overflow-x-auto px-6">
                         <a class="flex flex-col items-center justify-center border-b-[3px] border-b-primary text-primary pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
                             data-tab="overview">
                             <p class="text-sm font-bold leading-normal tracking-[0.015em]">Overview</p>
                         </a>
-                        <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#8d7a5e] dark:text-[#a19077] hover:text-primary transition-colors pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
+                        <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-secondary hover:text-primary transition-colors pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
                             data-tab="admission">
                             <p class="text-sm font-bold leading-normal tracking-[0.015em]">Admission Requirements</p>
                         </a>
-                        <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#8d7a5e] dark:text-[#a19077] hover:text-primary transition-colors pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
+                        <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-secondary hover:text-primary transition-colors pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
                             data-tab="curriculum">
                             <p class="text-sm font-bold leading-normal tracking-[0.015em]">Curriculum</p>
                         </a>
-                        <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#8d7a5e] dark:text-[#a19077] hover:text-primary transition-colors pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
+                        <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-secondary hover:text-primary transition-colors pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
                             data-tab="university">
                             <p class="text-sm font-bold leading-normal tracking-[0.015em]">University Info</p>
                         </a>
@@ -139,52 +134,45 @@
 
                 <!-- Tab Contents -->
                 <div class="p-6">
-                    <div class="text-base text-[#181510] dark:text-white leading-relaxed space-y-4 tab-content"
-                        id="overview">
-                        <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-4">Program Overview</h3>
-                        <div class="prose dark:prose-invert max-w-none text-[#8d7a5e] dark:text-[#a19077]">
+                    <div class="text-base text-text-primary leading-relaxed space-y-4 tab-content" id="overview">
+                        <h3 class="text-xl font-bold text-text-primary mb-4">Program Overview</h3>
+                        <div class="prose max-w-none text-text-secondary">
                             {{ program.description|linebreaks }}
                         </div>
                     </div>
 
-                    <div class="text-base text-[#181510] dark:text-white leading-relaxed space-y-4 tab-content hidden"
+                    <div class="text-base text-text-primary leading-relaxed space-y-4 tab-content hidden"
                         id="admission">
-                        <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-4">Admission Requirements</h3>
-                        <div class="prose dark:prose-invert max-w-none text-[#8d7a5e] dark:text-[#a19077]">
+                        <h3 class="text-xl font-bold text-text-primary mb-4">Admission Requirements</h3>
+                        <div class="prose max-w-none text-text-secondary">
                             {{ program.type.entry_requirements|linebreaks }}
                         </div>
 
                         <!-- English Requirements -->
                         {% if program.english_requirements.first %}
-                        <div class="mt-6 pt-6 border-t border-[#e7e2da] dark:border-[#3a2d1b]">
-                            <h4 class="text-lg font-bold text-[#181510] dark:text-white mb-4">English Language
+                        <div class="mt-6 pt-6 border-t border-border">
+                            <h4 class="text-lg font-bold text-text-primary mb-4">English Language
                                 Requirements</h4>
                             <div class="grid grid-cols-1 sm:grid-cols-10 gap-4">
                                 {% if program.english_requirements.first.ielts %}
-                                <div
-                                    class="bg-background-light dark:bg-background-dark rounded-lg p-4 border border-[#e7e2da] dark:border-[#3a2d1b]">
-                                    <p
-                                        class="text-xs font-bold uppercase tracking-wider text-[#8d7a5e] dark:text-[#a19077] mb-1">
+                                <div class="bg-background rounded-lg p-4 border border-border">
+                                    <p class="text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">
                                         IELTS</p>
                                     <p class="text-2xl font-bold text-primary">{{ program.english_requirements.first.ielts }}+</p>
                                 </div>
                                 {% endif %}
 
                                 {% if program.english_requirements.first.toefl %}
-                                <div
-                                    class="bg-background-light dark:bg-background-dark rounded-lg p-4 border border-[#e7e2da] dark:border-[#3a2d1b]">
-                                    <p
-                                        class="text-xs font-bold uppercase tracking-wider text-[#8d7a5e] dark:text-[#a19077] mb-1">
+                                <div class="bg-background rounded-lg p-4 border border-border">
+                                    <p class="text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">
                                         TOEFL</p>
                                     <p class="text-2xl font-bold text-primary">{{ program.english_requirements.first.toefl }}+</p>
                                 </div>
                                 {% endif %}
 
                                 {% if program.english_requirements.first.pte %}
-                                <div
-                                    class="bg-background-light dark:bg-background-dark rounded-lg p-4 border border-[#e7e2da] dark:border-[#3a2d1b]">
-                                    <p
-                                        class="text-xs font-bold uppercase tracking-wider text-[#8d7a5e] dark:text-[#a19077] mb-1">
+                                <div class="bg-background rounded-lg p-4 border border-border">
+                                    <p class="text-xs font-bold uppercase tracking-wider text-text-secondary mb-1">
                                         PTE</p>
                                     <p class="text-2xl font-bold text-primary">{{ program.english_requirements.first.pte }}+</p>
                                 </div>
@@ -192,11 +180,10 @@
                             </div>
 
                             {% if program.english_requirements.first.extra_requirements %}
-                            <div
-                                class="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-                                <p class="text-sm font-semibold text-blue-700 dark:text-blue-300 mb-2">Additional
+                            <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                                <p class="text-sm font-semibold text-blue-700 mb-2">Additional
                                     Requirements:</p>
-                                <ul class="list-disc list-inside text-sm text-blue-600 dark:text-blue-400 space-y-1">
+                                <ul class="list-disc list-inside text-sm text-blue-600 space-y-1">
                                     {% for key, value in program.english_requirements.first.extra_requirements.items %}
                                     <li>{{ key }}: {{ value }}</li>
                                     {% endfor %}
@@ -207,17 +194,17 @@
                         {% endif %}
                     </div>
 
-                    <div class="text-base text-[#181510] dark:text-white leading-relaxed space-y-4 tab-content hidden"
+                    <div class="text-base text-text-primary leading-relaxed space-y-4 tab-content hidden"
                         id="curriculum">
-                        <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-4">Curriculum</h3>
-                        <p class="text-[#8d7a5e] dark:text-[#a19077]">Detailed curriculum information is available upon
+                        <h3 class="text-xl font-bold text-text-primary mb-4">Curriculum</h3>
+                        <p class="text-text-secondary">Detailed curriculum information is available upon
                             request. Please contact the university for the full syllabus.</p>
                     </div>
 
-                    <div class="text-base text-[#181510] dark:text-white leading-relaxed space-y-4 tab-content hidden"
+                    <div class="text-base text-text-primary leading-relaxed space-y-4 tab-content hidden"
                         id="university">
-                        <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-4">About {{ program.university.name }}</h3>
-                        <div class="prose dark:prose-invert max-w-none text-[#8d7a5e] dark:text-[#a19077]">
+                        <h3 class="text-xl font-bold text-text-primary mb-4">About {{ program.university.name }}</h3>
+                        <div class="prose max-w-none text-text-secondary">
                             {{ program.university.description|linebreaks }}
                         </div>
                     </div>
@@ -238,11 +225,11 @@
                 // Remove active class from all tabs
                 tabs.forEach(t => {
                     t.classList.remove('border-b-primary', 'text-primary');
-                    t.classList.add('border-b-transparent', 'text-[#8d7a5e]', 'dark:text-[#a19077]');
+                    t.classList.add('border-b-transparent', 'text-text-secondary');
                 });
 
                 // Add active class to clicked tab
-                tab.classList.remove('border-b-transparent', 'text-[#8d7a5e]', 'dark:text-[#a19077]');
+                tab.classList.remove('border-b-transparent', 'text-text-secondary');
                 tab.classList.add('border-b-primary', 'text-primary');
 
                 // Hide all contents

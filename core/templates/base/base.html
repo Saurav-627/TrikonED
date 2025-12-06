@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
@@ -16,13 +16,16 @@
     <link rel="stylesheet" href="/static/css/output.css">
     <script>
         tailwind.config = {
-            darkMode: "class",
             theme: {
                 extend: {
                     colors: {
                         "primary": "#ff9900",
-                        "background-light": "#f8f7f5",
-                        "background-dark": "#231b0f",
+                        "secondary": "#01764e",
+                        "accent": "#febd08",
+                        "background": "#f8f7f5",
+                        "border": "#e7e2da",
+                        "text-primary": "#181510",
+                        "text-secondary": "#8d7a5e",
                     },
                     fontFamily: {
                         "display": ["Inter", "sans-serif"]
@@ -46,9 +49,8 @@
     {% block extra_css %}{% endblock %}
 </head>
 
-<body class="bg-background-light dark:bg-background-dark font-display">
-    <div
-        class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden text-[#181510] dark:text-white">
+<body class="bg-background font-display">
+    <div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden text-text-primary">
         {% include 'components/navbar.html' %}
 
         <!-- Messages -->

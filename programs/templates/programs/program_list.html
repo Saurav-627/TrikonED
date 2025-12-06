@@ -4,15 +4,15 @@
 {% block title %}Programs - TrikonED{% endblock %}
 
 {% block content %}
-<main class="flex-1 w-full bg-background-light dark:bg-background-dark">
+<main class="flex-1 w-full bg-background">
     <div class="px-8 py-4">
         <div class="flex flex-col lg:flex-row gap-8">
             <!-- Sidebar Filters -->
             <aside class="w-full lg:w-1/4">
                 <div
-                    class="bg-white dark:bg-[#1a1307] rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b] p-6 sticky top-24">
+                    class="bg-white rounded-xl border border-border p-6 sticky top-24">
                     <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-lg font-bold text-[#181510] dark:text-white">Filters</h3>
+                        <h3 class="text-lg font-bold text-text-primary">Filters</h3>
                         <a href="{% url 'programs:list' %}"
                             class="text-sm font-medium text-primary hover:underline">Clear all</a>
                     </div>
@@ -22,15 +22,15 @@
 
                             <!-- Active Programs Only -->
                             <div>
-                                <h4 class="text-sm font-bold text-[#181510] dark:text-white mb-3">Status</h4>
+                                <h4 class="text-sm font-bold text-text-primary mb-3">Status</h4>
                                 <label class="flex items-center gap-3 cursor-pointer group">
                                     <div class="relative flex items-center">
                                         <input name="active_only" value="true"
-                                            class="peer h-5 w-5 rounded border-2 border-secondary dark:border-[#3a2d1b] text-primary focus:ring-primary focus:ring-offset-0 checked:bg-primary checked:border-primary transition-all"
+                                            class="peer h-5 w-5 rounded border-2 border-secondary text-primary focus:ring-primary focus:ring-offset-0 checked:bg-primary checked:border-primary transition-all"
                                             id="active_only" type="checkbox" {% if request.GET.active_only %}checked{% endif %} onchange="this.form.submit()" />
                                     </div>
                                     <span
-                                        class="text-sm text-[#8d7a5e] dark:text-[#a19077] group-hover:text-primary transition-colors">Active
+                                        class="text-sm text-text-secondary group-hover:text-primary transition-colors">Active
                                         Programs Only</span>
                                 </label>
                             </div>
@@ -44,9 +44,9 @@
                 <!-- Header -->
                 <div class="mb-8">
                     <h1
-                        class="text-4xl lg:text-5xl font-black leading-tight tracking-tighter text-[#181510] dark:text-white mb-3">
+                        class="text-4xl lg:text-5xl font-black leading-tight tracking-tighter text-text-primary mb-3">
                         Explore Programs</h1>
-                    <p class="text-lg text-[#8d7a5e] dark:text-[#a19077]">Discover your perfect academic path from our
+                    <p class="text-lg text-text-secondary">Discover your perfect academic path from our
                         diverse program offerings.</p>
                 </div>
 
@@ -55,16 +55,16 @@
                     <div class="w-full md:max-w-lg">
                         <form method="get" action="{% url 'programs:list' %}" class="relative">
                             <input name="search"
-                                class="w-full h-12 rounded-lg border border-secondary text-text-secondary dark:border-[#3a2d1b] bg-secondary-10 dark:bg-[#1a1307] dark:text-white pl-12 pr-4 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none placeholder:text-secondary"
+                                class="w-full h-12 rounded-lg border border-secondary text-text-secondary bg-secondary-10 pl-12 pr-4 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none placeholder:text-secondary"
                                 placeholder="Search programs..." value="{{ request.GET.search }}" />
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#8d7a5e]">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-4 text-text-secondary">
                                 <span class="material-symbols-outlined">search</span>
                             </div>
                         </form>
                     </div>
                     <div class="flex items-center justify-between w-full md:w-auto gap-4">
-                        <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] whitespace-nowrap">
-                            <span class="font-bold text-[#181510] dark:text-white">{{ page_obj.paginator.count }}</span>
+                        <p class="text-sm text-text-secondary whitespace-nowrap">
+                            <span class="font-bold text-text-primary">{{ page_obj.paginator.count }}</span>
                             programs available
                         </p>
                     </div>
@@ -74,7 +74,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                     {% for program in programs %}
                     <div
-                        class="group flex flex-col bg-white dark:bg-[#1a1307] rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b] overflow-hidden hover:shadow-lg transition-all duration-300">
+                        class="group flex flex-col bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
                         <!-- Header with Badges -->
                         <div class="p-6 pb-4">
                             <div class="flex items-start justify-between mb-4">
@@ -82,22 +82,22 @@
                                     {{ program.type.level.name }}
                                 </span>
                                 <span
-                                    class="px-3 py-1 bg-secondary-10 dark:bg-background-dark text-text-secondary dark:text-[#a19077] rounded-full text-xs font-medium">
+                                    class="px-3 py-1 bg-secondary-10 text-text-secondary rounded-full text-xs font-medium">
                                     {{ program.delivery_type|title }}
                                 </span>
                             </div>
 
                             <h3
-                                class="text-xl font-bold text-[#181510] dark:text-white leading-tight mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                                class="text-xl font-bold text-text-primary leading-tight mb-2 group-hover:text-primary transition-colors line-clamp-2">
                                 {{ program.name }}
                             </h3>
 
-                            <div class="flex items-center gap-1 text-sm text-[#8d7a5e] dark:text-[#a19077] mb-3">
+                            <div class="flex items-center gap-1 text-sm text-text-secondary mb-3">
                                 <span class="material-symbols-outlined text-lg">school</span>
                                 <span class="truncate">{{ program.university.name }}</span>
                             </div>
 
-                            <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] line-clamp-3 mb-4">
+                            <p class="text-sm text-text-secondary line-clamp-3 mb-4">
                                 {{ program.description|truncatewords:20 }}
                             </p>
                         </div>
@@ -105,15 +105,15 @@
                         <!-- Footer -->
                         <div class="mt-auto p-6 pt-0">
                             <div
-                                class="flex items-center justify-between mb-4 pb-4 border-t border-[#e7e2da] dark:border-[#3a2d1b] pt-4">
+                                class="flex items-center justify-between mb-4 pb-4 border-t border-border pt-4">
                                 <div class="flex items-center gap-2">
                                     <span class="material-symbols-outlined text-primary text-lg">schedule</span>
-                                    <span class="text-sm text-[#8d7a5e] dark:text-[#a19077]">{{ program.type.duration }} {{ program.type.duration_unit }}</span>
+                                    <span class="text-sm text-text-secondary">{{ program.type.duration }} {{ program.type.duration_unit }}</span>
                                 </div>
                                 {% if program.is_active %}
                                 <span
-                                    class="flex items-center gap-1 text-xs font-medium text-green-600 dark:text-green-400">
-                                    <span class="size-2 rounded-full bg-green-600 dark:bg-green-400"></span>
+                                    class="flex items-center gap-1 text-xs font-medium text-green-600">
+                                    <span class="size-2 rounded-full bg-green-600"></span>
                                     Active
                                 </span>
                                 {% endif %}
@@ -128,11 +128,11 @@
                     {% empty %}
                     <div class="col-span-full flex flex-col items-center justify-center py-16 text-center">
                         <div
-                            class="size-16 rounded-full bg-background-light dark:bg-background-dark flex items-center justify-center mb-4">
-                            <span class="material-symbols-outlined text-3xl text-[#8d7a5e]">search_off</span>
+                            class="size-16 rounded-full bg-background flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-3xl text-text-secondary">search_off</span>
                         </div>
-                        <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-2">No programs found</h3>
-                        <p class="text-[#8d7a5e] dark:text-[#a19077] mb-6">Try adjusting your filters or search terms.
+                        <h3 class="text-xl font-bold text-text-primary mb-2">No programs found</h3>
+                        <p class="text-text-secondary mb-6">Try adjusting your filters or search terms.
                         </p>
                         <a href="{% url 'programs:list' %}" class="text-primary font-bold hover:underline">Clear all
                             filters</a>
@@ -145,7 +145,7 @@
                 <div class="flex items-center justify-center mt-12 gap-2">
                     {% if page_obj.has_previous %}
                     <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.delivery_type %}&delivery_type={{ request.GET.delivery_type }}{% endif %}{% if request.GET.active_only %}&active_only={{ request.GET.active_only }}{% endif %}"
-                        class="flex size-10 items-center justify-center rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307] text-[#181510] dark:text-white hover:bg-background-light dark:hover:bg-background-dark transition-colors">
+                        class="flex size-10 items-center justify-center rounded-lg border border-border bg-white text-text-primary hover:bg-background transition-colors">
                         <span class="material-symbols-outlined">chevron_left</span>
                     </a>
                     {% endif %}
@@ -153,12 +153,12 @@
                     {% for num in page_obj.paginator.page_range %}
                     {% if page_obj.number == num %}
                     <span
-                        class="flex size-10 items-center justify-center rounded-lg bg-primary text-[#181510] font-bold">
+                        class="flex size-10 items-center justify-center rounded-lg bg-primary text-text-primary font-bold">
                         {{ num }}
                     </span>
                     {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a
                         href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.delivery_type %}&delivery_type={{ request.GET.delivery_type }}{% endif %}{% if request.GET.active_only %}&active_only={{ request.GET.active_only }}{% endif %}"
-                        class="flex size-10 items-center justify-center rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307] text-[#181510] dark:text-white hover:bg-background-light dark:hover:bg-background-dark transition-colors">
+                        class="flex size-10 items-center justify-center rounded-lg border border-border bg-white text-text-primary hover:bg-background transition-colors">
                         {{ num }}
                         </a>
                         {% endif %}
@@ -166,7 +166,7 @@
 
                         {% if page_obj.has_next %}
                         <a href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.delivery_type %}&delivery_type={{ request.GET.delivery_type }}{% endif %}{% if request.GET.active_only %}&active_only={{ request.GET.active_only }}{% endif %}"
-                            class="flex size-10 items-center justify-center rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307] text-[#181510] dark:text-white hover:bg-background-light dark:hover:bg-background-dark transition-colors">
+                            class="flex size-10 items-center justify-center rounded-lg border border-border bg-white text-text-primary hover:bg-background transition-colors">
                             <span class="material-symbols-outlined">chevron_right</span>
                         </a>
                         {% endif %}

@@ -1,7 +1,6 @@
 {% load static %}
 
-<footer
-    class="w-full border-t border-solid border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-background-dark py-12">
+<footer class="w-full border-t border-solid border-border bg-white py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div class="md:col-span-1 flex flex-col gap-4">
@@ -10,13 +9,13 @@
                         <img src="{% static 'images/logo.png' %}" alt="TrikonED Logo" class="h-16 w-16">
                     </a>
                 </div>
-                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077]">Simplifying your path to international education.
+                <p class="text-sm text-text-secondary">Simplifying your path to international education.
                 </p>
             </div>
             <div class="md:col-span-3 grid grid-cols-2 sm:grid-cols-4 gap-8">
                 <div>
                     <h4 class="font-bold mb-4">Students</h4>
-                    <ul class="space-y-3 text-sm text-[#8d7a5e] dark:text-[#a19077]">
+                    <ul class="space-y-3 text-sm text-text-secondary">
                         <li><a class="hover:text-primary" href="{% url 'universities:list' %}">Find a University</a>
                         </li>
                         <li><a class="hover:text-primary" href="#">How to Apply</a></li>
@@ -25,7 +24,7 @@
                 </div>
                 <div>
                     <h4 class="font-bold mb-4">Universities</h4>
-                    <ul class="space-y-3 text-sm text-[#8d7a5e] dark:text-[#a19077]">
+                    <ul class="space-y-3 text-sm text-text-secondary">
                         <li><a class="hover:text-primary" href="#">Partner with Us</a></li>
                         <li><a class="hover:text-primary" href="#">Recruitment Tools</a></li>
                         <li><a class="hover:text-primary" href="#">Our Network</a></li>
@@ -33,7 +32,7 @@
                 </div>
                 <div>
                     <h4 class="font-bold mb-4">Company</h4>
-                    <ul class="space-y-3 text-sm text-[#8d7a5e] dark:text-[#a19077]">
+                    <ul class="space-y-3 text-sm text-text-secondary">
                         <li><a class="hover:text-primary" href="#">About TrikonED</a></li>
                         <li><a class="hover:text-primary" href="#">Careers</a></li>
                         <li><a class="hover:text-primary" href="#">Contact Us</a></li>
@@ -41,15 +40,14 @@
                 </div>
                 <div>
                     <h4 class="font-bold mb-4">Legal</h4>
-                    <ul class="space-y-3 text-sm text-[#8d7a5e] dark:text-[#a19077]">
+                    <ul class="space-y-3 text-sm text-text-secondary">
                         <li><a class="hover:text-primary" href="#">Privacy Policy</a></li>
                         <li><a class="hover:text-primary" href="#">Terms of Service</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div
-            class="mt-12 pt-8 border-t border-[#e7e2da] dark:border-[#3a2d1b] text-center text-sm text-[#8d7a5e] dark:text-[#a19077]">
+        <div class="mt-12 pt-8 border-t border-border text-center text-sm text-text-secondary">
             <p>© 2026 TrikonED. All rights reserved.</p>
         </div>
     </div>

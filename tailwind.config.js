@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: "class",
   content: [
     "./templates/**/*.html",
     "./core/templates/**/*.html",
@@ -20,10 +19,10 @@ module.exports = {
           DEFAULT: "#ff9900", // Change this to update primary color everywhere
           light: "#FFF8E1",
           base: "#FFF3B0",
-          5: "rgba(255, 153, 0, 0.05)", // bg-primary-5 instead of bg-primary/5
-          10: "rgba(255, 153, 0, 0.1)", // bg-primary-10 instead of bg-primary/10
-          20: "rgba(255, 153, 0, 0.2)", // bg-primary-20 instead of bg-primary/20
-          30: "rgba(255, 153, 0, 0.3)", // bg-primary-30 instead of bg-primary/30
+          5: "rgba(255, 153, 0, 0.05)",
+          10: "rgba(255, 153, 0, 0.1)",
+          20: "rgba(255, 153, 0, 0.2)",
+          30: "rgba(255, 153, 0, 0.3)",
           40: "rgba(255, 153, 0, 0.4)",
           50: "rgba(255, 153, 0, 0.5)",
         },
@@ -54,15 +53,17 @@ module.exports = {
 
         // Background Colors
         background: {
+          DEFAULT: "#f8f7f5",
           light: "#f8f7f5",
-          dark: "#231b0f",
-          "dark-alt": "#1a1307", // Alternative dark background
+          card: "#FFFFFF",
+          alt: "#1a1307",
         },
 
         // Border Colors
         border: {
+          DEFAULT: "#e7e2da",
           light: "#e7e2da",
-          dark: "#3a2d1b",
+          medium: "#3a2d1b",
         },
 
         // Neutral Colors
@@ -73,9 +74,10 @@ module.exports = {
 
         // Text Colors
         text: {
-          primary: "#181510", // Main text color
-          secondary: "#8d7a5e", // Secondary text color
-          muted: "#a19077", // Muted text color (dark mode)
+          DEFAULT: "#181510",
+          primary: "#181510",
+          secondary: "#8d7a5e",
+          muted: "#a19077",
         },
 
         // Status Colors
@@ -83,20 +85,6 @@ module.exports = {
         warning: "#F59E0B",
         error: "#EF4444",
         info: "#3B82F6",
-
-        // Legacy support (keeping for backwards compatibility)
-        highlight: "#FFC107",
-        "primary-light": "#FFF8E1",
-        "primary-base": "#FFF3B0",
-        "accent-green": "#2DD4BF",
-        "accent-orange": "#FB923C",
-        "neutral-white": "#FFFFFF",
-        "neutral-light": "#F8FAFC",
-        "text-primary": "#0F172A",
-        "text-secondary": "#475569",
-        "text-muted": "#94A3B8",
-        "background-light": "#f8f7f5",
-        "background-dark": "#231b0f",
       },
       fontFamily: {
         display: ["Inter", "Poppins", "sans-serif"],

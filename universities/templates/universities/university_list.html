@@ -4,15 +4,14 @@
 {% block title %}Universities - TrikonED{% endblock %}
 
 {% block content %}
-<main class="flex-1 w-full bg-background-light dark:bg-background-dark">
+<main class="flex-1 w-full bg-background">
     <div class=" px-8 py-4">
         <div class="flex flex-col lg:flex-row gap-8">
             <!-- Sidebar Filters -->
             <aside class="w-full lg:w-1/4">
-                <div
-                    class="bg-white dark:bg-[#1a1307] rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b] p-6 sticky top-24">
+                <div class="bg-white rounded-xl border border-border p-6 sticky top-24">
                     <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-lg font-bold text-[#181510] dark:text-white">Filters</h3>
+                        <h3 class="text-lg font-bold text-text-primary">Filters</h3>
                         <a href="{% url 'universities:list' %}"
                             class="text-sm font-medium text-accent hover:underline hover:text-primary">Clear all</a>
                     </div>
@@ -21,11 +20,11 @@
                         <div class="space-y-6">
                             <!-- Country Filter -->
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2"
+                                <label class="block text-sm font-bold text-text-primary mb-2"
                                     for="country">Country</label>
                                 <div class="relative">
                                     <select name="country"
-                                        class="w-full appearance-none rounded-lg border border-secondary dark:border-[#3a2d1b] bg-secondary-10 dark:bg-background-dark text-[#181510] dark:text-white text-sm py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                                        class="w-full appearance-none rounded-lg border border-secondary bg-secondary-10 text-text-primary text-sm py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                                         id="country" onchange="this.form.submit()">
                                         <option value="">All Countries</option>
                                         {% for country in countries %}
@@ -38,11 +37,11 @@
                             <!-- Emirate Filter (only show if UAE is selected) -->
                             {% if filtered_emirates %}
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2"
+                                <label class="block text-sm font-bold text-text-primary mb-2"
                                     for="emirate">Emirate</label>
                                 <div class="relative">
                                     <select name="emirate"
-                                        class="w-full appearance-none rounded-lg border border-secondary dark:border-[#3a2d1b] bg-secondary-10 dark:bg-background-dark text-[#181510] dark:text-white text-sm py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                                        class="w-full appearance-none rounded-lg border border-secondary bg-secondary-10 text-text-primary text-sm py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                                         id="emirate" onchange="this.form.submit()">
                                         <option value="">All Emirates</option>
                                         {% for emirate in filtered_emirates %}
@@ -55,11 +54,11 @@
 
                             <!-- Partner Status -->
                             <div>
-                                <h4 class="text-sm font-bold text-[#181510] dark:text-white mb-3">Partner Status</h4>
+                                <h4 class="text-sm font-bold text-text-primary mb-3">Partner Status</h4>
                                 <label class="flex items-center gap-3 cursor-pointer group">
                                     <div class="relative flex items-center">
                                         <input name="partner" value="true"
-                                            class="peer h-5 w-5 rounded border border-[#e7e2da] dark:border-[#3a2d1b] text-primary focus:ring-primary focus:ring-offset-0 checked:bg-primary checked:border-primary transition-all"
+                                            class="peer h-5 w-5 rounded border border-border text-primary focus:ring-primary focus:ring-offset-0 checked:bg-primary checked:border-primary transition-all"
                                             id="partner" type="checkbox" {% if request.GET.partner %}checked{% endif %}
                                             onchange="this.form.submit()" />
                                     </div>
@@ -70,20 +69,17 @@
 
                             <!-- University Type -->
                             <div>
-                                <label class="block text-sm font-bold text-[#181510] dark:text-white mb-2"
-                                    for="type">University Type</label>
+                                <label class="block text-sm font-bold text-text-primary mb-2" for="type">University
+                                    Type</label>
                                 <div class="relative">
                                     <select name="type"
-                                        class="w-full appearance-none rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-secondary-10 border border-secondary dark:bg-background-dark text-[#181510] dark:text-white text-sm py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                                        class="w-full appearance-none rounded-lg border border-border bg-secondary-10 text-text-primary text-sm py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                                         id="type" onchange="this.form.submit()">
                                         <option value="">All Types</option>
                                         <option value="public" {% if request.GET.type == 'public' %}selected{% endif %}>
                                             Public</option>
                                         <option value="private" {% if request.GET.type == 'private' %}selected{% endif %}>
                                             Private</option>
-                                        {% comment %} <option value="international" {% if
-                                            request.GET.type=='international' %}selected{% endif %}>International
-                                        </option> {% endcomment %}
                                     </select>
                                 </div>
                             </div>
@@ -144,10 +140,9 @@
             <div class="flex-1 w-full lg:w-3/4">
                 <!-- Header -->
                 <div class="mb-8">
-                    <h1
-                        class="text-4xl lg:text-5xl font-black leading-tight tracking-tighter text-[#181510] dark:text-white mb-3">
+                    <h1 class="text-4xl lg:text-5xl font-black leading-tight tracking-tighter text-text-primary mb-3">
                         Find Your University</h1>
-                    <p class="text-lg text-[#8d7a5e] dark:text-[#a19077]">Explore top-rated institutions and start your
+                    <p class="text-lg text-text-secondary">Explore top-rated institutions and start your
                         journey.</p>
                 </div>
 
@@ -156,25 +151,24 @@
                     <div class="w-full md:max-w-lg">
                         <form method="get" action="{% url 'universities:list' %}" class="relative">
                             <input name="search"
-                                class="w-full h-12 rounded-lg border border-secondary dark:border-[#3a2d1b] bg-secondary-10 dark:bg-[#1a1307] text-black dark:text-white pl-12 pr-4 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none placeholder:text-secondary"
+                                class="w-full h-12 rounded-lg border border-secondary bg-secondary-10 text-black pl-12 pr-4 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none placeholder:text-secondary"
                                 placeholder="Search by name, program..." value="{{ request.GET.search }}" />
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#8d7a5e]">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-4 text-text-secondary">
                                 <span class="material-symbols-outlined">search</span>
                             </div>
                         </form>
                     </div>
                     <div class="flex items-center justify-between w-full md:w-auto gap-4">
-                        <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] whitespace-nowrap">
-                            Showing <span class="font-bold text-[#181510] dark:text-white">{{ universities.start_index }}-{{ universities.end_index }}</span> of {{ paginator.count }}
+                        <p class="text-sm text-text-secondary whitespace-nowrap">
+                            Showing <span class="font-bold text-text-primary">{{ universities.start_index }}-{{ universities.end_index }}</span> of {{ paginator.count }}
                         </p>
-                        <div
-                            class="flex items-center bg-white dark:bg-[#1a1307] rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] p-1">
+                        <div class="flex items-center bg-white rounded-lg border border-border p-1">
                             <button onclick="toggleView('grid')" id="grid-btn"
-                                class="p-2 rounded text-[#8d7a5e] hover:text-primary transition-colors">
+                                class="p-2 rounded text-text-secondary hover:text-primary transition-colors">
                                 <span class="material-symbols-outlined text-xl">grid_view</span>
                             </button>
                             <button onclick="toggleView('list')" id="list-btn"
-                                class="p-2 rounded text-[#8d7a5e] hover:text-primary transition-colors">
+                                class="p-2 rounded text-text-secondary hover:text-primary transition-colors">
                                 <span class="material-symbols-outlined text-xl">view_list</span>
                             </button>
                         </div>
@@ -185,16 +179,16 @@
                 <div id="universities-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                     {% for university in universities %}
                     <div
-                        class="university-card group flex flex-col bg-white dark:bg-[#1a1307] rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b] overflow-hidden hover:shadow-lg transition-all duration-300">
+                        class="university-card group flex flex-col bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
                         <!-- Image Area -->
-                        <div class="relative h-48 w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
+                        <div class="relative h-48 w-full overflow-hidden bg-gray-100">
                             {% if university.image %}
                             <img alt="{{ university.name }}"
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                 src="{{ university.image.url }}" />
                             {% else %}
-                            <div class="w-full h-full flex items-center justify-center bg-primary/10">
-                                <span class="material-symbols-outlined text-6xl text-primary/40">school</span>
+                            <div class="w-full h-full flex items-center justify-center bg-primary-10">
+                                <span class="material-symbols-outlined text-6xl text-primary-40">school</span>
                             </div>
                             {% endif %}
 
@@ -212,13 +206,13 @@
 
                             <!-- Logo -->
                             <div
-                                class="absolute -bottom-6 right-4 size-16 rounded-xl bg-white dark:bg-[#1a1307] p-1 shadow-md border border-[#e7e2da] dark:border-[#3a2d1b]">
+                                class="absolute -bottom-6 right-4 size-16 rounded-xl bg-white p-1 shadow-md border border-border">
                                 {% if university.logo %}
                                 <img class="w-full h-full object-contain rounded-lg" alt="{{ university.name }} Logo"
                                     src="{{ university.logo.url }}" />
                                 {% else %}
                                 <div
-                                    class="w-full h-full rounded-lg bg-background-light dark:bg-background-dark flex items-center justify-center text-primary font-bold text-xl">
+                                    class="w-full h-full rounded-lg bg-background flex items-center justify-center text-primary font-bold text-xl">
                                     {{ university.short_name|slice:":2"|upper }}
                                 </div>
                                 {% endif %}
@@ -229,27 +223,26 @@
                         <div class="p-6 pt-8 flex-1 flex flex-col gap-4">
                             <div>
                                 <h3
-                                    class="text-xl font-bold text-[#181510] dark:text-white leading-tight mb-1 group-hover:text-primary transition-colors">
+                                    class="text-xl font-bold text-text-primary leading-tight mb-1 group-hover:text-primary transition-colors">
                                     {{ university.name }}</h3>
-                                <div class="flex items-center gap-2 text-sm text-[#8d7a5e] dark:text-[#a19077]">
+                                <div class="flex items-center gap-2 text-sm text-text-secondary">
                                     <span class="material-symbols-outlined text-base">location_on</span>
                                     {{ university.get_location_display }}
                                 </div>
                             </div>
 
                             <div class="flex-1">
-                                <h4
-                                    class="text-xs font-bold uppercase tracking-wider text-[#8d7a5e] dark:text-[#a19077] mb-2">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-text-secondary mb-2">
                                     {% if university.programs.count > 0 %}Key Programs{% else %}Focus Areas{% endif %}
                                 </h4>
                                 <ul class="space-y-1">
                                     {% for program in university.programs.all|slice:":3" %}
-                                    <li class="flex items-center gap-2 text-sm text-[#181510] dark:text-white">
+                                    <li class="flex items-center gap-2 text-sm text-text-primary">
                                         <span class="size-1.5 rounded-full bg-primary"></span>
                                         <span class="truncate">{{ program.name }}</span>
                                     </li>
                                     {% empty %}
-                                    <li class="flex items-center gap-2 text-sm text-[#181510] dark:text-white">
+                                    <li class="flex items-center gap-2 text-sm text-text-primary">
                                         <span class="size-1.5 rounded-full bg-primary"></span>
                                         <span>General Studies</span>
                                     </li>
@@ -266,12 +259,11 @@
                     </div>
                     {% empty %}
                     <div class="col-span-full flex flex-col items-center justify-center py-16 text-center">
-                        <div
-                            class="size-16 rounded-full bg-background-light dark:bg-background-dark flex items-center justify-center mb-4">
-                            <span class="material-symbols-outlined text-3xl text-[#8d7a5e]">search_off</span>
+                        <div class="size-16 rounded-full bg-background flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-3xl text-text-secondary">search_off</span>
                         </div>
-                        <h3 class="text-xl font-bold text-[#181510] dark:text-white mb-2">No universities found</h3>
-                        <p class="text-[#8d7a5e] dark:text-[#a19077] mb-6">Try adjusting your filters or search terms.
+                        <h3 class="text-xl font-bold text-text-primary mb-2">No universities found</h3>
+                        <p class="text-text-secondary mb-6">Try adjusting your filters or search terms.
                         </p>
                         <a href="{% url 'universities:list' %}" class="text-primary font-bold hover:underline">Clear all
                             filters</a>
@@ -284,7 +276,7 @@
                 <div class="flex items-center justify-center mt-12 gap-2">
                     {% if universities.has_previous %}
                     <a href="?page={{ universities.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.country %}&country={{ request.GET.country }}{% endif %}{% if request.GET.emirate %}&emirate={{ request.GET.emirate }}{% endif %}{% if request.GET.partner %}&partner={{ request.GET.partner }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}"
-                        class="flex size-10 items-center justify-center rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307] text-[#181510] dark:text-white hover:bg-background-light dark:hover:bg-background-dark transition-colors">
+                        class="flex size-10 items-center justify-center rounded-lg border border-border bg-white text-text-primary hover:bg-background transition-colors">
                         <span class="material-symbols-outlined">chevron_left</span>
                     </a>
                     {% endif %}
@@ -292,12 +284,12 @@
                     {% for num in universities.paginator.page_range %}
                     {% if universities.number == num %}
                     <span
-                        class="flex size-10 items-center justify-center rounded-lg bg-primary text-[#181510] font-bold">
+                        class="flex size-10 items-center justify-center rounded-lg bg-primary text-text-primary font-bold">
                         {{ num }}
                     </span>
                     {% elif num > universities.number|add:'-3' and num < universities.number|add:'3' %} <a
                         href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.country %}&country={{ request.GET.country }}{% endif %}{% if request.GET.emirate %}&emirate={{ request.GET.emirate }}{% endif %}{% if request.GET.partner %}&partner={{ request.GET.partner }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}"
-                        class="flex size-10 items-center justify-center rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307] text-[#181510] dark:text-white hover:bg-background-light dark:hover:bg-background-dark transition-colors">
+                        class="flex size-10 items-center justify-center rounded-lg border border-border bg-white text-text-primary hover:bg-background transition-colors">
                         {{ num }}
                         </a>
                         {% endif %}
@@ -305,7 +297,7 @@
 
                         {% if universities.has_next %}
                         <a href="?page={{ universities.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.country %}&country={{ request.GET.country }}{% endif %}{% if request.GET.emirate %}&emirate={{ request.GET.emirate }}{% endif %}{% if request.GET.partner %}&partner={{ request.GET.partner }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}"
-                            class="flex size-10 items-center justify-center rounded-lg border border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307] text-[#181510] dark:text-white hover:bg-background-light dark:hover:bg-background-dark transition-colors">
+                            class="flex size-10 items-center justify-center rounded-lg border border-border bg-white text-text-primary hover:bg-background transition-colors">
                             <span class="material-symbols-outlined">chevron_right</span>
                         </a>
                         {% endif %}
@@ -324,8 +316,8 @@
         const cards = document.querySelectorAll('.university-card');
 
         // Reset active states
-        const activeClass = 'bg-primary text-[#181510]';
-        const inactiveClass = 'text-[#8d7a5e] hover:text-primary';
+        const activeClass = 'bg-primary text-text-primary';
+        const inactiveClass = 'text-text-secondary hover:text-primary';
 
         if (view === 'grid') {
             container.className = 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6';
@@ -334,11 +326,11 @@
             listBtn.className = `p-2 rounded transition-colors ${inactiveClass}`;
 
             cards.forEach(card => {
-                card.className = 'university-card group flex flex-col bg-white dark:bg-[#1a1307] rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b] overflow-hidden hover:shadow-lg transition-all duration-300';
+                card.className = 'university-card group flex flex-col bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg transition-all duration-300';
                 // Reset internal layout for grid
                 const imgContainer = card.querySelector('.relative.h-48');
                 if (imgContainer) {
-                    imgContainer.className = 'relative h-48 w-full overflow-hidden bg-gray-100 dark:bg-gray-800';
+                    imgContainer.className = 'relative h-48 w-full overflow-hidden bg-gray-100';
                 }
             });
         } else {
@@ -348,11 +340,11 @@
             gridBtn.className = `p-2 rounded transition-colors ${inactiveClass}`;
 
             cards.forEach(card => {
-                card.className = 'university-card group flex flex-col md:flex-row bg-white dark:bg-[#1a1307] rounded-xl border border-[#e7e2da] dark:border-[#3a2d1b] overflow-hidden hover:shadow-lg transition-all duration-300';
+                card.className = 'university-card group flex flex-col md:flex-row bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg transition-all duration-300';
                 // Adjust internal layout for list
                 const imgContainer = card.querySelector('.relative.h-48');
                 if (imgContainer) {
-                    imgContainer.className = 'relative h-48 md:h-auto md:w-64 shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-800';
+                    imgContainer.className = 'relative h-48 md:h-auto md:w-64 shrink-0 overflow-hidden bg-gray-100';
                 }
             });
         }

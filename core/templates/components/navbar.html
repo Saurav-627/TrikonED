@@ -1,10 +1,10 @@
 {% load static %}
 
 <header
-    class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-[#e7e2da] dark:border-[#3a2d1b] bg-white dark:bg-[#1a1307]/80 backdrop-blur-sm px-6 lg:px-10 py-1">
+    class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-border bg-white backdrop-blur-sm px-6 lg:px-10 py-1">
     <div class="flex items-center gap-4">
         <a href="{% url 'core:landing' %}">
-           <img src="{% static 'images/logo.png' %}" alt="TrikonED Logo" class="h-16 w-16">
+            <img src="{% static 'images/logo.png' %}" alt="TrikonED Logo" class="h-16 w-16">
         </a>
     </div>
     <div class="hidden md:flex flex-1 justify-center gap-8">
@@ -22,7 +22,7 @@
     <div class="flex items-center gap-4 py-3">
         {% if user.is_authenticated %}
         <a href="{% url 'students:dashboard' %}"
-            class="hidden sm:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-secondary hover:opacity-90 dark:bg-primary/30 text-white text-sm font-bold leading-normal tracking-[0.015em]">
+            class="hidden sm:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-secondary hover:opacity-90 text-white text-sm font-bold leading-normal tracking-[0.015em]">
             <span class="truncate">Dashboard</span>
         </a>
         <a href="{% url 'students:logout' %}"
@@ -31,11 +31,11 @@
         </a>
         {% else %}
         <a href="{% url 'students:login' %}"
-            class="hidden sm:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-secondary hover:opacity-90 dark:bg-primary/30 text-white text-sm font-bold leading-normal tracking-[0.015em]">
+            class="hidden sm:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-secondary hover:opacity-90 text-white text-sm font-bold leading-normal tracking-[0.015em]">
             <span class="truncate">Log In</span>
         </a>
         <a href="{% url 'students:register' %}"
-            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary hover:opacity-90 hover:bg-primary-20 text-white text-sm font-bold leading-normal tracking-[0.015em]">
+            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary hover:opacity-90 text-white text-sm font-bold leading-normal tracking-[0.015em]">
             <span class="truncate">Sign Up</span>
         </a>
         {% endif %}

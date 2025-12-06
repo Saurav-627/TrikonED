@@ -4,7 +4,7 @@
 {% block title %}Application Details - TrikonED{% endblock %}
 
 {% block content %}
-<main class="flex-1 w-full bg-background-light dark:bg-background-dark">
+<main class="flex-1 w-full bg-background">
     <section class="py-12">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -18,8 +18,7 @@
             </div>
 
             <!-- Application Header -->
-            <div
-                class="bg-white dark:bg-[#1a1307] rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b] p-8 mb-8">
+            <div class="bg-white rounded-xl shadow-sm border border-border p-8 mb-8">
                 <div class="flex items-start justify-between mb-6">
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-3">
@@ -27,81 +26,79 @@
                                 <span class="material-symbols-outlined text-primary text-2xl">school</span>
                             </div>
                             <div>
-                                <h1 class="text-3xl font-black text-[#181510] dark:text-white">
+                                <h1 class="text-3xl font-black text-text-primary">
                                     {{ application.program.name }}
                                 </h1>
-                                <p class="text-[#8d7a5e] dark:text-[#a19077]">{{ application.university.name }}</p>
+                                <p class="text-text-secondary">{{ application.university.name }}</p>
                             </div>
                         </div>
                     </div>
                     <span class="px-4 py-2 rounded-full font-bold text-sm
-                        {% if application.status == 'accepted' %}bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-300
-                        {% elif application.status == 'rejected' %}bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-300
-                        {% elif application.status == 'pending' or application.status == 'under_review' %}bg-orange-100 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300
-                        {% else %}bg-gray-100 dark:bg-gray-800 text-[#8d7a5e]{% endif %}">
+                        {% if application.status == 'accepted' %}bg-green-100 text-green-700
+                        {% elif application.status == 'rejected' %}bg-red-100 text-red-700
+                        {% elif application.status == 'pending' or application.status == 'under_review' %}bg-orange-100 text-orange-700
+                        {% else %}bg-gray-100 text-text-secondary{% endif %}">
                         {{ application.get_status_display }}
                     </span>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-background-light dark:bg-background-dark p-4 rounded-lg">
-                        <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-1">Application Type</p>
-                        <p class="font-bold text-[#181510] dark:text-white">{{ application.get_application_type_display }}</p>
+                    <div class="bg-background p-4 rounded-lg">
+                        <p class="text-sm text-text-secondary mb-1">Application Type</p>
+                        <p class="font-bold text-text-primary">{{ application.get_application_type_display }}</p>
                     </div>
-                    <div class="bg-background-light dark:bg-background-dark p-4 rounded-lg">
-                        <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-1">Applied On</p>
-                        <p class="font-bold text-[#181510] dark:text-white">{{ application.applied_on|date:"M d, Y" }}
+                    <div class="bg-background p-4 rounded-lg">
+                        <p class="text-sm text-text-secondary mb-1">Applied On</p>
+                        <p class="font-bold text-text-primary">{{ application.applied_on|date:"M d, Y" }}
                         </p>
                     </div>
-                    <div class="bg-background-light dark:bg-background-dark p-4 rounded-lg">
-                        <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-1">Application ID</p>
-                        <p class="font-bold text-[#181510] dark:text-white font-mono text-lg">#{{ application.application_id }}</p>
+                    <div class="bg-background p-4 rounded-lg">
+                        <p class="text-sm text-text-secondary mb-1">Application ID</p>
+                        <p class="font-bold text-text-primary font-mono text-lg">#{{ application.application_id }}</p>
                     </div>
                 </div>
 
                 {% if application.remarks %}
-                <div
-                    class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-                    <p class="text-sm font-bold text-blue-900 dark:text-blue-300 mb-1">Remarks</p>
-                    <p class="text-sm text-blue-700 dark:text-blue-400">{{ application.remarks }}</p>
+                <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <p class="text-sm font-bold text-blue-900 mb-1">Remarks</p>
+                    <p class="text-sm text-blue-700">{{ application.remarks }}</p>
                 </div>
                 {% endif %}
             </div>
 
             <!-- Timeline -->
-            <div
-                class="bg-white dark:bg-[#1a1307] rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b] p-8">
+            <div class="bg-white rounded-xl shadow-sm border border-border p-8">
                 <div class="flex items-center gap-3 mb-6">
                     <span class="material-symbols-outlined text-primary text-2xl">timeline</span>
-                    <h2 class="text-2xl font-bold text-[#181510] dark:text-white">Application Timeline</h2>
+                    <h2 class="text-2xl font-bold text-text-primary">Application Timeline</h2>
                 </div>
 
                 <!-- Status Message -->
                 <div class="mb-6 p-4 rounded-lg 
-                    {% if application.status == 'accepted' %}bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800
-                    {% elif application.status == 'rejected' %}bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800
-                    {% elif application.status == 'under_review' %}bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800
-                    {% else %}bg-gray-50 dark:bg-gray-900/10 border border-gray-200 dark:border-gray-800
+                    {% if application.status == 'accepted' %}bg-green-50 border border-green-200
+                    {% elif application.status == 'rejected' %}bg-red-50 border border-red-200
+                    {% elif application.status == 'under_review' %}bg-blue-50 border border-blue-200
+                    {% else %}bg-gray-50 border border-gray-200
                     {% endif %}">
                     <div class="flex items-start gap-3">
                         <span class="material-symbols-outlined 
-                            {% if application.status == 'accepted' %}text-green-600 dark:text-green-400
-                            {% elif application.status == 'rejected' %}text-red-600 dark:text-red-400
-                            {% elif application.status == 'under_review' %}text-blue-600 dark:text-blue-400
-                            {% else %}text-gray-600 dark:text-gray-400
+                            {% if application.status == 'accepted' %}text-green-600
+                            {% elif application.status == 'rejected' %}text-red-600
+                            {% elif application.status == 'under_review' %}text-blue-600
+                            {% else %}text-gray-600
                             {% endif %}">info</span>
                         <div class="flex-1">
                             <p class="font-bold text-sm mb-1 
-                                {% if application.status == 'accepted' %}text-green-900 dark:text-green-200
-                                {% elif application.status == 'rejected' %}text-red-900 dark:text-red-200
-                                {% elif application.status == 'under_review' %}text-blue-900 dark:text-blue-200
-                                {% else %}text-gray-900 dark:text-gray-200
+                                {% if application.status == 'accepted' %}text-green-900
+                                {% elif application.status == 'rejected' %}text-red-900
+                                {% elif application.status == 'under_review' %}text-blue-900
+                                {% else %}text-gray-900
                                 {% endif %}">Current Status: {{ application.get_status_display }}</p>
                             <p class="text-sm 
-                                {% if application.status == 'accepted' %}text-green-700 dark:text-green-300
-                                {% elif application.status == 'rejected' %}text-red-700 dark:text-red-300
-                                {% elif application.status == 'under_review' %}text-blue-700 dark:text-blue-300
-                                {% else %}text-gray-700 dark:text-gray-300
+                                {% if application.status == 'accepted' %}text-green-700
+                                {% elif application.status == 'rejected' %}text-red-700
+                                {% elif application.status == 'under_review' %}text-blue-700
+                                {% else %}text-gray-700
                                 {% endif %}">
                                 {{ application.get_status_message }}
                             </p>
@@ -116,18 +113,18 @@
                         <div class="flex flex-col items-center">
                             <div class="size-3 bg-primary rounded-full"></div>
                             {% if not forloop.last %}
-                            <div class="w-0.5 h-full bg-[#e7e2da] dark:bg-[#3a2d1b] mt-2"></div>
+                            <div class="w-0.5 h-full bg-border mt-2"></div>
                             {% endif %}
                         </div>
                         <div class="flex-1 pb-8">
-                            <div class="bg-background-light dark:bg-background-dark p-4 rounded-lg">
-                                <p class="font-bold text-[#181510] dark:text-white mb-1">{{ log.event }}</p>
-                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-2">
+                            <div class="bg-background p-4 rounded-lg">
+                                <p class="font-bold text-text-primary mb-1">{{ log.event }}</p>
+                                <p class="text-sm text-text-secondary mb-2">
                                     <span class="material-symbols-outlined text-xs align-middle">schedule</span>
                                     {{ log.timestamp|date:"M d, Y H:i" }}
                                 </p>
                                 {% if log.details %}
-                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-2">{{ log.details }}</p>
+                                <p class="text-sm text-text-secondary mt-2">{{ log.details }}</p>
                                 {% endif %}
                             </div>
                         </div>
@@ -136,10 +133,10 @@
                 </div>
                 {% else %}
                 <div class="text-center py-12">
-                    <div class="size-16 mx-auto text-[#8d7a5e]/30 mb-4">
+                    <div class="size-16 mx-auto text-text-secondary/30 mb-4">
                         <span class="material-symbols-outlined" style="font-size: 64px;">event_note</span>
                     </div>
-                    <p class="text-[#8d7a5e] dark:text-[#a19077]">No timeline events yet. Updates will appear here as
+                    <p class="text-text-secondary">No timeline events yet. Updates will appear here as
                         your application progresses.</p>
                 </div>
                 {% endif %}
@@ -148,11 +145,11 @@
             <!-- Action Buttons -->
             <div class="mt-8 flex gap-4">
                 <a href="{% url 'students:dashboard' %}"
-                    class="flex-1 px-6 py-3 bg-background-light dark:bg-background-dark text-[#181510] dark:text-white font-bold rounded-lg hover:bg-primary/10 transition-all text-center border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    class="flex-1 px-6 py-3 bg-background text-text-primary font-bold rounded-lg hover:bg-primary/10 transition-all text-center border border-border">
                     Back to Dashboard
                 </a>
                 <a href="{% url 'universities:detail' application.university.slug %}"
-                    class="flex-1 px-6 py-3 bg-primary text-[#181510] font-bold rounded-lg hover:opacity-90 transition-all text-center">
+                    class="flex-1 px-6 py-3 bg-primary text-text-primary font-bold rounded-lg hover:opacity-90 transition-all text-center">
                     View University
                 </a>
             </div>

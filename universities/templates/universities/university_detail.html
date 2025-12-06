@@ -9,7 +9,7 @@
         <div class="flex flex-col w-full max-w-7xl mx-auto flex-1 gap-6">
             <!-- Header Image -->
             <div class="@container">
-                <div class="bg-cover bg-center flex flex-col justify-end overflow-hidden bg-white dark:bg-[#1a1307] rounded-xl min-h-80 shadow-sm"
+                <div class="bg-cover bg-center flex flex-col justify-end overflow-hidden bg-white rounded-xl min-h-80 shadow-sm"
                     style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 40%), url("{% if university.image %}{{ university.image.url }}{% else %}https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200{% endif %}");'>
                 </div>
             </div>
@@ -17,24 +17,24 @@
             <!-- Profile Header -->
             <div class="flex px-4 @container -mt-20">
                 <div
-                    class="flex w-full flex-col gap-4 @[520px]:flex-row @[520px]:justify-between @[520px]:items-end bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-lg border border-[#e7e2da] dark:border-[#3a2d1b]">
+                    class="flex w-full flex-col gap-4 @[520px]:flex-row @[520px]:justify-between @[520px]:items-end bg-white p-6 rounded-xl shadow-lg border border-border">
                     <div class="flex gap-6">
                         {% if university.logo %}
                         <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg min-h-32 w-32 shadow-md"
                             style='background-image: url("{{ university.logo.url }}");'></div>
                         {% else %}
                         <div
-                            class="bg-background-light dark:bg-background-dark rounded-lg min-h-32 w-32 shadow-md flex items-center justify-center">
+                            class="bg-background rounded-lg min-h-32 w-32 shadow-md flex items-center justify-center">
                             <span class="text-5xl font-bold text-primary">{{ university.short_name|slice:":2"|upper }}</span>
                         </div>
                         {% endif %}
                         <div class="flex flex-col justify-center">
-                            <h1 class="text-4xl font-black leading-tight text-[#181510] dark:text-white mb-2">
+                            <h1 class="text-4xl font-black leading-tight text-text-primary mb-2">
                                 {{ university.name }}</h1>
-                            <p class="text-[#8d7a5e] dark:text-[#a19077] text-base font-normal leading-normal">{{ university.get_location_display }}</p>
+                            <p class="text-text-secondary text-base font-normal leading-normal">{{ university.get_location_display }}</p>
                             {% if university.is_partner %}
                             <div
-                                class="mt-2 inline-flex items-center gap-2 rounded-full bg-green-100 dark:bg-green-900/50 px-3 py-1 text-sm font-medium text-green-700 dark:text-green-300 w-fit">
+                                class="mt-2 inline-flex items-center gap-2 rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700 w-fit">
                                 <span class="material-symbols-outlined text-base">verified</span>
                                 <span>Official Partner</span>
                             </div>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="flex w-full max-w-[480px] gap-3 @[480px]:w-auto pt-4 @[520px]:pt-0">
                         {% comment %} <button
-                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-background-light dark:bg-background-dark text-[#181510] dark:text-white text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto hover:bg-primary/10 transition-colors border border-[#e7e2da] dark:border-[#3a2d1b]">
+                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-background text-text-primary text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto hover:bg-primary/10 transition-colors border border-border">
                             <span class="truncate">Save to Wishlist</span>
                         </button> {% endcomment %}
                         {% if user.is_authenticated %}
@@ -63,41 +63,41 @@
 
             <!-- Tabs -->
             <div class="px-4">
-                <div class="flex border-b border-[#e7e2da] dark:border-[#3a2d1b] gap-8 overflow-x-auto">
+                <div class="flex border-b border-border gap-8 overflow-x-auto">
                     <a class="flex flex-col items-center justify-center border-b-[3px] {% if active_tab == 'overview' %}border-b-primary{% else %}border-b-transparent{% endif %} pb-[13px] pt-4 whitespace-nowrap"
                         href="?tab=overview">
                         <p
-                            class="{% if active_tab == 'overview' %}text-primary{% else %}text-[#8d7a5e] dark:text-[#a19077] hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
+                            class="{% if active_tab == 'overview' %}text-primary{% else %}text-text-secondary hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
                             Overview</p>
                     </a>
                     <a class="flex flex-col items-center justify-center border-b-[3px] {% if active_tab == 'programs' %}border-b-primary{% else %}border-b-transparent{% endif %} pb-[13px] pt-4 whitespace-nowrap"
                         href="?tab=programs">
                         <p
-                            class="{% if active_tab == 'programs' %}text-primary{% else %}text-[#8d7a5e] dark:text-[#a19077] hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
+                            class="{% if active_tab == 'programs' %}text-primary{% else %}text-text-secondary hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
                             Programs</p>
                     </a>
                     <a class="flex flex-col items-center justify-center border-b-[3px] {% if active_tab == 'scholarships' %}border-b-primary{% else %}border-b-transparent{% endif %} pb-[13px] pt-4 whitespace-nowrap"
                         href="?tab=scholarships">
                         <p
-                            class="{% if active_tab == 'scholarships' %}text-primary{% else %}text-[#8d7a5e] dark:text-[#a19077] hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
+                            class="{% if active_tab == 'scholarships' %}text-primary{% else %}text-text-secondary hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
                             Scholarships</p>
                     </a>
                     <a class="flex flex-col items-center justify-center border-b-[3px] {% if active_tab == 'visa' %}border-b-primary{% else %}border-b-transparent{% endif %} pb-[13px] pt-4 whitespace-nowrap"
                         href="?tab=visa">
                         <p
-                            class="{% if active_tab == 'visa' %}text-primary{% else %}text-[#8d7a5e] dark:text-[#a19077] hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
+                            class="{% if active_tab == 'visa' %}text-primary{% else %}text-text-secondary hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
                             Visa</p>
                     </a>
                     <a class="flex flex-col items-center justify-center border-b-[3px] {% if active_tab == 'contact' %}border-b-primary{% else %}border-b-transparent{% endif %} pb-[13px] pt-4 whitespace-nowrap"
                         href="?tab=contact">
                         <p
-                            class="{% if active_tab == 'contact' %}text-primary{% else %}text-[#8d7a5e] dark:text-[#a19077] hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
+                            class="{% if active_tab == 'contact' %}text-primary{% else %}text-text-secondary hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
                             Contact</p>
                     </a>
                     <a class="flex flex-col items-center justify-center border-b-[3px] {% if active_tab == 'stats' %}border-b-primary{% else %}border-b-transparent{% endif %} pb-[13px] pt-4 whitespace-nowrap"
                         href="?tab=stats">
                         <p
-                            class="{% if active_tab == 'stats' %}text-primary{% else %}text-[#8d7a5e] dark:text-[#a19077] hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
+                            class="{% if active_tab == 'stats' %}text-primary{% else %}text-text-secondary hover:text-primary{% endif %} text-sm font-bold leading-normal tracking-[0.015em]">
                             Stats</p>
                     </a>
                 </div>
@@ -111,66 +111,66 @@
                     {% if active_tab == 'overview' %}
                     <!-- About Card -->
                     <div
-                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
-                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight">About
+                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                        <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight">About
                             {{ university.name }}</h2>
-                        <p class="mt-4 text-[#8d7a5e] dark:text-[#a19077] text-base font-normal leading-relaxed">{{ university.description }}</p>
+                        <p class="mt-4 text-text-secondary text-base font-normal leading-relaxed">{{ university.description }}</p>
                     </div>
 
                     <!-- Highlights/Info Cards -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div
-                            class="bg-white dark:bg-[#1a1307] p-4 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b] flex flex-col items-center text-center">
+                            class="bg-white p-4 rounded-xl shadow-sm border border-border flex flex-col items-center text-center">
                             <span class="material-symbols-outlined text-primary text-3xl">calendar_month</span>
-                            <p class="mt-2 text-sm text-[#8d7a5e] dark:text-[#a19077]">Established</p>
-                            <p class="font-bold text-[#181510] dark:text-white">{{ university.established_year }}</p>
+                            <p class="mt-2 text-sm text-text-secondary">Established</p>
+                            <p class="font-bold text-text-primary">{{ university.established_year }}</p>
                         </div>
                         <div
-                            class="bg-white dark:bg-[#1a1307] p-4 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b] flex flex-col items-center text-center">
+                            class="bg-white p-4 rounded-xl shadow-sm border border-border flex flex-col items-center text-center">
                             <span class="material-symbols-outlined text-primary text-3xl">school</span>
-                            <p class="mt-2 text-sm text-[#8d7a5e] dark:text-[#a19077]">Accreditation</p>
-                            <p class="font-bold text-[#181510] dark:text-white">{{ university.accreditation|truncatewords:2 }}</p>
+                            <p class="mt-2 text-sm text-text-secondary">Accreditation</p>
+                            <p class="font-bold text-text-primary">{{ university.accreditation|truncatewords:2 }}</p>
                         </div>
                         <div
-                            class="bg-white dark:bg-[#1a1307] p-4 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b] flex flex-col items-center text-center">
+                            class="bg-white p-4 rounded-xl shadow-sm border border-border flex flex-col items-center text-center">
                             <span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
-                            <p class="mt-2 text-sm text-[#8d7a5e] dark:text-[#a19077]">University Type</p>
-                            <p class="font-bold text-[#181510] dark:text-white">{{ university.university_type|title }}
+                            <p class="mt-2 text-sm text-text-secondary">University Type</p>
+                            <p class="font-bold text-text-primary">{{ university.university_type|title }}
                             </p>
                         </div>
                         {% if university.ranking %}
                         <div
-                            class="bg-white dark:bg-[#1a1307] p-4 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b] flex flex-col items-center text-center">
+                            class="bg-white p-4 rounded-xl shadow-sm border border-border flex flex-col items-center text-center">
                             <span class="material-symbols-outlined text-primary text-3xl">workspace_premium</span>
-                            <p class="mt-2 text-sm text-[#8d7a5e] dark:text-[#a19077]">QS Ranking</p>
-                            <p class="font-bold text-[#181510] dark:text-white">#{{ university.ranking }}</p>
+                            <p class="mt-2 text-sm text-text-secondary">QS Ranking</p>
+                            <p class="font-bold text-text-primary">#{{ university.ranking }}</p>
                         </div>
                         {% endif %}
                     </div>
 
                     <!-- Facilities Card -->
                     <div
-                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
-                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight">
+                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                        <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight">
                             On-Campus Facilities</h2>
-                        <p class="mt-4 text-[#8d7a5e] dark:text-[#a19077] text-base leading-relaxed">{{ university.facilities }}</p>
+                        <p class="mt-4 text-text-secondary text-base leading-relaxed">{{ university.facilities }}</p>
                     </div>
 
                     {% elif active_tab == 'programs' %}
                     <!-- Programs List -->
                     <div
-                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
-                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight mb-6">
+                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                        <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight mb-6">
                             Programs Offered</h2>
                         <div class="space-y-4">
                             {% for program in university.programs.all %}
                             <div
-                                class="border border-[#e7e2da] dark:border-[#3a2d1b] rounded-xl p-4 hover:border-primary transition-all">
+                                class="border border-border rounded-xl p-4 hover:border-primary transition-all">
                                 <div class="flex items-start justify-between gap-4">
                                     <div class="flex-1">
-                                        <h3 class="font-bold text-lg text-[#181510] dark:text-white mb-1">{{ program.name }}</h3>
-                                        <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-2">{{ program.type.name }} • {{ program.delivery_type|title }}</p>
-                                        <p class="text-sm text-[#8d7a5e] dark:text-[#a19077]">{{ program.description|truncatewords:20 }}</p>
+                                        <h3 class="font-bold text-lg text-text-primary mb-1">{{ program.name }}</h3>
+                                        <p class="text-sm text-text-secondary mb-2">{{ program.type.name }} • {{ program.delivery_type|title }}</p>
+                                        <p class="text-sm text-text-secondary">{{ program.description|truncatewords:20 }}</p>
                                     </div>
                                     <a href="{% url 'programs:detail' program.slug %}"
                                         class="px-4 py-2 bg-primary-10 border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-all whitespace-nowrap text-sm font-bold">
@@ -179,7 +179,7 @@
                                 </div>
                             </div>
                             {% empty %}
-                            <p class="text-[#8d7a5e] dark:text-[#a19077] text-center py-8">No programs available yet.
+                            <p class="text-text-secondary text-center py-8">No programs available yet.
                             </p>
                             {% endfor %}
                         </div>
@@ -188,31 +188,31 @@
                     {% elif active_tab == 'scholarships' %}
                     <!-- Scholarships -->
                     <div
-                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
-                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight mb-6">
+                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                        <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight mb-6">
                             Available Scholarships</h2>
                         <div class="space-y-4">
                             {% for scholarship in university.scholarships.all %}
                             <div class="border-l-4 border-primary bg-primary/5 rounded-lg p-4">
                                 <div class="flex items-start justify-between mb-2">
-                                    <h3 class="font-bold text-[#181510] dark:text-white">{{ scholarship.name }}</h3>
+                                    <h3 class="font-bold text-text-primary">{{ scholarship.name }}</h3>
                                     {% if scholarship.renewable %}
                                     <span
-                                        class="px-2 py-1 bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 text-xs rounded-full font-medium">Renewable</span>
+                                        class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full font-medium">Renewable</span>
                                     {% endif %}
                                 </div>
                                 <p class="text-2xl font-bold text-primary mb-2">AED {{ scholarship.amount }}</p>
-                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-2">{{ scholarship.coverage }}
+                                <p class="text-sm text-text-secondary mb-2">{{ scholarship.coverage }}
                                 </p>
-                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077]"><span
+                                <p class="text-sm text-text-secondary"><span
                                         class="font-semibold">Eligibility:</span> {{ scholarship.eligibility }}</p>
                                 {% if scholarship.application_deadline %}
-                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-2"><span
+                                <p class="text-sm text-text-secondary mt-2"><span
                                         class="font-semibold">Deadline:</span> {{ scholarship.application_deadline|date:"F d, Y" }}</p>
                                 {% endif %}
                             </div>
                             {% empty %}
-                            <p class="text-[#8d7a5e] dark:text-[#a19077] text-center py-8">No scholarships available at
+                            <p class="text-text-secondary text-center py-8">No scholarships available at
                                 this time.</p>
                             {% endfor %}
                         </div>
@@ -221,42 +221,42 @@
                     {% elif active_tab == 'visa' %}
                     <!-- Visa Information -->
                     <div
-                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
-                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight mb-6">
+                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                        <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight mb-6">
                             Visa Sponsorship Information</h2>
                         {% for visa in university.visa_sponsorships.all %}
                         <div class="space-y-4">
                             {% if visa.offers_visa %}
                             <div
-                                class="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                                class="flex items-center gap-3 p-4 bg-green-50 rounded-lg border border-green-200">
                                 <span
-                                    class="material-symbols-outlined text-green-600 dark:text-green-400 text-3xl">check_circle</span>
+                                    class="material-symbols-outlined text-green-600 text-3xl">check_circle</span>
                                 <div>
-                                    <p class="font-bold text-green-700 dark:text-green-300">Visa Sponsorship Available
+                                    <p class="font-bold text-green-700">Visa Sponsorship Available
                                     </p>
-                                    <p class="text-sm text-green-600 dark:text-green-400">This university offers visa
+                                    <p class="text-sm text-green-600">This university offers visa
                                         sponsorship for international students</p>
                                 </div>
                             </div>
                             {% else %}
                             <div
-                                class="flex items-center gap-3 p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
+                                class="flex items-center gap-3 p-4 bg-orange-50 rounded-lg border border-orange-200">
                                 <span
-                                    class="material-symbols-outlined text-orange-600 dark:text-orange-400 text-3xl">info</span>
+                                    class="material-symbols-outlined text-orange-600 text-3xl">info</span>
                                 <div>
-                                    <p class="font-bold text-orange-700 dark:text-orange-300">Limited Visa Sponsorship
+                                    <p class="font-bold text-orange-700">Limited Visa Sponsorship
                                     </p>
-                                    <p class="text-sm text-orange-600 dark:text-orange-400">Please contact the
+                                    <p class="text-sm text-orange-600">Please contact the
                                         university for specific visa requirements</p>
                                 </div>
                             </div>
                             {% endif %}
-                            <div class="prose dark:prose-invert max-w-none">
-                                <p class="text-[#8d7a5e] dark:text-[#a19077] leading-relaxed">{{ visa.details }}</p>
+                            <div class="prose max-w-none">
+                                <p class="text-text-secondary leading-relaxed">{{ visa.details }}</p>
                             </div>
                         </div>
                         {% empty %}
-                        <p class="text-[#8d7a5e] dark:text-[#a19077] text-center py-8">Visa information not available.
+                        <p class="text-text-secondary text-center py-8">Visa information not available.
                             Please contact the university directly.</p>
                         {% endfor %}
                     </div>
@@ -264,23 +264,23 @@
                     {% elif active_tab == 'contact' %}
                     <!-- Contact Information -->
                     <div
-                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
-                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight mb-6">
+                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                        <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight mb-6">
                             Contact Information</h2>
                         <div class="space-y-4">
                             <div class="flex items-start gap-4">
                                 <span class="material-symbols-outlined text-secondary text-2xl">mail</span>
                                 <div>
-                                    <p class="text-sm font-semibold text-[#181510] dark:text-white mb-1">Email</p>
+                                    <p class="text-sm font-semibold text-text-primary mb-1">Email</p>
                                     <a href="mailto:{{ university.contact_info.email }}"
-                                        class="text-[#8d7a5e] dark:text-[#a19077] hover:text-primary">{{ university.contact_info.email }}</a>
+                                        class="text-text-secondary hover:text-primary">{{ university.contact_info.email }}</a>
                                 </div>
                             </div>
                             <div class="flex items-start gap-4">
                                 <span class="material-symbols-outlined text-secondary text-2xl">phone</span>
                                 <div>
-                                    <p class="text-sm font-semibold text-[#181510] dark:text-white mb-1">Phone</p>
-                                    <p class="text-[#8d7a5e] dark:text-[#a19077]">{{ university.contact_info.phone }}
+                                    <p class="text-sm font-semibold text-text-primary mb-1">Phone</p>
+                                    <p class="text-text-secondary">{{ university.contact_info.phone }}
                                     </p>
                                 </div>
                             </div>
@@ -288,9 +288,9 @@
                             <div class="flex items-start gap-4">
                                 <span class="material-symbols-outlined text-secondary text-2xl">language</span>
                                 <div>
-                                    <p class="text-sm font-semibold text-[#181510] dark:text-white mb-1">Website</p>
+                                    <p class="text-sm font-semibold text-text-primary mb-1">Website</p>
                                     <a href="{{ university.contact_info.website }}" target="_blank"
-                                        class="text-[#8d7a5e] dark:text-[#a19077] hover:text-primary">Visit Website
+                                        class="text-text-secondary hover:text-primary">Visit Website
                                         →</a>
                                 </div>
                             </div>
@@ -299,8 +299,8 @@
                             <div class="flex items-start gap-4">
                                 <span class="material-symbols-outlined text-secondary text-2xl">location_on</span>
                                 <div>
-                                    <p class="text-sm font-semibold text-[#181510] dark:text-white mb-1">Address</p>
-                                    <p class="text-[#8d7a5e] dark:text-[#a19077]">{{ university.contact_info.address }}
+                                    <p class="text-sm font-semibold text-text-primary mb-1">Address</p>
+                                    <p class="text-text-secondary">{{ university.contact_info.address }}
                                     </p>
                                 </div>
                             </div>
@@ -312,37 +312,37 @@
                     <!-- Statistics -->
                     {% if latest_stats %}
                     <div
-                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
-                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight mb-6">
+                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                        <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight mb-6">
                             Student Statistics ({{ latest_stats.academic_year }})</h2>
                         <!-- Stats Grid -->
                         {% if latest_stats %}
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                             {% if latest_stats.total_enrollment %}
-                            <div class="bg-background-light dark:bg-background-dark rounded-lg p-4 text-center">
-                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-1">Total Students</p>
+                            <div class="bg-background rounded-lg p-4 text-center">
+                                <p class="text-sm text-text-secondary mb-1">Total Students</p>
                                 <p class="text-3xl font-bold text-secondary">{{ latest_stats.total_enrollment|floatformat:0 }}</p>
                             </div>
                             {% endif %}
 
                             {% if latest_stats.international_enrollment %}
-                            <div class="bg-background-light dark:bg-background-dark rounded-lg p-4 text-center">
-                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-1">International</p>
+                            <div class="bg-background rounded-lg p-4 text-center">
+                                <p class="text-sm text-text-secondary mb-1">International</p>
                                 <p class="text-3xl font-bold text-secondary">{{ latest_stats.international_enrollment|floatformat:0 }}
                                 </p>
                             </div>
                             {% endif %}
 
                             {% if latest_stats.faculty_count %}
-                            <div class="bg-background-light dark:bg-background-dark rounded-lg p-4 text-center">
-                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-1">Faculty Members</p>
+                            <div class="bg-background rounded-lg p-4 text-center">
+                                <p class="text-sm text-text-secondary mb-1">Faculty Members</p>
                                 <p class="text-3xl font-bold text-secondary">{{ latest_stats.faculty_count|floatformat:0 }}</p>
                             </div>
                             {% endif %}
 
                             {% if latest_stats.male_students and latest_stats.female_students %}
-                            <div class="bg-background-light dark:bg-background-dark rounded-lg p-4 text-center">
-                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mb-1">Gender Ratio</p>
+                            <div class="bg-background rounded-lg p-4 text-center">
+                                <p class="text-sm text-text-secondary mb-1">Gender Ratio</p>
                                 <p class="text-3xl font-bold text-secondary">
                                     {% widthratio latest_stats.male_students latest_stats.total_enrollment 100 as male_percent %}
                                     {{ male_percent }}% M
@@ -353,22 +353,22 @@
                         {% endif %}
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                             {% if latest_stats.male_students %}
-                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
+                            <div class="text-center p-4 bg-background rounded-lg">
                                 <p class="text-3xl font-bold text-secondary">{{ latest_stats.male_students }}</p>
-                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">Male Students</p>
+                                <p class="text-sm text-text-secondary mt-1">Male Students</p>
                             </div>
                             {% endif %}
                             {% if latest_stats.female_students %}
-                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
+                            <div class="text-center p-4 bg-background rounded-lg">
                                 <p class="text-3xl font-bold text-secondary">{{ latest_stats.female_students }}</p>
-                                <p class="text-sm text-[#8d7a5e] dark:text-[#a19077] mt-1">Female Students</p>
+                                <p class="text-sm text-text-secondary mt-1">Female Students</p>
                             </div>
                             {% endif %}
                             {% if latest_stats.extra_data %}
                             {% for key, value in latest_stats.extra_data.items %}
-                            <div class="text-center p-4 bg-background-light dark:bg-background-dark rounded-lg">
+                            <div class="text-center p-4 bg-background rounded-lg">
                                 <p class="text-3xl font-bold text-secondary">{{ value }}</p>
-                                <p class="text-sm text-text-secondary dark:text-[#a19077] mt-1">{{ key|title }}</p>
+                                <p class="text-sm text-text-secondary mt-1">{{ key|title }}</p>
                             </div>
                             {% endfor %}
                             {% endif %}
@@ -376,8 +376,8 @@
                     </div>
                     {% else %}
                     <div
-                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
-                        <p class="text-[#8d7a5e] dark:text-[#a19077] text-center py-8">No statistics available at this
+                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                        <p class="text-text-secondary text-center py-8">No statistics available at this
                             time.</p>
                     </div>
                     {% endif %}
@@ -390,18 +390,18 @@
                     <!-- Enrollment Statistics Card -->
                     {% if enrollment_history %}
                     <div
-                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
-                        <h2 class="text-[#181510] dark:text-white tracking-light text-xl font-bold leading-tight">
+                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                        <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight">
                             Enrollment Trend</h2>
                         <div class="mt-4 h-48 flex items-end gap-2">
                             {% for stat in enrollment_history reversed %}
                             {% widthratio stat.total_enrollment enrollment_history.0.total_enrollment 100 as height_percent %}
-                            <div class="flex-1 bg-primary/20 dark:bg-primary/30 rounded-t-md hover:bg-primary transition-colors"
+                            <div class="flex-1 bg-primary/20 rounded-t-md hover:bg-primary transition-colors"
                                 style="height: {{ height_percent }}%;"
                                 title="{{ stat.academic_year }}: {{ stat.total_enrollment }} students"></div>
                             {% endfor %}
                         </div>
-                        <div class="flex justify-around text-xs text-[#8d7a5e] dark:text-[#a19077] mt-2">
+                        <div class="flex justify-around text-xs text-text-secondary mt-2">
                             {% for stat in enrollment_history reversed %}
                             <span>'{{ stat.academic_year|slice:"-2:" }}</span>
                             {% endfor %}
@@ -411,8 +411,8 @@
 
                     <!-- Quick Actions -->
                     <div
-                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
-                        <h3 class="text-[#181510] dark:text-white font-bold text-lg mb-4">Quick Actions</h3>
+                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                        <h3 class="text-text-primary font-bold text-lg mb-4">Quick Actions</h3>
                         <div class="space-y-3">
                             {% if user.is_authenticated %}
                             <a href="?tab=programs"
@@ -426,7 +426,7 @@
                             </a>
                             {% endif %}
                             <a href="{{ university.contact_info.website }}"
-                                class="block w-full px-4 py-3 bg-secondary dark:bg-background-dark text-white dark:text-white text-center font-bold rounded-lg hover:opacity-90 transition-all border border-[#e7e2da] dark:border-[#3a2d1b]">
+                                class="block w-full px-4 py-3 bg-secondary text-white text-center font-bold rounded-lg hover:opacity-90 transition-all border border-border">
                                 Visit Website
                             </a>
                         </div>
@@ -435,8 +435,8 @@
                     <!-- Accepted Curricula -->
                     {% if university.accepted_curricula.all %}
                     <div
-                        class="bg-white dark:bg-[#1a1307] p-6 rounded-xl shadow-sm border border-[#e7e2da] dark:border-[#3a2d1b]">
-                        <h3 class="text-[#181510] dark:text-white font-bold text-lg mb-4">Accepted Curricula</h3>
+                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                        <h3 class="text-text-primary font-bold text-lg mb-4">Accepted Curricula</h3>
                         <div class="flex flex-wrap gap-2">
                             {% for uc in university.accepted_curricula.all %}
                             <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
