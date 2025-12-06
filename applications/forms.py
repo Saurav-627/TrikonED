@@ -351,6 +351,18 @@ class ApplicationStep3Form(forms.Form):
         })
     )
     
+    # Consent checkbox - REQUIRED
+    consent_given = forms.BooleanField(
+        required=True,
+        label="I agree that TrikonED may store my details and share my profile with selected colleges and universities for the purpose of admissions, scholarships, and counselling.",
+        widget=forms.CheckboxInput(attrs={
+            'class': 'rounded border-border text-primary focus:ring-primary h-5 w-5'
+        }),
+        error_messages={
+            'required': 'You must agree to the terms to submit your application.'
+        }
+    )
+    
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
@@ -363,3 +375,4 @@ class ApplicationStep3Form(forms.Form):
                 student=user,
                 expiry_date__gte=today
             )
+

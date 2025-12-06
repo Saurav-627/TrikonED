@@ -352,6 +352,19 @@
                         </div>
                     </div>
 
+                    <!-- Consent Checkbox - REQUIRED -->
+                    <div class="mt-6 p-4 bg-primary-10 border border-primary rounded-lg">
+                        <div class="flex items-start gap-3">
+                            {{ form.consent_given }}
+                            <label for="{{ form.consent_given.id_for_label }}" class="text-sm text-text-primary flex-1">
+                                {{ form.consent_given.label }} <span class="text-red-500">*</span>
+                            </label>
+                        </div>
+                        {% if form.consent_given.errors %}
+                        <p class="text-red-600 text-xs mt-2 ml-8">{{ form.consent_given.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
                     <div class="flex gap-4 pt-6">
                         <button type="submit" name="action" value="prev"
                             class="flex-1 px-6 py-3 bg-gray-100 text-text-primary font-bold rounded-lg hover:bg-gray-200 transition-all">

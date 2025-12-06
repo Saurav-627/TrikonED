@@ -16,39 +16,39 @@ from students.models import StudentDocument, StudentTestScore
 from programs.models import Program
 
 
-class ApplicationWizardView(LoginRequiredMixin, TemplateView):
-    """Multi-step application wizard"""
-    template_name = 'applications/wizard.html'
+class ApplicationFormView(LoginRequiredMixin, TemplateView):
+    """Multi-step application form"""
+    template_name = 'applications/application_form.html'
     
     def get_current_step(self):
         """Get current step from session"""
-        return self.request.session.get('application_wizard_step', 1)
+        return self.request.session.get('application_form_step', 1)
     
     def set_current_step(self, step):
         """Set current step in session"""
-        self.request.session['application_wizard_step'] = step
+        self.request.session['application_form_step'] = step
     
-    def get_wizard_data(self, step=None):
-        """Get wizard data from session"""
+    def get_apply_data(self, step=None):
+        """Get apply data from session"""
         if step:
-            return self.request.session.get(f'application_wizard_step{step}_data', {})
+            return self.request.session.get(f'application_form_step{step}_data', {})
         return {
-            'step1': self.request.session.get('application_wizard_step1_data', {}),
-            'step2': self.request.session.get('application_wizard_step2_data', {}),
-            'step3': self.request.session.get('application_wizard_step3_data', {}),
+            'step1': self.request.session.get('application_form_step1_data', {}),
+            'step2': self.request.session.get('application_form_step2_data', {}),
+            'step3': self.request.session.get('application_form_step3_data', {}),
         }
     
-    def save_wizard_data(self, step, data):
-        """Save wizard data to session"""
-        self.request.session[f'application_wizard_step{step}_data'] = data
+    def save_apply_data(self, step, data):
+        """Save apply data to session"""
+        self.request.session[f'application_form_step{step}_data'] = data
     
-    def clear_wizard_data(self):
-        """Clear all wizard data from session"""
+    def clear_apply_data(self):
+        """Clear all apply data from session"""
         keys_to_delete = [
-            'application_wizard_step',
-            'application_wizard_step1_data',
-            'application_wizard_step2_data',
-            'application_wizard_step3_data',
+            'application_form_step',
+            'application_form_step1_data',
+            'application_form_step2_data',
+            'application_form_step3_data',
         ]
         for key in keys_to_delete:
             if key in self.request.session:
@@ -68,9 +68,9 @@ class ApplicationWizardView(LoginRequiredMixin, TemplateView):
         
         # Check if this is a new application (different program/university in URL)
         if 'program' in self.request.GET or 'university' in self.request.GET:
-            step1_data = self.get_wizard_data(1)
+            step1_data = self.get_apply_data(1)
             
-            # If we have existing wizard data, check if it's for a different program
+            # If we have existing apply data, check if it's for a different program
             if step1_data:
                 program_slug = self.request.GET.get('program')
                 university_slug = self.request.GET.get('university')
@@ -85,8 +85,8 @@ class ApplicationWizardView(LoginRequiredMixin, TemplateView):
                         if program_slug:
                             program = Program.objects.get(slug=program_slug)
                             if str(program.id) != str(stored_program_id):
-                                # Different program - clear wizard
-                                self.clear_wizard_data()
+                                # Different program - clear apply
+                                self.clear_apply_data()
                                 current_step = 1
                                 self.set_current_step(1)
                         
@@ -94,8 +94,8 @@ class ApplicationWizardView(LoginRequiredMixin, TemplateView):
                             from universities.models import University
                             university = University.objects.get(slug=university_slug)
                             if str(university.id) != str(stored_university_id):
-                                # Different university - clear wizard
-                                self.clear_wizard_data()
+                                # Different university - clear apply
+                                self.clear_apply_data()
                                 current_step = 1
                                 self.set_current_step(1)
                     except:
@@ -111,7 +111,7 @@ class ApplicationWizardView(LoginRequiredMixin, TemplateView):
             context['existing_other_documents'] = self.request.user.documents.filter(doc_type='other')
         
         # Check if Step 3 is needed
-        step1_data = self.get_wizard_data(1)
+        step1_data = self.get_apply_data(1)
         if step1_data and 'program' in step1_data:
             context['english_required'] = self.program_requires_english(step1_data['program'])
         else:
@@ -158,7 +158,7 @@ class ApplicationWizardView(LoginRequiredMixin, TemplateView):
             # Go to previous step
             if current_step > 1:
                 self.set_current_step(current_step - 1)
-            return redirect('applications:wizard')
+            return redirect('applications:apply')
         
         # Validate current step
         if current_step == 1:
@@ -177,7 +177,7 @@ class ApplicationWizardView(LoginRequiredMixin, TemplateView):
                 if 'passport_expiry' in data and data['passport_expiry']:
                     data['passport_expiry'] = data['passport_expiry'].isoformat()
                 
-                self.save_wizard_data(1, data)
+                self.save_apply_data(1, data)
                 
                 # Update student profile if needed
                 student = request.user
@@ -199,7 +199,7 @@ class ApplicationWizardView(LoginRequiredMixin, TemplateView):
                 
                 # Move to step 2
                 self.set_current_step(2)
-                return redirect('applications:wizard')
+                return redirect('applications:apply')
             else:
                 # Re-render with errors
                 context = self.get_context_data()
@@ -243,10 +243,10 @@ class ApplicationWizardView(LoginRequiredMixin, TemplateView):
                     )
                 
                 # Check if Step 3 is needed
-                step1_data = self.get_wizard_data(1)
+                step1_data = self.get_apply_data(1)
                 if self.program_requires_english(step1_data.get('program')):
                     self.set_current_step(3)
-                    return redirect('applications:wizard')
+                    return redirect('applications:apply')
                 else:
                     # Skip to submission
                     return self.submit_application(request)
@@ -260,10 +260,13 @@ class ApplicationWizardView(LoginRequiredMixin, TemplateView):
             if form.is_valid():
                 data = form.cleaned_data
                 
+                # Save consent
+                step3_session_data = {'consent_given': data.get('consent_given', False)}
+                
                 # Save English proficiency if entered
                 if data.get('use_existing_score') and data.get('existing_score'):
                     # Using existing score - just reference it
-                    self.save_wizard_data(3, {'existing_score_id': str(data['existing_score'].id)})
+                    step3_session_data['existing_score_id'] = str(data['existing_score'].id)
                 elif data.get('test_type') and data.get('test_date'):
                     # New score entered - save to student profile
                     score = StudentTestScore.objects.create(
@@ -276,7 +279,10 @@ class ApplicationWizardView(LoginRequiredMixin, TemplateView):
                         writing_score=data.get('writing_score'),
                         overall_score=data.get('overall_score'),
                     )
-                    self.save_wizard_data(3, {'new_score_id': str(score.id)})
+                    step3_session_data['new_score_id'] = str(score.id)
+                
+                # Save all step 3 data
+                self.save_apply_data(3, step3_session_data)
                 
                 # Submit application
                 return self.submit_application(request)
@@ -285,11 +291,12 @@ class ApplicationWizardView(LoginRequiredMixin, TemplateView):
                 context['form'] = form
                 return self.render_to_response(context)
         
-        return redirect('applications:wizard')
+        return redirect('applications:apply')
     
     def submit_application(self, request):
         """Final submission of application"""
-        step1_data = self.get_wizard_data(1)
+        step1_data = self.get_apply_data(1)
+        step3_data = self.get_apply_data(3)
         
         # Create application
         from programs.models import Program
@@ -298,21 +305,24 @@ class ApplicationWizardView(LoginRequiredMixin, TemplateView):
         program = Program.objects.get(pk=step1_data['program'])
         university = University.objects.get(pk=step1_data['university'])
         
+        # Get consent from step 3 data (if English was required) or from POST data
+        consent_given = step3_data.get('consent_given', False) if step3_data else request.POST.get('consent_given', False)
+        
         application = Application.objects.create(
             student=request.user,
             university=university,
             program=program,
             application_type=step1_data['application_type'],
             remarks=step1_data.get('remarks', ''),
-            status='pending'
+            status='pending',
+            consent_given=bool(consent_given)
         )
         
         # Calculate lead quality
         has_documents = request.user.documents.exists()
         has_english = False
         if self.program_requires_english(step1_data['program']):
-            step3_data = self.get_wizard_data(3)
-            has_english = bool(step3_data)
+            has_english = bool(step3_data and (step3_data.get('existing_score_id') or step3_data.get('new_score_id')))
         
         # Determine lead quality
         if has_documents and (has_english or not self.program_requires_english(step1_data['program'])):
@@ -331,8 +341,8 @@ class ApplicationWizardView(LoginRequiredMixin, TemplateView):
             details=f'Application submitted for {program.name} at {university.name}'
         )
         
-        # Clear wizard data
-        self.clear_wizard_data()
+        # Clear apply data
+        self.clear_apply_data()
         
         messages.success(request, 'Application submitted successfully!')
         return redirect('students:dashboard')

@@ -15,7 +15,7 @@
                     </h1>
                     <p class="text-text-secondary">{{ user.email }}</p>
                 </div>
-                {% comment %} <a href="{% url 'applications:wizard' %}"
+                {% comment %} <a href="{% url 'applications:apply' %}"
                     class="px-6 py-3 bg-primary text-white font-bold rounded-lg hover:opacity-90 transition-all">
                     + New Application
                 </a> {% endcomment %}
@@ -173,7 +173,7 @@
                             <h3 class="text-lg font-bold text-text-primary mb-2">No applications yet</h3>
                             <p class="text-text-secondary mb-6">Start your journey by creating your first
                                 application</p>
-                            <a href="{% url 'applications:wizard' %}"
+                            <a href="{% url 'applications:apply' %}"
                                 class="inline-flex items-center px-6 py-3 bg-primary text-white font-bold rounded-lg hover:opacity-90 transition-all">
                                 Create Application
                                 <span class="material-symbols-outlined ml-2">add</span>
