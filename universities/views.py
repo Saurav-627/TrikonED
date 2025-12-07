@@ -86,10 +86,6 @@ class UniversityListView(ListView):
         context['current_letter'] = self.request.GET.get('letter', '')
         return context
 
-
-from django.contrib.auth.mixins import LoginRequiredMixin
-from students.models import StudentUniversityVisit
-
 class UniversityDetailView(LoginRequiredMixin, DetailView):
     """University detail page"""
     model = University

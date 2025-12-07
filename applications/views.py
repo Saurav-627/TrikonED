@@ -8,6 +8,10 @@ from django.contrib import messages
 
 from .forms import ApplicationForm
 
+from django.views import View
+from django.http import HttpResponse
+from .utils import generate_application_pdf
+
 class ApplicationCreateView(LoginRequiredMixin, CreateView):
     model = Application
     form_class = ApplicationForm
@@ -79,11 +83,6 @@ class ApplicationCancelView(LoginRequiredMixin, DeleteView):
     def get(self, request, *args, **kwargs):
         # Allow GET requests to delete (for simple links)
         return self.delete(request, *args, **kwargs)
-
-
-from django.views import View
-from django.http import HttpResponse
-from .utils import generate_application_pdf
 
 class ApplicationPDFView(View):
     """Generate and download application as PDF - Admin only"""

@@ -1,6 +1,9 @@
 from django.views.generic import ListView, DetailView
 from .models import Program
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from students.models import StudentUniversityVisit
+
 class ProgramListView(ListView):
     model = Program
     template_name = 'programs/program_list.html'
@@ -9,9 +12,6 @@ class ProgramListView(ListView):
     
     def get_queryset(self):
         return Program.objects.filter(is_active=True).select_related('university', 'type__level')
-
-from django.contrib.auth.mixins import LoginRequiredMixin
-from students.models import StudentUniversityVisit
 
 class ProgramDetailView(LoginRequiredMixin, DetailView):
     model = Program
