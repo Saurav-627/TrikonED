@@ -23,15 +23,14 @@
                         <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg min-h-32 w-32 shadow-md"
                             style='background-image: url("{{ university.logo.url }}");'></div>
                         {% else %}
-                        <div
-                            class="bg-background rounded-lg min-h-32 w-32 shadow-md flex items-center justify-center">
+                        <div class="bg-background rounded-lg min-h-32 w-32 shadow-md flex items-center justify-center">
                             <span class="text-5xl font-bold text-primary">{{ university.short_name|slice:":2"|upper }}</span>
                         </div>
                         {% endif %}
                         <div class="flex flex-col justify-center">
-                            <h1 class="text-4xl font-black leading-tight text-text-primary mb-2">
+                            <h1 class="text-3xl font-black leading-tight text-text-primary mb-2">
                                 {{ university.name }}</h1>
-                            <p class="text-text-secondary text-base font-normal leading-normal">{{ university.get_location_display }}</p>
+                            <p class="text-text-secondary text-base font-normal leading-normal flex items-center gap-1"> <span class="material-symbols-outlined text-base">location_on</span> {{ university.get_location_display }}</p>
                             {% if university.is_partner %}
                             <div
                                 class="mt-2 inline-flex items-center gap-2 rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700 w-fit">
@@ -110,11 +109,14 @@
 
                     {% if active_tab == 'overview' %}
                     <!-- About Card -->
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-border">
                         <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight">About
                             {{ university.name }}</h2>
-                        <p class="mt-4 text-text-secondary text-base font-normal leading-relaxed">{{ university.description }}</p>
+                        <div class="prose max-w-none">
+                            <p
+                                class="text-text-muted text-base font-normal leading-relaxed whitespace-pre-line break-words">
+                                {{ university.description }}</p>
+                        </div>
                     </div>
 
                     <!-- Highlights/Info Cards -->
@@ -149,28 +151,58 @@
                     </div>
 
                     <!-- Facilities Card -->
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
-                        <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                        <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight mb-4">
                             On-Campus Facilities</h2>
-                        <p class="mt-4 text-text-secondary text-base leading-relaxed">{{ university.facilities }}</p>
+                        <div class="prose max-w-none">
+                            <p class="text-text-muted text-base leading-relaxed whitespace-pre-line break-words">{{ university.facilities }}</p>
+                        </div>
                     </div>
 
                     {% elif active_tab == 'programs' %}
                     <!-- Programs List -->
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
-                        <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight mb-6">
-                            Programs Offered</h2>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+                            <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight">
+                                Programs Offered</h2>
+
+                            <!-- Program Level Filter -->
+                            {% if available_levels %}
+                            <div class="flex items-center gap-2">
+                                <label class="text-sm font-medium text-text-secondary">Filter by Level:</label>
+                                <select id="levelFilter" onchange="filterByLevel(this.value)"
+                                    class="pl-2 pr-8 py-2 border border-border rounded-lg text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+                                    <option value="">All Levels</option>
+                                    {% for level in available_levels %}
+                                    <option value="{{ level.name }}" {% if selected_level == level.name %}selected{% endif %}>
+                                        {{ level.name }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                                {% if selected_level %}
+                                <a href="?tab=programs"
+                                    class="px-3 py-2 text-sm text-primary hover:text-primary/80 font-medium">
+                                    Clear
+                                </a>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+
                         <div class="space-y-4">
-                            {% for program in university.programs.all %}
-                            <div
-                                class="border border-border rounded-xl p-4 hover:border-primary transition-all">
+                            {% for program in filtered_programs %}
+                            <div class="border border-border rounded-xl p-4 hover:border-primary transition-all">
                                 <div class="flex items-start justify-between gap-4">
                                     <div class="flex-1">
                                         <h3 class="font-bold text-lg text-text-primary mb-1">{{ program.name }}</h3>
-                                        <p class="text-sm text-text-secondary mb-2">{{ program.type.name }} • {{ program.delivery_type|title }}</p>
-                                        <p class="text-sm text-text-secondary">{{ program.description|truncatewords:20 }}</p>
+                                        <p class="text-sm text-text-secondary mb-2">
+                                            <span
+                                                class="inline-flex items-center px-2 py-1 rounded-full bg-primary-10 text-primary text-xs font-medium mr-2">
+                                                {{ program.type.level.name }}
+                                            </span>
+                                            {{ program.type.name }} • {{ program.delivery_type|title }}
+                                        </p>
+                                        <p class="text-sm text-text-muted">{{ program.description|truncatewords:20 }}</p>
                                     </div>
                                     <a href="{% url 'programs:detail' program.slug %}"
                                         class="px-4 py-2 bg-primary-10 border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-all whitespace-nowrap text-sm font-bold">
@@ -179,16 +211,33 @@
                                 </div>
                             </div>
                             {% empty %}
-                            <p class="text-text-secondary text-center py-8">No programs available yet.
+                            <p class="text-text-secondary text-center py-8">
+                                {% if selected_level %}
+                                No {{ selected_level }} programs available.
+                                {% else %}
+                                No programs available yet.
+                                {% endif %}
                             </p>
                             {% endfor %}
                         </div>
                     </div>
 
+                    <script>
+                        function filterByLevel(level) {
+                            const url = new URL(window.location);
+                            url.searchParams.set('tab', 'programs');
+                            if (level) {
+                                url.searchParams.set('level', level);
+                            } else {
+                                url.searchParams.delete('level');
+                            }
+                            window.location.href = url.toString();
+                        }
+                    </script>
+
                     {% elif active_tab == 'scholarships' %}
                     <!-- Scholarships -->
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-border">
                         <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight mb-6">
                             Available Scholarships</h2>
                         <div class="space-y-4">
@@ -202,17 +251,17 @@
                                     {% endif %}
                                 </div>
                                 <p class="text-2xl font-bold text-primary mb-2">AED {{ scholarship.amount }}</p>
-                                <p class="text-sm text-text-secondary mb-2">{{ scholarship.coverage }}
+                                <p class="text-sm text-text-muted mb-2">{{ scholarship.coverage }}
                                 </p>
-                                <p class="text-sm text-text-secondary"><span
-                                        class="font-semibold">Eligibility:</span> {{ scholarship.eligibility }}</p>
+                                <p class="text-sm text-text-muted"><span class="font-semibold">Eligibility:</span>
+                                    {{ scholarship.eligibility }}</p>
                                 {% if scholarship.application_deadline %}
-                                <p class="text-sm text-text-secondary mt-2"><span
-                                        class="font-semibold">Deadline:</span> {{ scholarship.application_deadline|date:"F d, Y" }}</p>
+                                <p class="text-sm text-text-muted mt-2"><span class="font-semibold">Deadline:</span>
+                                    {{ scholarship.application_deadline|date:"F d, Y" }}</p>
                                 {% endif %}
                             </div>
                             {% empty %}
-                            <p class="text-text-secondary text-center py-8">No scholarships available at
+                            <p class="text-text-muted text-center py-8">No scholarships available at
                                 this time.</p>
                             {% endfor %}
                         </div>
@@ -220,17 +269,14 @@
 
                     {% elif active_tab == 'visa' %}
                     <!-- Visa Information -->
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-border">
                         <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight mb-6">
                             Visa Sponsorship Information</h2>
                         {% for visa in university.visa_sponsorships.all %}
                         <div class="space-y-4">
                             {% if visa.offers_visa %}
-                            <div
-                                class="flex items-center gap-3 p-4 bg-green-50 rounded-lg border border-green-200">
-                                <span
-                                    class="material-symbols-outlined text-green-600 text-3xl">check_circle</span>
+                            <div class="flex items-center gap-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <span class="material-symbols-outlined text-green-600 text-3xl">check_circle</span>
                                 <div>
                                     <p class="font-bold text-green-700">Visa Sponsorship Available
                                     </p>
@@ -239,10 +285,8 @@
                                 </div>
                             </div>
                             {% else %}
-                            <div
-                                class="flex items-center gap-3 p-4 bg-orange-50 rounded-lg border border-orange-200">
-                                <span
-                                    class="material-symbols-outlined text-orange-600 text-3xl">info</span>
+                            <div class="flex items-center gap-3 p-4 bg-orange-50 rounded-lg border border-orange-200">
+                                <span class="material-symbols-outlined text-orange-600 text-3xl">info</span>
                                 <div>
                                     <p class="font-bold text-orange-700">Limited Visa Sponsorship
                                     </p>
@@ -251,9 +295,11 @@
                                 </div>
                             </div>
                             {% endif %}
-                            <div class="prose max-w-none">
-                                <p class="text-text-secondary leading-relaxed">{{ visa.details }}</p>
+                            {% if visa.details %}
+                            <div class="prose max-w-none mt-4">
+                                <p class="text-text-muted leading-relaxed whitespace-pre-line break-words">{{ visa.details }}</p>
                             </div>
+                            {% endif %}
                         </div>
                         {% empty %}
                         <p class="text-text-secondary text-center py-8">Visa information not available.
@@ -263,8 +309,7 @@
 
                     {% elif active_tab == 'contact' %}
                     <!-- Contact Information -->
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-border">
                         <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight mb-6">
                             Contact Information</h2>
                         <div class="space-y-4">
@@ -311,8 +356,7 @@
                     {% elif active_tab == 'stats' %}
                     <!-- Statistics -->
                     {% if latest_stats %}
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-border">
                         <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight mb-6">
                             Student Statistics ({{ latest_stats.academic_year }})</h2>
                         <!-- Stats Grid -->
@@ -375,8 +419,7 @@
                         </div>
                     </div>
                     {% else %}
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-border">
                         <p class="text-text-secondary text-center py-8">No statistics available at this
                             time.</p>
                     </div>
@@ -389,9 +432,8 @@
                 <div class="lg:col-span-1 flex flex-col gap-6">
                     <!-- Enrollment Statistics Card -->
                     {% if enrollment_history %}
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
-                        <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                        <h2 class="text-text-primary tracking-light text-xl font-bold leading-tight pb-3">
                             Enrollment Trend</h2>
                         <div class="mt-4 h-48 flex items-end gap-2">
                             {% for stat in enrollment_history reversed %}
@@ -410,8 +452,7 @@
                     {% endif %}
 
                     <!-- Quick Actions -->
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-border">
                         <h3 class="text-text-primary font-bold text-lg mb-4">Quick Actions</h3>
                         <div class="space-y-3">
                             {% if user.is_authenticated %}
@@ -434,8 +475,7 @@
 
                     <!-- Accepted Curricula -->
                     {% if university.accepted_curricula.all %}
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-sm border border-border">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-border">
                         <h3 class="text-text-primary font-bold text-lg mb-4">Accepted Curricula</h3>
                         <div class="flex flex-wrap gap-2">
                             {% for uc in university.accepted_curricula.all %}

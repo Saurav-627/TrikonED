@@ -121,10 +121,10 @@
                             data-tab="admission">
                             <p class="text-sm font-bold leading-normal tracking-[0.015em]">Admission Requirements</p>
                         </a>
-                        <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-secondary hover:text-primary transition-colors pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
+                        {% comment %} <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-secondary hover:text-primary transition-colors pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
                             data-tab="curriculum">
                             <p class="text-sm font-bold leading-normal tracking-[0.015em]">Curriculum</p>
-                        </a>
+                        </a> {% endcomment %}
                         <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-text-secondary hover:text-primary transition-colors pb-[13px] pt-4 cursor-pointer tab-link whitespace-nowrap"
                             data-tab="university">
                             <p class="text-sm font-bold leading-normal tracking-[0.015em]">University Info</p>
@@ -136,7 +136,7 @@
                 <div class="p-6">
                     <div class="text-base text-text-primary leading-relaxed space-y-4 tab-content" id="overview">
                         <h3 class="text-xl font-bold text-text-primary mb-4">Program Overview</h3>
-                        <div class="prose max-w-none text-text-secondary">
+                        <div class="prose max-w-none text-text-muted">
                             {{ program.description|linebreaks }}
                         </div>
                     </div>
@@ -144,7 +144,7 @@
                     <div class="text-base text-text-primary leading-relaxed space-y-4 tab-content hidden"
                         id="admission">
                         <h3 class="text-xl font-bold text-text-primary mb-4">Admission Requirements</h3>
-                        <div class="prose max-w-none text-text-secondary">
+                        <div class="prose max-w-none text-text-muted">
                             {{ program.type.entry_requirements|linebreaks }}
                         </div>
 
@@ -194,17 +194,17 @@
                         {% endif %}
                     </div>
 
-                    <div class="text-base text-text-primary leading-relaxed space-y-4 tab-content hidden"
+                    {% comment %} <div class="text-base text-text-primary leading-relaxed space-y-4 tab-content hidden"
                         id="curriculum">
                         <h3 class="text-xl font-bold text-text-primary mb-4">Curriculum</h3>
-                        <p class="text-text-secondary">Detailed curriculum information is available upon
+                        <p class="text-text-muted">Detailed curriculum information is available upon
                             request. Please contact the university for the full syllabus.</p>
-                    </div>
+                    </div> {% endcomment %}
 
                     <div class="text-base text-text-primary leading-relaxed space-y-4 tab-content hidden"
                         id="university">
                         <h3 class="text-xl font-bold text-text-primary mb-4">About {{ program.university.name }}</h3>
-                        <div class="prose max-w-none text-text-secondary">
+                        <div class="prose max-w-none text-text-muted">
                             {{ program.university.description|linebreaks }}
                         </div>
                     </div>

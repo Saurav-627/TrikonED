@@ -127,9 +127,38 @@ class UniversityDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         # Get the active tab from query params, default to 'overview'
         context['active_tab'] = self.request.GET.get('tab', 'overview')
+        
         # Get latest enrollment stats
         context['latest_stats'] = self.object.enrollment_stats.first()
+        
         # Get enrollment history for chart (last 4 years)
         context['enrollment_history'] = self.object.enrollment_stats.all()[:4]
+        
+        # Program level filtering
+        if context['active_tab'] == 'programs':
+            from programs.models import ProgramLevel
+            
+            # Get all available program levels for this university
+            available_levels = ProgramLevel.objects.filter(
+                program_types__programs__university=self.object,
+                program_types__programs__is_active=True
+            ).distinct().order_by('name')
+            context['available_levels'] = available_levels
+            
+            # Get selected level from query params
+            selected_level = self.request.GET.get('level', '')
+            context['selected_level'] = selected_level
+            
+            # Filter programs by level if selected
+            if selected_level:
+                context['filtered_programs'] = self.object.programs.filter(
+                    type__level__name__iexact=selected_level,
+                    is_active=True
+                ).select_related('type', 'type__level')
+            else:
+                context['filtered_programs'] = self.object.programs.filter(
+                    is_active=True
+                ).select_related('type', 'type__level')
+        
         return context
 
